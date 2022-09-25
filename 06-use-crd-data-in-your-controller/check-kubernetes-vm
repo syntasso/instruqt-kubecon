@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euxoH pipefail
+source /root/.bashrc > /dev/null 2>&1
+
+WEBSITES=$(kubectl get websites.kubecon.my.domain --output json | jq '.items | length')
+[[ ${WEBSITES} -eq 1 ]] || fail-message "You should have 1 website installed in the cluster. Currently you have ${WEBSITES} installed"  
+
+
+NAME_ON_ALL_WEBSITES=$(kubectl get websites.kubecon.my.domain --output json | jq '.items[].spec.name')
+set +e
+echo ${NAME_ON_ALL_WEBSITES} | grep null
+STATUS=$?
+set -e
+[[ ${STATUS} -eq 1 ]] || fail-message "Your website resource should now have a name field. Please patch it to add one."

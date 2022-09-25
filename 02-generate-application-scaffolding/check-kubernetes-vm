@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -euxoH pipefail
+source /root/.bashrc > /dev/null 2>&1
+
+GO_MOD=${DEMO_HOME:?}/go.mod
+[[ -f ${GO_MOD} ]] || fail-message "You do not seem to have a created an application. Did you run the kubebuilder init command?"
+
+EXPECTED_GOMOD="""module my.domain
+
+go 1.18"""
+
+ACTUAL_GOMOD=$(head -n3 ${GO_MOD})
+[[ ${EXPECTED_GOMOD} = ${ACTUAL_GOMOD} ]] || fail-message "go.mod is unexpected, did you run kubebuilder init?"  

@@ -1,0 +1,197 @@
+#!/bin/bash
+
+set -euxoH pipefail
+
+BASH_RC=/root/.bashrc
+GO_VERSION=1.18.6
+HOME_DIR=/root/demo
+KUBEBUILDER_VERSION=3.6.0
+
+# Wait for the Instruqt host bootstrap to finish
+until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
+do
+    sleep 1
+done
+
+# Wait for the Kubernetes API server to become available
+while ! curl --silent --fail --output /dev/null http://localhost:8001/api 
+do
+    sleep 1 
+done
+
+# Make commandline more useable for experienced k8s users
+
+## Enable bash completion for kubectl
+echo "source /usr/share/bash-completion/bash_completion" >> ${BASH_RC}
+
+## Set zsh plugin helpful aliases (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/kubectl/README.md)
+echo "complete -F __start_kubectl k" >> ${BASH_RC}
+echo '
+alias watch="watch "
+alias kca="kubectl --all-namespaces"
+alias kaf="kubectl apply -f"
+alias keti="kubectl exec -ti"
+alias kcuc="kubectl config use-context"
+alias kcsc="kubectl config set-context"
+alias kcdc="kubectl config delete-context"
+alias kccc="kubectl config current-context"
+alias kcgc="kubectl config get-contexts"
+alias kdel="kubectl delete"
+alias kdelf="kubectl delete -f"
+alias kgp="kubectl get pods"
+alias kgpw="kgp --watch"
+alias kgpwide="kgp -o wide"
+alias kep="kubectl edit pods"
+alias kdp="kubectl describe pods"
+alias kdelp="kubectl delete pods"
+alias kgpl="kgp -l"
+alias kgpn="kgp -n"
+alias kgs="kubectl get svc"
+alias kgsw="kgs --watch"
+alias kgswide="kgs -o wide"
+alias kes="kubectl edit svc"
+alias kds="kubectl describe svc"
+alias kdels="kubectl delete svc"
+alias kgi="kubectl get ingress"
+alias kei="kubectl edit ingress"
+alias kdi="kubectl describe ingress"
+alias kdeli="kubectl delete ingress"
+alias kgns="kubectl get namespaces"
+alias kcn="kubectl config set-context --current --namespace"
+alias kens="kubectl edit namespace"
+alias kdns="kubectl describe namespace"
+alias kdelns="kubectl delete namespace"
+alias kgcm="kubectl get configmaps"
+alias kecm="kubectl edit configmap"
+alias kdcm="kubectl describe configmap"
+alias kdelcm="kubectl delete configmap"
+alias kgsec="kubectl get secret"
+alias kdsec="kubectl describe secret"
+alias kdelsec="kubectl delete secret"
+alias kgd="kubectl get deployment"
+alias kgdw="kgd --watch"
+alias kgdwide="kgd -o wide"
+alias ked="kubectl edit deployment"
+alias kdd="kubectl describe deployment"
+alias kdeld="kubectl delete deployment"
+alias ksd="kubectl scale deployment"
+alias krsd="kubectl rollout status deployment"
+alias kres="kubectl set env $@ REFRESHED_AT=..."
+alias kgrs="kubectl get replicaset"
+alias kdrs="kubectl describe replicaset"
+alias kers="kubectl edit replicaset"
+alias krh="kubectl rollout history"
+alias kru="kubectl rollout undo"
+alias kpf="kubectl port-forward"
+alias kga="kubectl get all"
+alias kgaa="kubectl get all --all-namespaces"
+alias kl="kubectl logs"
+alias klf="kubectl logs -f"
+alias kcp="kubectl cp"
+alias kgno="kubectl get nodes"
+alias keno="kubectl edit node"
+alias kdno="kubectl describe node"
+alias kdelno="kubectl delete node"
+alias kgpvc="kubectl get pvc"
+alias kgpvcw="kgpvc --watch"
+alias kepvc="kubectl edit pvc"
+alias kdpvc="kubectl describe pvc"
+alias kdelpvc="kubectl delete pvc"
+alias kgss="kubectl get statefulset"
+alias kgssw="kgss --watch"
+alias kgsswide="kgss -o wide"
+alias kess="kubectl edit statefulset"
+alias kdss="kubectl describe statefulset"
+alias kdelss="kubectl delete statefulset"
+alias ksss="kubectl scale statefulset"
+alias krsss="kubectl rollout status statefulset"
+alias kdsa="kubectl describe sa"
+alias kdelsa="kubectl delete sa"
+alias kgds="kubectl get daemonset"
+alias kgdsw="kgds --watch"
+alias keds="kubectl edit daemonset"
+alias kdds="kubectl describe daemonset"
+alias kdelds="kubectl delete daemonset"
+alias kgcj="kubectl get cronjob"
+alias kecj="kubectl edit cronjob"
+alias kdcj="kubectl describe cronjob"
+alias kdelcj="kubectl delete cronjob"
+alias kgj="kubectl get job"
+alias kej="kubectl edit job"
+alias kdj="kubectl describe job"
+alias kdelj="kubectl delete job"
+' >> /root/.bash_aliases > /dev/null 2>&1
+
+# Setup home dir for the workshop
+mkdir -p ${HOME_DIR}
+echo "# Create your namespace yaml here" > ${HOME_DIR}/.example-namespace.yaml
+echo "export DEMO_HOME=${HOME_DIR}" >> ${BASH_RC}
+
+# Install the necessary Golang version onto the PATH
+rm -rf /usr/bin/go
+curl -L -O https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
+tar -C /usr/local/bin/ -xzf go${GO_VERSION}.linux-amd64.tar.gz > /dev/null 2>&1
+
+## Add Golang to path
+echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ${BASH_RC}
+source ${BASH_RC} > /dev/null 2>&1
+
+## Install gopls for extension
+go install -v golang.org/x/tools/gopls@latest > /dev/null 2>&1
+
+# Download kubebuilder and install locally (https://book.kubebuilder.io/quick-start.html#installation)
+curl -L -o kubebuilder https://github.com/kubernetes-sigs/kubebuilder/releases/download/v${KUBEBUILDER_VERSION}/kubebuilder_$(go env GOOS)_$(go env GOARCH)
+chmod +x kubebuilder && mv kubebuilder /usr/local/bin/go/bin/
+kubebuilder completion bash > /dev/null 2>&1
+
+# Install and run Code server on the Kuberentes node
+
+## Download and install Code server
+curl -fsSL https://code-server.dev/install.sh | sh
+
+## Create Code Server startup script
+
+### code-server config
+CODE_SERVER_PATH=/root/.local/share/code-server
+mkdir -p ${CODE_SERVER_PATH}/User
+echo '
+{
+    "editor.tabSize": 2,
+
+    "extensions.autoUpdate": false,
+    "extensions.autoCheckUpdates": false,
+
+    "redhat.telemetry.enabled": false,
+
+    "security.workspace.trust.startupPrompt": "never",
+    "security.workspace.trust.enabled": false,
+    "security.workspace.trust.banner": "never",
+    "security.workspace.trust.emptyWindow": false,
+    "security.workspace.trust.untrustedFiles": "open"
+}
+' > ${CODE_SERVER_PATH}/User/settings.json
+
+### code-server service
+echo "
+[Unit]
+Description=Code Server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8443 --cert --auth none ${DEMO_HOME}
+
+[Install]
+WantedBy=multi-user.target
+" > /etc/systemd/system/code-server.service
+
+### Start Code Server
+systemctl enable code-server
+systemctl start code-server
+
+code-server --install-extension golang.go
+code-server --install-extension redhat.vscode-yaml

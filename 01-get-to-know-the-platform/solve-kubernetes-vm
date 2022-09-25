@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# prereqs
+set -euxoH pipefail
+source /root/.bashrc > /dev/null 2>&1
+
+# new this challenge
+cd ${DEMO_HOME:?}
+rm -rf ${DEMO_HOME:?}/* > /dev/null 2>&1
+
+echo '# Create your namespace yaml here
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: example
+' > ${DEMO_HOME:?}/.example-namespace.yaml
+
+kubectl apply --filename ${DEMO_HOME:?}/.example-namespace.yaml

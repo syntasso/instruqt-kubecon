@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -euxoH pipefail
+
+SERVICES=$(kubectl get services -ltype=Website --output json| jq '.items | length')
+[[ ${SERVICES} -gt 0 ]] || fail-message "There doesn't appear to be a service for your website, did you add the creation to your reconcile loop?"

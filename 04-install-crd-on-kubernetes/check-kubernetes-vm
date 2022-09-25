@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -euxoH pipefail
+source /root/.bashrc > /dev/null 2>&1
+
+kubectl get crds websites.kubecon.my.domain || fail-message "Did you run make install?"  

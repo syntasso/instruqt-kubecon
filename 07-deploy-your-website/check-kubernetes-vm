@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -euxoH pipefail
+
+DEPLOYMENTS=$(kubectl get deployment -ltype=Website --output json| jq '.items | length')
+[[ ${DEPLOYMENTS} -gt 0 ]] || fail-message "There doesn't appear to be a deployment for your website, did you add the creation to your reconcile loop?"

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -euxoH pipefail
+source /root/.bashrc > /dev/null 2>&1
+
+[[ -f ${DEMO_HOME:?}/api/v1beta1/website_types.go ]] || fail-message "The CRD called Website has not been generated, did create a resource when running the 'create api' command?"  
+[[ -f ${DEMO_HOME:?}/controllers/website_controller.go ]] || fail-message "The controller called website has not been generated, did you create a controller when running the 'create api' command?" 

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# prereqs
+set -euxoH pipefail
+source /root/.bashrc > /dev/null 2>&1
+
+# new this challenge
+kubectl get namespace example || fail-message "Did you configure the example-namespace.yaml file with a namespace called 'example' and apply the file?"  

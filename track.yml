@@ -1,0 +1,20 @@
+slug: create-you-first-kubernetes-operator
+id: 3u27ulctsiho
+title: Create you first Kubernetes operator
+teaser: Learn how to build Kubernetes-based tracks with this template
+description: |-
+  Learn how to build a Kuberentes operator.
+
+  **This track demonstrates how to:**
+  - Scaffold a Kubernetes operator with Kubebuilder
+  - Use Kubebuilder tools to iterate quickly while developing
+  - Respond to Create, Read, Update, or Delete (CRUD) scenarios
+icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
+tags: []
+owner: syntasso
+developers:
+- abby@syntasso.io
+private: true
+published: false
+skipping_enabled: true
+checksum: "12747586799292200796"
