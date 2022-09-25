@@ -81,10 +81,12 @@ sigs.k8s.io/controller-runtime/pkg/...
 
 > 💡 This error may be repeated many times as the reconcile loop will continue to try and reconcile after failures.
 
+Now you know it is the error `not found` that indicates when the reconcile is occuring on a deleted resource.
+
 🫴🏾 Gracefully catching the delete error
 ==============
 
-With your new knowledge of what a delete error looks like, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 59, you should edit the error block to read:
+With your new knowledge of a delete error being `not found`, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 59, you should edit the error block to read:
 
 ```
 	customResource := &kubeconv1beta1.Website{}
@@ -92,7 +94,7 @@ With your new knowledge of what a delete error looks like, it is time to add a c
 		if errors.IsNotFound(err) {
 			// TODO: handle deletes gracefully
 			log.Info("Custom resource for website " + customResource.Name + " does not exist")
-			return ctrl.Result{}, nil
+			return ctrl.Result{}, err
 		} else {
 			log.Error(err, "Failed to retrieve custom resource " + customResource.Name)
 			return ctrl.Result{}, err
@@ -121,7 +123,24 @@ And when you return to the operator logs now you should see a log line instead o
 🔥 Deleting from Kuberentes to match requested state
 ==============
 
-Catching the desire to delete is not enough. You must also complete the reconcilation by actually deleting any created resource. In this case that will be the deployment and the service.
+Catching the desire to delete is not enough. You must also complete the reconcilation by actually deleting any created resource.
+
+In this case that will be the deployment and the service. You can find these using the the lables saying which website the resources belong to.
+
+For example, first run in the `K8s Shell` tab the following commands:
+
+```
+kubectl get deployments --selector=website=website-sample
+```
+and
+```
+kubectl get services --selector=website=website-sample
+```
+
+Since we know this selector retrieves the correct resources now, it is time to translate this into Golang code. Within the new error catch block,
+```
+
+```
 
 
 📕 Summary

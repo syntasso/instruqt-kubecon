@@ -57,10 +57,12 @@ Just as with the deployment method, you need to:
 
 The below snippet does all of these things and can be added directly under the deployment snippet in your reconcile loop (around line 73):
 ```
-	err = r.createService(ctx, customResource)
+	// Store any errors from creating the service in `err`
+  // If an error did occur, immediately log and return failure
+	err := r.createService(ctx, customResource)
 	if err != nil {
-		log.Error(err, "Failed to create service")
-		return ctrl.Result{}, nil
+			log.Error(err, "Failed to create service")
+			return ctrl.Result{}, err
 	}
 ```
 

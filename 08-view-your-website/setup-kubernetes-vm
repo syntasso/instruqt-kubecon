@@ -5,16 +5,11 @@ source /root/.bashrc > /dev/null 2>&1
 echo '
 // Define and then create a service for your Website resource
 func (r *WebsiteReconciler) createService(ctx context.Context, customResource *kubeconv1beta1.Website) error {
-	labels := map[string]string{
-		"website": customResource.Spec.Name,
-		"type": customResource.Kind,
-	}
-
 	service := &corev1.Service{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      customResource.Name,
 			Namespace: customResource.Namespace,
-			Labels:    labels,
+			Labels:    SetResourceLabels(customResource),
 		},
 		Spec: corev1.ServiceSpec{
 			Ports: []corev1.ServicePort{
@@ -23,7 +18,7 @@ func (r *WebsiteReconciler) createService(ctx context.Context, customResource *k
 					NodePort: 31000,
 				},
 			},
-			Selector: labels,
+			Selector: SetResourceLabels(customResource),
 			Type:     corev1.ServiceTypeNodePort,
 		},
 	}

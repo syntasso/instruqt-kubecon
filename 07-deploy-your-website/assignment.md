@@ -104,7 +104,7 @@ You can test this by just stopping and restarting your controller. To stop you c
 You will see the log line but then an error trace something like:
 
 ```
-ERROR   Failed to create deployment     {"controller": "website", ... "error": "deployments.apps \"dog-smile-site\" already exists"}
+ERROR   Failed to create deployment     {"controller": "website", ... "error": "deployments.apps \"website-sample\" already exists"}
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile
         /root/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.12.2/pkg/internal/controller/controller.go:121
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler

@@ -73,7 +73,7 @@ Now all you need to do is replace that error catch with this more detailed handl
 		if errors.IsAlreadyExists(err) {
 			// TODO: handle updates gracefully
 			log.Info("Deployment for website " + customResource.Name + " already exists")
-			return ctrl.Result{}, nil
+			return ctrl.Result{}, err
 		} else {
 			log.Error(err, "Failed to create deployment for website  + customResource.Name)
 			return ctrl.Result{}, err
@@ -82,6 +82,8 @@ Now all you need to do is replace that error catch with this more detailed handl
 ```
 
 You can do the same type of change when catching the error for creating a service as well.
+
+The last update you need to make is to add the `"k8s.io/apimachinery/pkg/api/errors"` import at the top of the file just above `"k8s.io/apimachinery/pkg/runtime"`. This is necessary to use that very readable error handling code.
 
 😌 Running your operator in peace
 ==============

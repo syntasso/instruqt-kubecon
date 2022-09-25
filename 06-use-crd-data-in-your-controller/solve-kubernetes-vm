@@ -42,9 +42,9 @@ type WebsiteSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-  //+kubebuilder:validation:MinLength=0
-  // Name of the website
-  Name string `json:"name"`
+	// ImageTag sets the container image for the website to deploy
+	//+kubebuilder:validation:Pattern=`^[-a-z0-9]*$`
+	ImageTag string `json:"imageTag"`
 }
 
 // WebsiteStatus defines the observed state of Website
@@ -83,7 +83,7 @@ kubectl patch \
   website.kubecon.my.domain website-sample \
   --namespace default \
   --type=merge \
-  --patch='{"spec":{"name": "dog-smile-site"}}'
+  --patch='{"spec":{"imageTag": "latest"}}'
 
 echo '/*
 Copyright 2022.
@@ -142,8 +142,8 @@ func (r *WebsiteReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		return ctrl.Result{}, err
 	}
 	
-  // Use the `Name` field from the website spec to personalise the log
-  log.Info(fmt.Sprintf("Hello %s!", customResource.Spec.Name))
+  // Use the `ImageTag` field from the website spec to personalise the log
+  log.Info(fmt.Sprintf("Hello website reconciler with tag %s!", customResource.Spec.ImageTag))
 
 	return ctrl.Result{}, nil
 }

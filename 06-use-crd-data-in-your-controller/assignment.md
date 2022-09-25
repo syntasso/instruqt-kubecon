@@ -39,21 +39,21 @@ timelimit: 600
 
 Earlier you had a look at the Golang representation of the CRD. Return to the `Code editor` tab and view this file again by navigating to `api` > `v1beta1` > `website_types.go`.
 
-In this CRD there is currently an optional field called `foo` but now we will replace that with a more useful, and required, field called `name`.
+In this CRD there is currently an optional field called `foo` but now we will replace that with a more useful, and required, field called `imageTag`.
 
 Below is the code for this field, use this in the place of the existing `foo` field and comment:
 
 ```
-	// Name is an example field of Website
+	// ImageTag sets the container image for the website to deploy
 	//+kubebuilder:validation:Pattern=`^[-a-z0-9]*$`
-	Name string `json:"name"`
+	ImageTag string `json:"imageTag"`
 ```
 
 This code has three key parts:
 
 1. `//+kubebuilder` is a comment prefix that will trigger kubebuilder generation changes. In this case, it will set a validation of the field value to only allow dashes, lowercase letters, or digits.
-2. The capital `Name` is the Golang variable used throughout the codebase. Golang uses capitalized public variable names by convention.
-3. `json:"name"` defines a "tag" that Kubebuilder uses to generate the yaml field. Yaml uses lower case variable names by convention.
+2. The capital `ImageTag` is the Golang variable used throughout the codebase. Golang uses capitalized public variable names by convention.
+3. `json:"imageTag"` defines a "tag" that Kubebuilder uses to generate the yaml field. Yaml parameters starts with lower case variable names by convention.
 
 > 💡 the use of `omitempty` in the json tag is how a field is marked optional. This was added to the `foo` example, but since name is required it is not included.
 
@@ -84,8 +84,8 @@ Once this command has completed, return to the `Run Shell` tab and you should se
 
 ```
 {
-  "name": {
-    "description": "Name is an example field of Website",
+  "imageTag": {
+    "description": "ImageTag sets the container image for the website to deploy",
     "pattern": "^[-a-z0-9]*$",
     "type": "string"
   }
@@ -104,11 +104,11 @@ kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0]
 👯‍♂️ Using this field in the controller
 ==============
 
-Now that there is a new `name` field, you can use this to personalize the log line. Change the existing log line in the controller to:
+Now that there is a new `imageTag` field, you can use this to personalize the log line. Change the existing log line in the controller to:
 
 ```
-  // Use the `Name` field from the website spec to personalise the log
-  log.Info(fmt.Sprintf("Hello %s!", customResource.Spec.Name))
+  // Use the `ImageTag` field from the website spec to personalise the log
+  log.Info(fmt.Sprintf("Hello website reconciler with tag %s!", customResource.Spec.ImageTag))
 ```
 
 and then make sure to import `"fmt"`. Your imports should now read:
@@ -150,13 +150,13 @@ kubectl patch \
   website.kubecon.my.domain website-sample \
   --namespace default \
   --type=merge \
-  --patch='{"spec":{"name": "dog-smile-site"}}'
+  --patch='{"spec":{"imageTag": "latest"}}'
 ```
 
 And now you view the controller logs in the `Run Shell` tab to see the newest log line reference your name:
 
 ```
-INFO    Hello dog-smile-site! ...
+INFO    Hello website reconciler with tag latest! ...
 ```
 
 > 💡 If you want to test the validation, try and create a patch with a name that does not match the set requirements of only `-`, lower case alphabet, or digits. The patch should result in an error and the change not applied.

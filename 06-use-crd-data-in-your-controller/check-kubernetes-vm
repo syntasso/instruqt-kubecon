@@ -7,9 +7,9 @@ WEBSITES=$(kubectl get websites.kubecon.my.domain --output json | jq '.items | l
 [[ ${WEBSITES} -eq 1 ]] || fail-message "You should have 1 website installed in the cluster. Currently you have ${WEBSITES} installed"  
 
 
-NAME_ON_ALL_WEBSITES=$(kubectl get websites.kubecon.my.domain --output json | jq '.items[].spec.name')
+IMAGE_TAG_ON_ALL_WEBSITES=$(kubectl get websites.kubecon.my.domain --output json | jq '.items[].spec.imageTag')
 set +e
-echo ${NAME_ON_ALL_WEBSITES} | grep null
+echo ${IMAGE_TAG_ON_ALL_WEBSITES} | grep null
 STATUS=$?
 set -e
-[[ ${STATUS} -eq 1 ]] || fail-message "Your website resource should now have a name field. Please patch it to add one."
+[[ ${STATUS} -eq 1 ]] || fail-message "Your website resource should now have a imageTag field. Please patch it to add one."
