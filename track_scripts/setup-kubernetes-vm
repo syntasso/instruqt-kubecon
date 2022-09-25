@@ -120,7 +120,7 @@ alias kgj="kubectl get job"
 alias kej="kubectl edit job"
 alias kdj="kubectl describe job"
 alias kdelj="kubectl delete job"
-' >> /root/.bash_aliases > /dev/null 2>&1
+' >> /root/.bash_aliases
 
 # Setup home dir for the workshop
 mkdir -p ${HOME_DIR}
@@ -130,10 +130,10 @@ echo "export DEMO_HOME=${HOME_DIR}" >> ${BASH_RC}
 # Install the necessary Golang version onto the PATH
 rm -rf /usr/bin/go
 curl -L -O https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
-tar -C /usr/local/bin/ -xzf go${GO_VERSION}.linux-amd64.tar.gz > /dev/null 2>&1
+tar -C /usr/local/ -xzf go${GO_VERSION}.linux-amd64.tar.gz > /dev/null 2>&1
 
 ## Add Golang to path
-echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ${BASH_RC}
+echo "export PATH=$PATH:/usr/local/go/bin" >> ${BASH_RC}
 source ${BASH_RC} > /dev/null 2>&1
 
 ## Install gopls for extension
@@ -141,7 +141,7 @@ go install -v golang.org/x/tools/gopls@latest > /dev/null 2>&1
 
 # Download kubebuilder and install locally (https://book.kubebuilder.io/quick-start.html#installation)
 curl -L -o kubebuilder https://github.com/kubernetes-sigs/kubebuilder/releases/download/v${KUBEBUILDER_VERSION}/kubebuilder_$(go env GOOS)_$(go env GOARCH)
-chmod +x kubebuilder && mv kubebuilder /usr/local/bin/go/bin/
+chmod +x kubebuilder && mv kubebuilder /usr/local/go/bin/
 kubebuilder completion bash > /dev/null 2>&1
 
 # Install and run Code server on the Kuberentes node
