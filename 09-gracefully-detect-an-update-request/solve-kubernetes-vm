@@ -158,7 +158,7 @@ func (r *WebsiteReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 			log.Info("Deployment for website " + customResource.Name + " already exists")
 			return ctrl.Result{}, nil
 		} else {
-			log.Error(err, "Failed to create deployment for website"  + customResource.Name)
+			log.Error(err, "Failed to create deployment for website "  + customResource.Name)
 			return ctrl.Result{}, err
 		}
 	}
@@ -170,7 +170,7 @@ func (r *WebsiteReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 			log.Info("Service for website " + customResource.Name + " already exists")
 			return ctrl.Result{}, nil
 		} else {
-			log.Error(err, "Failed to create service for website"  + customResource.Name)
+			log.Error(err, "Failed to create service for website "  + customResource.Name)
 			return ctrl.Result{}, err
 		}
 	}

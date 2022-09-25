@@ -13,7 +13,7 @@ notes:
     So far you have created a deployment and service, but have yet to read, update or delete.
 
     In this section you will:
-    * Detect the deletion of a website by reading current state
+    * Detect the deletion of a website
     * Delete any resources the operator creates when it's CRD is deleted
 tabs:
 - title: K8s Shell
@@ -41,11 +41,7 @@ timelimit: 600
 👯‍♂️ Why delete is an interesting use case
 ==============
 
-While your operator can create new website resources, it is completely oblivious to what is going on in the cluster when doing so.
-
-This results in errors whenever the cluster is not in a "prestine" state ready for a new set of website resources.
-
-But all along you have been editing a function called "Reconcile" and that is because your operator is expected to reconcile the difference between requested state (the values in the Website custom resource) and actual state (the current Kuberentes cluster).
+Now your operator can create new resources, and is ready to deal with updates as well. The last major CRUD functionality is to deal with delete requests.
 
 In order to handle deletes, you will neeed to first identify that the website resource is requesting a delete, and then read the state of the cluster to reconcile any necessary actions in order to complete that delete.
 
@@ -53,13 +49,84 @@ In order to handle deletes, you will neeed to first identify that the website re
 🧑🏽‍🎓 Learning when a resource should be deleted
 ==============
 
-You should start by confirming the current state of your
+The process for identifying deletes is not too different from what you did to detect updates.
 
+Once again, there is a specific error which is raised when the Website custom resource is deleted. You will want to catch this error and then add logic to complete the delete process.
+
+Start by running your operator in the `Run Shell` tab using:
+```
+make run
+```
+
+Then delete your current website resource by running the following command in the `K8s Shell` tab:
+```
+kubectl delete websites.kubecon.my.domain website-sample
+```
+
+When you do this, you can see that the deployment and service are still just fine:
+
+```
+kubectl get all --selector=type=Website
+```
+
+And if you return to the `Run Shell` you will see a large set of error messages and stack traces in the operator logs. Something similar to:
+
+```
+ERROR   Reconciler error        {"controller": "website", ... "error": "Website.kubecon.my.domain \"website-sample\" not found"}
+sigs.k8s.io/controller-runtime/...
+        /root/go/pkg/mod/sigs.k8s.io/...
+sigs.k8s.io/controller-runtime/pkg/...
+        /root/go/pkg/mod/sigs.k8s.io/...
+```
+
+> 💡 This error may be repeated many times as the reconcile loop will continue to try and reconcile after failures.
+
+🫴🏾 Gracefully catching the delete error
+==============
+
+With your new knowledge of what a delete error looks like, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 59, you should edit the error block to read:
+
+```
+	customResource := &kubeconv1beta1.Website{}
+	if err := r.Client.Get(context.Background(), req.NamespacedName, customResource); err != nil {
+		if errors.IsNotFound(err) {
+			// TODO: handle deletes gracefully
+			log.Info("Custom resource for website " + customResource.Name + " does not exist")
+			return ctrl.Result{}, nil
+		} else {
+			log.Error(err, "Failed to retrieve custom resource " + customResource.Name)
+			return ctrl.Result{}, err
+		}
+	}
+```
+
+Now make sure to retart the operator in your `Run Shell` tab using `ctrl+c` to cancel the previous run and `make run` to restart it.
+
+With the new version of your code running, you can test your change by adding a new Website resource and promptly deleting it from your `K8s Shell` tab:
+
+```
+kubectl apply --filename ./config/samples
+```
+
+This first command will trigger the update message since you are creating a resource by the same name as before.
+
+But next you need to delete that resource:
+```
+kubectl delete website.kubecon.my.domain website-sample
+```
+
+And when you return to the operator logs now you should see a log line instead of noisy error stack traces.
 
 
 🔥 Deleting from Kuberentes to match requested state
 ==============
 
+Catching the desire to delete is not enough. You must also complete the reconcilation by actually deleting any created resource. In this case that will be the deployment and the service.
+
 
 📕 Summary
 ==============
+
+Congratulations! You have now not only identified how to detect a delete, but actually written a basic delete implementation.
+
+While none of these implementations are robust enough for production use, you are well on your way to being able to create an operator with real value to your team.

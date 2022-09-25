@@ -61,7 +61,7 @@ For example, in the deployment create method, you already catch the error on lin
 ```
 	err := r.createDeployment(ctx, customResource)
 	if err != nil {
-    log.Error(err, "Failed to create deployment for website"  + customResource.Name)
+    log.Error(err, "Failed to create deployment for website " + customResource.Name)
     return ctrl.Result{}, err
 	}
 ```
@@ -75,7 +75,7 @@ Now all you need to do is replace that error catch with this more detailed handl
 			log.Info("Deployment for website " + customResource.Name + " already exists")
 			return ctrl.Result{}, nil
 		} else {
-			log.Error(err, "Failed to create deployment for website"  + customResource.Name)
+			log.Error(err, "Failed to create deployment for website  + customResource.Name)
 			return ctrl.Result{}, err
 		}
 	}
