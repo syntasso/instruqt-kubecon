@@ -38,11 +38,28 @@ difficulty: basic
 timelimit: 600
 ---
 
-delete
+👯‍♂️ Why delete is an interesting use case
+==============
 
-see deployment still there
+While your operator can create new website resources, it is completely oblivious to what is going on in the cluster when doing so.
 
-handle delete
+This results in errors whenever the cluster is not in a "prestine" state ready for a new set of website resources.
+
+But all along you have been editing a function called "Reconcile" and that is because your operator is expected to reconcile the difference between requested state (the values in the Website custom resource) and actual state (the current Kuberentes cluster).
+
+In order to handle deletes, you will neeed to first identify that the website resource is requesting a delete, and then read the state of the cluster to reconcile any necessary actions in order to complete that delete.
+
+
+🧑🏽‍🎓 Learning when a resource should be deleted
+==============
+
+You should start by confirming the current state of your
+
+
+
+🔥 Deleting from Kuberentes to match requested state
+==============
+
 
 📕 Summary
 ==============

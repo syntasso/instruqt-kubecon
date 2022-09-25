@@ -1,8 +1,8 @@
 ---
-slug: deploy-operator-to-kubernetes
+slug: bonus-deploy-operator-to-kubernetes
 id: kx3btbmriphs
 type: challenge
-title: Deploy operator to Kubernetes
+title: 'Bonus: Deploy operator to Kubernetes'
 teaser: It is time running locally, and start deploying to Kubernetes
 notes:
 - type: text

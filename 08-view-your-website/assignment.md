@@ -55,7 +55,7 @@ Just as with the deployment method, you need to:
 1. Provide both the context (`ctx`) and triggering resource (`customResource`) as parameters
 1. Catch and then handle the error return value
 
-The below snippet does all of these things and can be added directly under the deployment snippet in your reconcile loop (around line 72):
+The below snippet does all of these things and can be added directly under the deployment snippet in your reconcile loop (around line 73):
 ```
 	err = r.createService(ctx, customResource)
 	if err != nil {
@@ -71,7 +71,7 @@ The below snippet does all of these things and can be added directly under the d
 
 Since you still haven't handled an update scenario, you can test this code by actually first deleting the existing deployment and then running your controller.
 
-To delete the existing deployment you can run the following command in your `K8s Shell` tab:
+You may have a preexisting deployment in your cluster which your operator does not yet know how to react to.  For now to make sure the operator can run successfull, you can run use this command in your `K8s Shell` tab to delete any existing deployments:
 
 ```
 kubectl delete deployment --selector=type=Website
@@ -90,6 +90,8 @@ More excitingly, you can actually view the website now in the new `Website` tab 
 📕 Summary
 ==============
 
-You now have a website being deployed by your operator 🎉
+I hope that look of pure join on the dog's face made all your hard work worth it! 🐶
 
-Unfortunately, it is a one shot deal for now as the operator does not have the logic to deal with updates. But that will be solved in the next section so continue on! 💪🏿
+You can now create an externally accessible webpage given only a minimally configured custom resource. However, once created there really isn't much you can do since creating or deleting the Website custom resource causes an error.
+
+You will learn how to detect and then handle these two scenarios in the upcoming sections.
