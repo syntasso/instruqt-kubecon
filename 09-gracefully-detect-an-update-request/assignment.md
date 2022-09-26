@@ -97,8 +97,6 @@ You can do the same type of change when catching the error for creating a servic
   }
 ```
 
-The last update you need to make `"k8s.io/apimachinery/pkg/api/errors"` is imported at the top of the file. This is necessary to use that very readable error handling code.
-
 😌 Running your operator in peace
 ==============
 

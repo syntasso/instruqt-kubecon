@@ -113,22 +113,6 @@ Now that there is a new `imageTag` field, you can use this to personalize the lo
   log.Info(fmt.Sprintf("Hello website reconciler with tag %s!", customResource.Spec.ImageTag))
 ```
 
-and then make sure to import `"fmt"`. Your imports should now read:
-
-```
-import (
-  "context"
-  "fmt"
-
-  "k8s.io/apimachinery/pkg/runtime"
-  ctrl "sigs.k8s.io/controller-runtime"
-  "sigs.k8s.io/controller-runtime/pkg/client"
-  "sigs.k8s.io/controller-runtime/pkg/log"
-
-  kubeconv1beta1 "my.domain/api/v1beta1"
-)
-```
-
 Once these changes are made, use the `Run Shell` tab to again run the controller application locally:
 
 ```
