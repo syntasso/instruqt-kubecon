@@ -163,7 +163,7 @@ func (r *WebsiteReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 
   // Store any errors from creating the service in `err`
   // If an error did occur, immediately log and return failure
-  err := r.createService(ctx, customResource)
+  err = r.createService(ctx, customResource)
   if err != nil {
       log.Error(err, "Failed to create service")
       return ctrl.Result{}, err

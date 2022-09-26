@@ -40,7 +40,7 @@ timelimit: 600
 
 Once again, a small helper function has been added to your controller between sections.
 
-Navigate to `controllers` > `website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createService`.
+Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createService`.
 
 This function encapsulates the necessary Golang code to create a customized service for your website.
 
@@ -59,7 +59,7 @@ The below snippet does all of these things and can be added directly under the d
 ```
   // Store any errors from creating the service in `err`
   // If an error did occur, immediately log and return failure
-  err := r.createService(ctx, customResource)
+  err = r.createService(ctx, customResource)
   if err != nil {
       log.Error(err, "Failed to create service")
       return ctrl.Result{}, err
