@@ -86,6 +86,7 @@ To do this, replace the contents of the current function with the below text:
   }
 
   log.Info("Hello from your new website reconciler!")
+  log.Info("got resource " + customResource.Name)
 
   return ctrl.Result{}, nil
 ```

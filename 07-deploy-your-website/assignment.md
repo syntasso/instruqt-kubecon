@@ -99,7 +99,14 @@ In particular you can see the parts that your code configures including number o
 
 While creating a deployment is an exciting and real world use case for your controller, what happens if it is updated?
 
-You can test this by just stopping and restarting your controller. To stop you controller go to the `Run Shell` tab and use `ctrl+c`. Then restart with the same `make run` command you used before.
+Lets modify the website to instead use the "dev" patch
+```
+kubectl patch \
+  website.kubecon.my.domain website-sample \
+  --namespace default \
+  --type=merge \
+  --patch='{"spec":{"imageTag": "dev"}}'
+```
 
 You will see the log line but then an error trace something like:
 

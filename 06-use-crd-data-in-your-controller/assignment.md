@@ -108,9 +108,10 @@ Now that there is a new `imageTag` field, you can use this to personalize the lo
 
 ```
   // Use the `ImageTag` field from the website spec to personalise the log
-  log.Info(fmt.Sprintf("Hello website reconciler with tag %s!", customResource.Spec.ImageTag))
+  log.Info(fmt.Sprintf('Hello website reconciler with tag "%s"!', customResource.Spec.ImageTag))
 ```
 
+<> it would be nice if saving the vscode file did the auto goimports, which should be easily doable
 and then make sure to import `"fmt"`. Your imports should now read:
 
 ```

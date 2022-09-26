@@ -96,7 +96,7 @@ With your new knowledge of a delete error being `not found`, it is time to add a
       log.Info(fmt.Sprintf("Custom resource for website %s does not exist", customResource.Name))
       return ctrl.Result{}, nil
     } else {
-      log.Error(err, fmt.Sprintf("Failed to retrieve custom resource %s", customResource.Name)
+      log.Error(err, fmt.Sprintf("Failed to retrieve custom resource %s", req.Name))
       return ctrl.Result{}, err
     }
   }
