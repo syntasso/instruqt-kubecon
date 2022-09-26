@@ -5,24 +5,24 @@ source /root/.bashrc > /dev/null 2>&1
 echo '
 // Define and then create a service for your Website resource
 func (r *WebsiteReconciler) createService(ctx context.Context, customResource *kubeconv1beta1.Website) error {
-	service := &corev1.Service{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      customResource.Name,
-			Namespace: customResource.Namespace,
-			Labels:    SetResourceLabels(customResource),
-		},
-		Spec: corev1.ServiceSpec{
-			Ports: []corev1.ServicePort{
-				{
-					Port:     80,
-					NodePort: 31000,
-				},
-			},
-			Selector: SetResourceLabels(customResource),
-			Type:     corev1.ServiceTypeNodePort,
-		},
-	}
+  service := &corev1.Service{
+    ObjectMeta: metav1.ObjectMeta{
+      Name:      customResource.Name,
+      Namespace: customResource.Namespace,
+      Labels:    SetResourceLabels(customResource),
+    },
+    Spec: corev1.ServiceSpec{
+      Ports: []corev1.ServicePort{
+        {
+          Port:     80,
+          NodePort: 31000,
+        },
+      },
+      Selector: SetResourceLabels(customResource),
+      Type:     corev1.ServiceTypeNodePort,
+    },
+  }
 
-	return r.Client.Create(ctx, service)
+  return r.Client.Create(ctx, service)
 }
 ' >> ${DEMO_HOME:?}/controllers/website_controller.go

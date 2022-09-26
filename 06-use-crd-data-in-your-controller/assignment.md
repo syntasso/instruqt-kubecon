@@ -115,15 +115,15 @@ and then make sure to import `"fmt"`. Your imports should now read:
 
 ```
 import (
-	"context"
-	"fmt"
+  "context"
+  "fmt"
 
-	"k8s.io/apimachinery/pkg/runtime"
-	ctrl "sigs.k8s.io/controller-runtime"
-	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/log"
+  "k8s.io/apimachinery/pkg/runtime"
+  ctrl "sigs.k8s.io/controller-runtime"
+  "sigs.k8s.io/controller-runtime/pkg/client"
+  "sigs.k8s.io/controller-runtime/pkg/log"
 
-	kubeconv1beta1 "my.domain/api/v1beta1"
+  kubeconv1beta1 "my.domain/api/v1beta1"
 )
 ```
 

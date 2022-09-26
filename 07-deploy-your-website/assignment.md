@@ -53,11 +53,11 @@ The below snippet does all of these things and can be added directly under the l
 ```
   // Store any errors from creating the deployment in `err`
   // If an error did occur, immediately log and return failure
-	err := r.createDeployment(ctx, customResource)
-	if err != nil {
-		log.Error(err, "Failed to create deployment")
-		return ctrl.Result{}, err
-	}
+  err := r.createDeployment(ctx, customResource)
+  if err != nil {
+    log.Error(err, "Failed to create deployment")
+    return ctrl.Result{}, err
+  }
 ```
 
 🧞 Creating a deployment for your current website

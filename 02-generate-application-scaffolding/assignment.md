@@ -111,7 +111,7 @@ The `run` target is on `Makefile:64` in the root of your `Code editor`. Here you
 
 ```
 run: manifests generate fmt vet ## Run a controller from your host.
-	go run ./main.go
+  go run ./main.go
 ```
 
 In Makefiles, any names listed after a target is defined are other targets that will be run as prerequisites. In this case, all four of the prerequisites are both other targets defined in this same Makefile. To be more specific, `manifests` and `generate` both run Kubebuilder `controller-gen` commands to generate some Golang code which is then formated and validated by `fmt` and `vet` before being executed by the intended `run` target.
