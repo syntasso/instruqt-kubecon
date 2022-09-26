@@ -138,6 +138,7 @@ source ${BASH_RC} > /dev/null 2>&1
 
 ## Install gopls for extension
 go install -v golang.org/x/tools/gopls@latest > /dev/null 2>&1
+go install golang.org/x/tools/cmd/goimports@latest
 
 # Download kubebuilder and install locally (https://book.kubebuilder.io/quick-start.html#installation)
 curl -L -o kubebuilder https://github.com/kubernetes-sigs/kubebuilder/releases/download/v${KUBEBUILDER_VERSION}/kubebuilder_$(go env GOOS)_$(go env GOARCH)
@@ -156,18 +157,21 @@ CODE_SERVER_PATH=/root/.local/share/code-server
 mkdir -p ${CODE_SERVER_PATH}/User
 echo '
 {
-    "editor.tabSize": 2,
+  "editor.tabSize": 2,
 
-    "extensions.autoUpdate": false,
-    "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
 
-    "redhat.telemetry.enabled": false,
+  "files.autoSave": "afterDelay",
+  "go.formatTool": "goimports",
 
-    "security.workspace.trust.startupPrompt": "never",
-    "security.workspace.trust.enabled": false,
-    "security.workspace.trust.banner": "never",
-    "security.workspace.trust.emptyWindow": false,
-    "security.workspace.trust.untrustedFiles": "open"
+  "redhat.telemetry.enabled": false,
+
+  "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.enabled": false,
+  "security.workspace.trust.banner": "never",
+  "security.workspace.trust.emptyWindow": false,
+  "security.workspace.trust.untrustedFiles": "open"
 }
 ' > ${CODE_SERVER_PATH}/User/settings.json
 
@@ -183,7 +187,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8443 --cert --auth none ${DEMO_HOME}
+ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8443 --cert --auth none ${DEMO_HOME} --install-extension golang.go --install-extension redhat.vscode-yaml
 
 [Install]
 WantedBy=multi-user.target
@@ -192,6 +196,3 @@ WantedBy=multi-user.target
 ### Start Code Server
 systemctl enable code-server
 systemctl start code-server
-
-code-server --install-extension golang.go
-code-server --install-extension redhat.vscode-yaml
