@@ -81,9 +81,23 @@ Now all you need to do is replace that error catch with this more detailed handl
   }
 ```
 
-You can do the same type of change when catching the error for creating a service as well.
+You can do the same type of change when catching the error for creating a service as well:
 
-The last update you need to make is to add the `"k8s.io/apimachinery/pkg/api/errors"` import at the top of the file just above `"k8s.io/apimachinery/pkg/runtime"`. This is necessary to use that very readable error handling code.
+```
+  err = r.createService(ctx, customResource)
+  if err != nil {
+    if errors.IsAlreadyExists(err) {
+      // TODO: handle updates gracefully
+      log.Info(fmt.Sprintf("Service for website %s already exists", customResource.Name))
+      return ctrl.Result{}, err
+    } else {
+      log.Error(err, fmt.Sprintf("Failed to create service for website %s", customResource.Name))
+      return ctrl.Result{}, err
+    }
+  }
+```
+
+The last update you need to make `"k8s.io/apimachinery/pkg/api/errors"` is imported at the top of the file. This is necessary to use that very readable error handling code.
 
 😌 Running your operator in peace
 ==============
