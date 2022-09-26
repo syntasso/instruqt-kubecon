@@ -2,4 +2,4 @@
 
 set -euxoH pipefail
 
-grep "errors.IsAlreadyExists(err)" ${DEMO_HOME:?}/controllers/website_controller.gogrep "errors.IsAlreadyExists(err)" controllers/website_controller.go || fail-message "Have you successfully handled an 'already exists' error message?"
+grep "errors.IsAlreadyExists(err)" ${DEMO_HOME:?}/controllers/website_controller.go || fail-message "Have you successfully handled an 'already exists' error message?"

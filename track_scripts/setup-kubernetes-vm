@@ -163,6 +163,7 @@ echo '
   "extensions.autoCheckUpdates": false,
 
   "files.autoSave": "afterDelay",
+
   "go.formatTool": "goimports",
 
   "redhat.telemetry.enabled": false,
