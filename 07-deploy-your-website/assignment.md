@@ -72,14 +72,14 @@ kubectl get websites.kubecon.my.domain
 
 With this already in your cluster, when you start up your controller again it will reconcile immediately. During reconciliation the controller will try to create a deployment as you have defined.
 
-To see this, go to the `Run Shell` and start the controller again with:
+To see this, go to the `Run Shell` tab and start the controller again with:
 ```
 make run
 ```
 
 You should see the same log lines as before including a hello to your resource.
 
-Once you see this log go back to the `K8s Shell` and check for deployments with:
+Once you see this log go back to the `K8s Shell` tab and check for deployments with:
 ```
 kubectl get deployments
 ```

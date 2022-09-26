@@ -126,7 +126,7 @@ This is the starting of the controller process, but `Reconcile` will only run an
 👀 Request a website
 ==============
 
-In the `K8s Shell` request a Custom Resource of type `Website`. It is easiest to use the generated sample file that you can review in the `Code editor` tab in `./config/samples`.
+In the `K8s Shell` tab request a Custom Resource of type `Website`. It is easiest to use the generated sample file that you can review in the `Code editor` tab in `./config/samples`.
 
 To use this file, apply it to the Kubernetes cluster with:
 

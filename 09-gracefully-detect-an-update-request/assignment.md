@@ -43,7 +43,7 @@ Right now, your controller assumes that each time it reconciles, it needs to cre
 
 The reconcile loop runs periodically, on application start and on resource change among other scenarios. In all of these scnearios when the operator tries to create a new deployment and service it will error.
 
-To see this happen, you can just restart your operator in the `Run Shell` with:
+To see this happen, you can just restart your operator in the `Run Shell` tab with:
 
 ```
 make run
@@ -102,7 +102,7 @@ The last update you need to make `"k8s.io/apimachinery/pkg/api/errors"` is impor
 😌 Running your operator in peace
 ==============
 
-Once these two changes are in place, try stopping and starting your operator by running `make run` in the `Run Shell.
+Once these two changes are in place, try stopping and starting your operator by running `make run` in the `Run Shell`.
 
 You should no longer see any error tracing, only the error log for visibility.
 

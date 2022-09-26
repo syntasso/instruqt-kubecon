@@ -69,7 +69,7 @@ When you do this, you can see that the deployment and service are still just fin
 kubectl get all --selector=type=Website
 ```
 
-And if you return to the `Run Shell` you will see a large set of error messages and stack traces in the operator logs. Something similar to:
+And if you return to the `Run Shell` tab you will see a large set of error messages and stack traces in the operator logs. Something similar to:
 
 ```
 ERROR   Reconciler error        {"controller": "website", ... "error": "Website.kubecon.my.domain \"website-sample\" not found"}

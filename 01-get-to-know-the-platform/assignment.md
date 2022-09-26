@@ -34,7 +34,7 @@ timelimit: 600
 
 Welcome to your personal Kuberentes cluster! 🏡
 
-You can see two tabs on the top left. One named `K8s Shell` and the other `Code editor`.
+You can see two tabs on the top left. One named `K8s Shell` tab and the other `Code editor`.
 
 Throughout this course you will use `K8s Shell` to interact with your Kuberentes (K8s) cluster.
 
@@ -46,7 +46,7 @@ kubectl get namespaces
 
 > 💡 You can copy this command by clicking anywhere in the text box and then paste it into the terminal
 
-And in the `Code editor` you can create and edit files in a VS Code style environment. To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
+And in the `Code editor` tab you can create and edit files in a VS Code style environment. To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
 
 The following code configures a new namespace in Kubernetes. Paste this code in the file:
 
