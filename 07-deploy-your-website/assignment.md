@@ -34,7 +34,7 @@ timelimit: 600
 
 Since you finished the last section, a change has been made to your controller.
 
-Navigate to `controllers` > `website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createDeployment`.
+Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createDeployment`.
 
 This function encapsulates the necessary Golang code to create a customized deployment for your website.
 

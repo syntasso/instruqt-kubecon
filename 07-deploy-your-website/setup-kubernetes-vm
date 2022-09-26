@@ -5,7 +5,7 @@ source /root/.bashrc > /dev/null 2>&1
 echo '
 // Create a single reference for labels as it is a reused variable
 func SetResourceLabels(customResource *kubeconv1beta1.Website) map[string]string {
-  labels := map[string]string{
+  return map[string]string{
     "website": customResource.Name,
     "type": customResource.Kind,
   }
