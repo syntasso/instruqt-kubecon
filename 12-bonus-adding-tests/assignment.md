@@ -3,12 +3,13 @@ slug: bonus-adding-tests
 id: il5zy8dwddln
 type: challenge
 title: 'Bonus: Adding tests'
-teaser: Kubebuilder doesn't just scaffold your operator code, it also prepares test code as well.
+teaser: Kubebuilder doesn't just scaffold your operator code, it also prepares test
+  code as well.
 notes:
 - type: text
   contents: |-
     Right now the operator is fairly simple, but you can see how even the error handling logic can get complex.
-    
+
     Explore how kubebuilder sets you up for success with a testing framework as well.
 
     In this section you will:

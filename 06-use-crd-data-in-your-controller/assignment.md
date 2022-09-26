@@ -92,6 +92,8 @@ Once this command has completed, return to the `Run Shell` tab and you should se
 }
 ```
 
+Now that you have seen this, feel free to stop the "watch" command by pressing `ctrl+c` in the `Run Shell` tab.
+
 You can also see this is required in the CRD by either navigating in the `Code editor` tab or with the following command:
 
 ```
