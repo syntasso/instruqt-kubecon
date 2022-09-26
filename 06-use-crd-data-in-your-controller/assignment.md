@@ -138,10 +138,10 @@ make run
 As before, this run command may take a bit of time, but when the command completes you should see an initial log line for the existing website request you made in the last section. But oops, that log line will not have a personalized name:
 
 ```
-INFO    Hello ! ...
+INFO    Hello website reconciler with tag ! ...
 ```
 
-This is because your Website resource does not have a name set. To fix this, edit the existing website request to include a name and you will see the log line use that name.
+This is because your Website resource does not have an imageTag set. To fix this, edit the existing website request to include an imageTag and you will see the log line use that imageTag.
 
 To edit your website custom resource you can use the `K8s Shell` tab to run:
 
@@ -159,7 +159,7 @@ And now you view the controller logs in the `Run Shell` tab to see the newest lo
 INFO    Hello website reconciler with tag latest! ...
 ```
 
-> 💡 If you want to test the validation, try and create a patch with a name that does not match the set requirements of only `-`, lower case alphabet, or digits. The patch should result in an error and the change not applied.
+> 💡 If you want to test the validation, try and create a patch with an imageTag that does not match the set requirements of only `-`, lower case alphabet, or digits. The patch should result in an error and the change not applied.
 
 📕 Summary
 ==============
