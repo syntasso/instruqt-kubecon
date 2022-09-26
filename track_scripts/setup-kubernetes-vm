@@ -3,6 +3,7 @@
 set -euxoH pipefail
 
 BASH_RC=/root/.bashrc
+CODE_SERVER_VERSION=4.7.0
 GO_VERSION=1.18.6
 HOME_DIR=/root/demo
 KUBEBUILDER_VERSION=3.6.0
@@ -148,7 +149,13 @@ kubebuilder completion bash > /dev/null 2>&1
 # Install and run Code server on the Kuberentes node
 
 ## Download and install Code server
-curl -fsSL https://code-server.dev/install.sh | sh
+curl -fOL https://github.com/coder/code-server/releases/download/v$CODE_SERVER_VERSION/code-server_${CODE_SERVER_VERSION}_amd64.deb
+dpkg -i code-server_${CODE_SERVER_VERSION}_amd64.deb
+
+## Install extentions
+
+code-server --install-extension golang.go
+code-server --install-extension redhat.vscode-yaml
 
 ## Create Code Server startup script
 
@@ -173,6 +180,8 @@ echo '
   "security.workspace.trust.banner": "never",
   "security.workspace.trust.emptyWindow": false,
   "security.workspace.trust.untrustedFiles": "open"
+
+  "workbench.colorTheme": "Default Dark+"
 }
 ' > ${CODE_SERVER_PATH}/User/settings.json
 
@@ -188,7 +197,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8443 --cert --auth none ${DEMO_HOME} --install-extension golang.go --install-extension redhat.vscode-yaml
+ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8443 --cert --auth none ${DEMO_HOME}
 
 [Install]
 WantedBy=multi-user.target
