@@ -43,7 +43,7 @@ When you selected to create an controller along with the Resource, Kubebuilder t
 1. Implement a custom `Reconcile` function run on each resource event
 1. Configure the controller to know which resource events to listen to
 
-To see the start process, view `main.go` in the root of your `Code editor`. In specific, on line 92, you will see a section that starts the website controller:
+To see the start process, navigate to `main.go:92` in the root of your `Code editor`. You will see a section that starts the website controller:
 
 ```
 if err = (&controllers.WebsiteReconciler{
@@ -55,7 +55,7 @@ if err = (&controllers.WebsiteReconciler{
 }
 ```
 
-This is a call to the function `SetupWithManager(mgr)` which is defined in the file `controllers` > `website_controller.go` on line 58.
+This is a call to the function `SetupWithManager(mgr)` which is defined in the file `controllers/website_controller.go:58`.
 
 When you find this function you will see that a new instance of the controller is returned aready configured with what resource to listen for. This is an example of why defining the custom resource in Golang is so helpful. The `kubeconv1beta1.Website` is the Golang resource type which you explored in the last section.
 

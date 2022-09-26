@@ -37,16 +37,16 @@ timelimit: 600
 🆙 Updating the CRD fields
 ==============
 
-Earlier you had a look at the Golang representation of the CRD. Return to the `Code editor` tab and view this file again by navigating to `api` > `v1beta1` > `website_types.go`.
+Earlier you had a look at the Golang representation of the CRD. Return to the `Code editor` tab and view this file again by navigating to `api/v1beta1/website_types.go`.
 
 In this CRD there is currently an optional field called `foo` but now we will replace that with a more useful, and required, field called `imageTag`.
 
 Below is the code for this field, use this in the place of the existing `foo` field and comment:
 
 ```
-	// ImageTag sets the container image for the website to deploy
-	//+kubebuilder:validation:Pattern=`^[-a-z0-9]*$`
-	ImageTag string `json:"imageTag"`
+  // ImageTag sets the container image for the website to deploy
+  //+kubebuilder:validation:Pattern=`^[-a-z0-9]*$`
+  ImageTag string `json:"imageTag"`
 ```
 
 This code has three key parts:
@@ -104,7 +104,7 @@ kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0]
 👯‍♂️ Using this field in the controller
 ==============
 
-Now that there is a new `imageTag` field, you can use this to personalize the log line. Change the existing log line in the controller to:
+Now that there is a new `imageTag` field, you can use this to personalize the log line. Change the existing log line found at `website_controller.go:57` in the controller to:
 
 ```
   // Use the `ImageTag` field from the website spec to personalise the log

@@ -89,17 +89,17 @@ Now you know it is the error `not found` that indicates when the reconcile is oc
 With your new knowledge of a delete error being `not found`, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 59, you should edit the error block to read:
 
 ```
-	customResource := &kubeconv1beta1.Website{}
-	if err := r.Client.Get(context.Background(), req.NamespacedName, customResource); err != nil {
-		if errors.IsNotFound(err) {
-			// TODO: handle deletes gracefully
-			log.Info("Custom resource for website " + customResource.Name + " does not exist")
-			return ctrl.Result{}, err
-		} else {
-			log.Error(err, "Failed to retrieve custom resource " + customResource.Name)
-			return ctrl.Result{}, err
-		}
-	}
+  customResource := &kubeconv1beta1.Website{}
+  if err := r.Client.Get(context.Background(), req.NamespacedName, customResource); err != nil {
+    if errors.IsNotFound(err) {
+      // TODO: handle deletes gracefully
+      log.Info("Custom resource for website " + customResource.Name + " does not exist")
+      return ctrl.Result{}, err
+    } else {
+      log.Error(err, "Failed to retrieve custom resource " + customResource.Name)
+      return ctrl.Result{}, err
+    }
+  }
 ```
 
 Now make sure to retart the operator in your `Run Shell` tab using `ctrl+c` to cancel the previous run and `make run` to restart it.

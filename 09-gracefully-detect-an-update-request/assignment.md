@@ -59,26 +59,26 @@ To do this, you need to add a conditional inside of where you catch the create e
 For example, in the deployment create method, you already catch the error on line XX:
 
 ```
-	err := r.createDeployment(ctx, customResource)
-	if err != nil {
+  err := r.createDeployment(ctx, customResource)
+  if err != nil {
     log.Error(err, "Failed to create deployment for website " + customResource.Name)
     return ctrl.Result{}, err
-	}
+  }
 ```
 
 Now all you need to do is replace that error catch with this more detailed handler:
 ```
-	err := r.createDeployment(ctx, customResource)
-	if err != nil {
-		if errors.IsAlreadyExists(err) {
-			// TODO: handle updates gracefully
-			log.Info("Deployment for website " + customResource.Name + " already exists")
-			return ctrl.Result{}, err
-		} else {
-			log.Error(err, "Failed to create deployment for website  + customResource.Name)
-			return ctrl.Result{}, err
-		}
-	}
+  err := r.createDeployment(ctx, customResource)
+  if err != nil {
+    if errors.IsAlreadyExists(err) {
+      // TODO: handle updates gracefully
+      log.Info("Deployment for website " + customResource.Name + " already exists")
+      return ctrl.Result{}, err
+    } else {
+      log.Error(err, "Failed to create deployment for website  + customResource.Name)
+      return ctrl.Result{}, err
+    }
+  }
 ```
 
 You can do the same type of change when catching the error for creating a service as well.

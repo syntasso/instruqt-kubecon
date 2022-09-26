@@ -34,12 +34,12 @@ While you already have a working golang application, it is time to add some busi
 
 In this case, imagine you want to run a website to bring the joy of pet smiles to the world and want to start with a website of dog smiles.
 
-You have already packaged your perfected website as a container image and want to now make it ready for the world. You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) and want to make sure that you deployment choices automate as much of the operations of this site as possible.
+You have already packaged your perfected website as a container image and want to now make it ready for the world. You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) and want to make sure that your deployment choices automate as much of the operations of this site as possible.
 
-To do this, you have settled on deploying to Kubernetes and want to do so via an operator. To get started, your plan to support:
+To do this, you have settled on deploying to Kubernetes and want to do so via an operator. To get started, your plan is to support:
 
-* **Deploying** when the website does not yet exist in a cluster
-* **Updating** an existing website on a cluster
+* When a website does not yet exist in a cluster, **create** a new one
+* Acknowledging when a request will **update** an existing website
 * **Deleting** a website upon request
 
 You realise there are a lot more things that you will want to operate in the future (e.g. backups) but these lifecycle tasks will set a foundation for a more complex operator to succeed.
