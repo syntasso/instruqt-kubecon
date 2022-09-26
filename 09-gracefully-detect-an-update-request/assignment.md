@@ -73,7 +73,7 @@ Now all you need to do is replace that error catch with this more detailed handl
     if errors.IsAlreadyExists(err) {
       // TODO: handle updates gracefully
       log.Info(fmt.Sprintf("Deployment for website %s already exists", customResource.Name))
-      return ctrl.Result{}, err
+      return ctrl.Result{}, nil
     } else {
       log.Error(err, fmt.Sprintf("Failed to create deployment for website %s", customResource.Name))
       return ctrl.Result{}, err
@@ -89,7 +89,7 @@ You can do the same type of change when catching the error for creating a servic
     if errors.IsAlreadyExists(err) {
       // TODO: handle updates gracefully
       log.Info(fmt.Sprintf("Service for website %s already exists", customResource.Name))
-      return ctrl.Result{}, err
+      return ctrl.Result{}, nil
     } else {
       log.Error(err, fmt.Sprintf("Failed to create service for website %s", customResource.Name))
       return ctrl.Result{}, err

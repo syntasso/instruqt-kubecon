@@ -94,7 +94,7 @@ With your new knowledge of a delete error being `not found`, it is time to add a
     if errors.IsNotFound(err) {
       // TODO: handle deletes gracefully
       log.Info(fmt.Sprintf("Custom resource for website %s does not exist", customResource.Name))
-      return ctrl.Result{}, err
+      return ctrl.Result{}, nil
     } else {
       log.Error(err, fmt.Sprintf("Failed to retrieve custom resource %s", customResource.Name)
       return ctrl.Result{}, err
