@@ -93,10 +93,9 @@ With your new knowledge of a delete error being `not found`, it is time to add a
   if err := r.Client.Get(context.Background(), req.NamespacedName, customResource); err != nil {
     if errors.IsNotFound(err) {
       // TODO: handle deletes gracefully
-      log.Info(fmt.Sprintf("Custom resource for website %s does not exist", customResource.Name))
-      return ctrl.Result{}, nil
+      log.Info(fmt.Sprintf('Custom resource for website %s does not exist', customResource.Name))
     } else {
-      log.Error(err, fmt.Sprintf("Failed to retrieve custom resource %s", customResource.Name)
+      log.Error(err, fmt.Sprintf("Failed to retrieve custom resource %s", req.Name))
       return ctrl.Result{}, err
     }
   }

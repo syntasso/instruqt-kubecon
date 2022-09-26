@@ -9,7 +9,9 @@ notes:
 - type: text
   contents: |-
     This track uses a single node Kubernetes cluster on a sandbox virtual machine.
-    Please wait while we boot the VM for you and start Kubernetes.
+    
+    Please wait while we boot the VM for you and start Kubernetes. Once the VM
+    is ready you will see a green start bottom in the right hand corner.
 
     There are a number of slides with corresponding hands on activities, these are each called "sections"
 
