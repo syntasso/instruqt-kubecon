@@ -56,12 +56,12 @@ While there is a lot to unpack to handle these scenarios in a robust fashion, yo
 
 To do this, you need to add a conditional inside of where you catch the create error.
 
-For example, in the deployment create method, you already catch the error on line XX:
+For example, in the deployment create method, you already catch the error around line 68:
 
 ```
   err := r.createDeployment(ctx, customResource)
   if err != nil {
-    log.Error(err, "Failed to create deployment for website " + customResource.Name)
+    log.Error(err, fmt.Sprintf("Failed to create deployment for website %s", customResource.Name))
     return ctrl.Result{}, err
   }
 ```
@@ -72,10 +72,10 @@ Now all you need to do is replace that error catch with this more detailed handl
   if err != nil {
     if errors.IsAlreadyExists(err) {
       // TODO: handle updates gracefully
-      log.Info("Deployment for website " + customResource.Name + " already exists")
+      log.Info(fmt.Sprintf("Deployment for website %s already exists", customResource.Name))
       return ctrl.Result{}, err
     } else {
-      log.Error(err, "Failed to create deployment for website  + customResource.Name)
+      log.Error(err, fmt.Sprintf("Failed to create deployment for website %s", customResource.Name))
       return ctrl.Result{}, err
     }
   }
