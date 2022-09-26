@@ -3,7 +3,7 @@ slug: bonus-deploy-operator-to-kubernetes
 id: kx3btbmriphs
 type: challenge
 title: 'Bonus: Deploy operator to Kubernetes'
-teaser: It is time running locally, and start deploying to Kubernetes
+teaser: It is time to stop running locally, and start deploying to Kubernetes
 notes:
 - type: text
   contents: |-
@@ -39,14 +39,28 @@ difficulty: basic
 timelimit: 600
 ---
 
+🎁 Creating your operator release
+==============
+
 make docker-build
+
+make distribution
+
+🛫 Deploying to Kubernetes
+==============
 
 docker save --output /root/demo/controller-latest.tar controller:latest
 k3s ctr images import /root/demo/controller-latest.tar
 
-make distribution
-
 make deploy
+
+🛝 Using the operator in Kuberentes
+==============
+
+general requests
+
+looking at logs
+
 
 📕 Summary
 ==============

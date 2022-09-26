@@ -3,11 +3,13 @@ slug: bonus-adding-tests
 id: il5zy8dwddln
 type: challenge
 title: 'Bonus: Adding tests'
-teaser: If you have time, learn how to test your operator
+teaser: Kubebuilder doesn't just scaffold your operator code, it also prepares test code as well.
 notes:
 - type: text
   contents: |-
-    With only a short time it is hard to cover all the topics, but if you have the time, explore how kubebuilder sets you up for success with a testing framework as well.
+    Right now the operator is fairly simple, but you can see how even the error handling logic can get complex.
+    
+    Explore how kubebuilder sets you up for success with a testing framework as well.
 
     In this section you will:
     * Write a unit test for your operator
@@ -35,7 +37,19 @@ difficulty: basic
 timelimit: 600
 ---
 
-test
+🤖 Run current test suite
+==============
+
+make test
+
+👩🏾‍💻 Write a basic test
+==============
+
+something about catching errors?
+
+make test
 
 📕 Summary
 ==============
+
+Discuss need for integration level tests
