@@ -41,7 +41,7 @@ Earlier you had a look at the Golang representation of the CRD. Return to the `C
 
 In this CRD there is currently an optional field called `foo` but now we will replace that with a more useful, and required, field called `imageTag`.
 
-Below is the code for this field, use this in the place of the existing `foo` field and comment:
+Below is the code for this field, use this in the place of the existing `foo` field and comment (lines 31 and 32):
 
 ```
   // ImageTag will be used to set the container image for the website to deploy
@@ -124,7 +124,7 @@ make run
 As before, this run command may take a bit of time, but when the command completes you should see an initial log line for the existing website request you made in the last section. But oops, that log line will not have a personalized name:
 
 ```
-INFO    Hello website reconciler with tag ! ...
+INFO    Hello website reconciler with tag ""! ...
 ```
 
 This is because your Website resource does not have an imageTag set. To fix this, edit the existing website request to include an imageTag and you will see the log line use that imageTag.
@@ -142,7 +142,7 @@ kubectl patch \
 And now you view the controller logs in the `Run Shell` tab to see the newest log line reference your name:
 
 ```
-INFO    Hello website reconciler with tag latest! ...
+INFO    Hello website reconciler with tag "latest"! ...
 ```
 
 > 💡 If you want to test the validation, try and create a patch with an imageTag that does not match the set requirements of only `-`, lower case alphabet, or digits. The patch should result in an error and the change not applied.

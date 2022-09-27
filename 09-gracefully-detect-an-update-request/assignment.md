@@ -41,7 +41,7 @@ timelimit: 600
 
 Right now, your controller assumes that each time it reconciles, it needs to create two new resources, a deployment and a service. But that is not true!
 
-The reconcile loop runs periodically, on application start and on resource change among other scenarios. In all of these scnearios when the operator tries to create a new deployment and service it will error.
+The reconcile loop runs periodically, on application start and on resource change among other scenarios. In all of these scenarios when the operator tries to create a new deployment and service it will error.
 
 To see this happen, you can just restart your operator in the `Run Shell` tab with:
 
@@ -108,7 +108,7 @@ You should no longer see any error tracing, only the error log for visibility.
 📕 Summary
 ==============
 
-This is a very simple way to track when a resource already exists. This is where you can to codify the update process for your appliation.
+This is a very simple way to track when a resource already exists. This is where you can to codify the update process for your application.
 
 Keep in mind, that different updates may require different actions. For example, adding a label may be simple, but changing image tags may require more caution.
 

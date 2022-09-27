@@ -57,12 +57,11 @@ Just as with the deployment method, you need to:
 
 The below snippet does all of these things and can be added directly under the deployment snippet in your reconcile loop (around line 73):
 ```
-  // Store any errors from creating the service in `err`
-  // If an error did occur, immediately log and return failure
-  err = r.createService(ctx, customResource)
+  // Attempt to create the service and return error if it fails
+  err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
   if err != nil {
-      log.Error(err, "Failed to create service")
-      return ctrl.Result{}, err
+    log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
+    return ctrl.Result{}, err
   }
 ```
 
@@ -73,7 +72,7 @@ The below snippet does all of these things and can be added directly under the d
 
 Since you still haven't handled an update scenario, you can test this code by actually first deleting the existing deployment and then running your controller.
 
-You may have a preexisting deployment in your cluster which your operator does not yet know how to react to.  For now to make sure the operator can run successfull, you can run use this command in your `K8s Shell` tab to delete any existing deployments:
+You may have a pre-existing deployment in your cluster which your operator does not yet know how to react to.  For now to make sure the operator can run successful, you can run use this command in your `K8s Shell` tab to delete any existing deployments:
 
 ```
 kubectl delete deployment --selector=type=Website
