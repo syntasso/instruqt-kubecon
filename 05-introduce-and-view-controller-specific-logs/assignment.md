@@ -82,7 +82,7 @@ To do this, replace the contents of the current function with the below text:
   // The contents of this resource are then stored into an object used throughout reconciliation.
   err := r.Client.Get(context.Background(), req.NamespacedName, customResource)
   // If the resource cannot be translated into a "Website" resource type, return failure.
-  err != nil {
+  if err != nil {
     return ctrl.Result{}, err
   }
 
