@@ -89,15 +89,19 @@ Now you know it is the error `not found` that indicates when the reconcile is oc
 With your new knowledge of a delete error being `not found`, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 59, you should edit the error block to read:
 
 ```
+  // Start by declaring the custom resource to be type "Website"
   customResource := &kubeconv1beta1.Website{}
+
+  // Then retrieve from the cluster the resource that triggered this reconciliation.
+  // The contents of this resource are then stored into an object used throughout reconciliation.
   err := r.Client.Get(context.Background(), req.NamespacedName, customResource)
   if err != nil {
     if errors.IsNotFound(err) {
       // TODO: handle deletes gracefully
-      log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist`, customResource.Name))
+      log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist`, req.Name))
       return ctrl.Result{}, nil
     } else {
-      log.Error(err, fmt.Sprintf(Failed to retrieve custom resource "%s"`, req.Name))
+      log.Error(err, fmt.Sprintf(`Failed to retrieve custom resource "%s"`, req.Name))
       return ctrl.Result{}, err
     }
   }
@@ -108,7 +112,7 @@ Now make sure to retart the operator in your `Run Shell` tab using `ctrl+c` to c
 With the new version of your code running, you can test your change by adding a new Website resource and promptly deleting it from your `K8s Shell` tab:
 
 ```
-kubectl apply --filename ./config/samples
+kubectl apply --filename ./config/samples/kubecon_v1beta1_website-with-image-tag.yaml
 ```
 
 This first command will trigger the update message since you are creating a resource by the same name as before.
@@ -124,27 +128,47 @@ And when you return to the operator logs now you should see a log line instead o
 🔥 Deleting from Kubernetes to match requested state
 ==============
 
-Catching the desire to delete is not enough. You must also complete the reconcilation by actually deleting any previously created resource.
+Catching the desire to delete is not enough. You must also complete the reconciliation by actually deleting any previously created resource.
 
-In this case that will be the deployment and the service. You can find these using the name since your operator provided a specific name when creating the resource.
+In this case that will be the deployment and the service. You can find these using the same constructors.
 
 > 💡 In more complex scenarios you will likely use labels or annotations to create a more robust clean up strategy, but for this scale operator, name will do just fine!
 
 
-For example, first run in the `K8s Shell` tab the following commands to s:
+To complete the deletes, replace the code inside the new error catch block `if errors.IsNotFound(err) {` with the following code:
 
 ```
-kubectl get deployments --selector=website=website-sample
-```
-and
-```
-kubectl get services --selector=website=website-sample
+  // If the resource is not found, that is OK. It just means the desired state is to
+  // not have any resources for this Website, so we will need to delete them.
+  log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist, deleting associated resources`, req.Name))
+
+  // Now, try and delete the resource, catch any errors
+  deployErr := r.Client.Delete(ctx, newDeployment(req.Name, req.Namespace, "n/a"))
+
+  // Success for this delete is either:
+  // 1. the delete is successful without error
+  // 2. the resource already doesn't exist so delete can't take action
+  if deployErr != nil && !errors.IsNotFound(deployErr) {
+    // If any other error occurs, log it
+    log.Error(deployErr, fmt.Sprintf(`Failed to delete deployment "%s"`, req.Name))
+  }
+
+  // repeat logic from the deployment delete
+  serviceErr := r.Client.Delete(ctx, newService(req.Name, req.Namespace))
+  if serviceErr != nil && !errors.IsNotFound(serviceErr) {
+    log.Error(serviceErr, fmt.Sprintf(`Failed to delete service "%s"`, req.Name))
+  }
+
+  // If either the deploy or service deletes fail, the reconcile should fail
+  if deployErr != nil || serviceErr != nil {
+    return ctrl.Result{}, fmt.Errorf("%v/n%v", deployErr, serviceErr)
+  }
 ```
 
-Since we know this selector retrieves the correct resources now, it is time to translate this into Golang code. Within the new error catch block,
-```
+💪🏿 Seeing your deletes in action
+==============
 
-```
+You can now exercise your operator in any way you would like, but in particular you should try and create and delete website resources to see the operator clean up after itself with your new code.
 
 
 📕 Summary
@@ -152,4 +176,6 @@ Since we know this selector retrieves the correct resources now, it is time to t
 
 Congratulations! You have now not only identified how to detect a delete, but actually written a basic delete implementation.
 
-While none of these implementations are robust enough for production use, you are well on your way to being able to create an operator with real value to your team.
+While many of these implementations are not robust enough for heavy production use, you are well on your way to being able to create an operator with real value to your team.
+
+If you still have time, continue to the next two sections for deployment and testing.
