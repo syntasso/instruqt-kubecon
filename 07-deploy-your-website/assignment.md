@@ -51,12 +51,12 @@ To use the newly available `createDeployment` function, you need to:
 
 The below snippet does all of these things and can be added directly under the log line in your reconcile loop:
 ```
-	// Attempt to create the deployment and return error if it fails
-	err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
-	if err != nil {
-		log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
-		return ctrl.Result{}, err
-	}
+  // Attempt to create the deployment and return error if it fails
+  err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
+  if err != nil {
+    log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
+    return ctrl.Result{}, err
+  }
 ```
 
 🧞 Creating a deployment for your current website

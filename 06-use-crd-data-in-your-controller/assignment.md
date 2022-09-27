@@ -109,8 +109,8 @@ kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0]
 Now that there is a new `imageTag` field, you can use this to personalize the log line. Change the existing log line found at `website_controller.go:57` in the controller to:
 
 ```
-	// Use the `ImageTag` field from the website spec to personalise the log
-	log.Info(fmt.Sprintf(`Hello website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
+  // Use the `ImageTag` field from the website spec to personalise the log
+  log.Info(fmt.Sprintf(`Hello website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
 ```
 
 Once these changes are made, use the `Run Shell` tab to again run the controller application locally:
