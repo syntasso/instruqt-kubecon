@@ -5,7 +5,7 @@ source /root/.bashrc > /dev/null 2>&1
 
 cd /root
 rm -rf ${DEMO_HOME:?}
-mv /root/kubecon-instruqt-solutions/05-introduce-and-view-controller-specific-logs ${DEMO_HOME:?}
+cp -R /root/kubecon-instruqt-solutions/05-introduce-and-view-controller-specific-logs ${DEMO_HOME:?}
 
 cd ${DEMO_HOME:?}
 make install

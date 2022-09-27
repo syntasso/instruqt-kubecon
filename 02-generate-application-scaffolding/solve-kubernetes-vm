@@ -5,4 +5,4 @@ source /root/.bashrc > /dev/null 2>&1
 
 cd /root
 rm -rf ${DEMO_HOME:?}
-mv /root/kubecon-instruqt-solutions/02-generate-application-scaffolding ${DEMO_HOME:?}
+cp -R /root/kubecon-instruqt-solutions/02-generate-application-scaffolding ${DEMO_HOME:?}
