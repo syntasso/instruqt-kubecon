@@ -44,7 +44,7 @@ In this CRD there is currently an optional field called `foo` but now we will re
 Below is the code for this field, use this in the place of the existing `foo` field and comment:
 
 ```
-  // ImageTag sets the container image for the website to deploy
+  // ImageTag will be used to set the container image for the website to deploy
   //+kubebuilder:validation:Pattern=`^[-a-z0-9]*$`
   ImageTag string `json:"imageTag"`
 ```
@@ -109,8 +109,8 @@ kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0]
 Now that there is a new `imageTag` field, you can use this to personalize the log line. Change the existing log line found at `website_controller.go:57` in the controller to:
 
 ```
-  // Use the `ImageTag` field from the website spec to personalise the log
-  log.Info(fmt.Sprintf("Hello website reconciler with tag %s!", customResource.Spec.ImageTag))
+	// Use the `ImageTag` field from the website spec to personalise the log
+	log.Info(fmt.Sprintf(`Hello website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
 ```
 
 Once these changes are made, use the `Run Shell` tab to again run the controller application locally:

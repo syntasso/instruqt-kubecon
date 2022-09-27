@@ -90,12 +90,14 @@ With your new knowledge of a delete error being `not found`, it is time to add a
 
 ```
   customResource := &kubeconv1beta1.Website{}
-  if err := r.Client.Get(context.Background(), req.NamespacedName, customResource); err != nil {
+  err := r.Client.Get(context.Background(), req.NamespacedName, customResource)
+  if err != nil {
     if errors.IsNotFound(err) {
       // TODO: handle deletes gracefully
-      log.Info(fmt.Sprintf('Custom resource for website %s does not exist', customResource.Name))
+      log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist`, customResource.Name))
+      return ctrl.Result{}, nil
     } else {
-      log.Error(err, fmt.Sprintf("Failed to retrieve custom resource %s", req.Name))
+      log.Error(err, fmt.Sprintf(Failed to retrieve custom resource "%s"`, req.Name))
       return ctrl.Result{}, err
     }
   }
@@ -122,11 +124,14 @@ And when you return to the operator logs now you should see a log line instead o
 🔥 Deleting from Kubernetes to match requested state
 ==============
 
-Catching the desire to delete is not enough. You must also complete the reconcilation by actually deleting any created resource.
+Catching the desire to delete is not enough. You must also complete the reconcilation by actually deleting any previously created resource.
 
-In this case that will be the deployment and the service. You can find these using the the lables saying which website the resources belong to.
+In this case that will be the deployment and the service. You can find these using the name since your operator provided a specific name when creating the resource.
 
-For example, first run in the `K8s Shell` tab the following commands:
+> 💡 In more complex scenarios you will likely use labels or annotations to create a more robust clean up strategy, but for this scale operator, name will do just fine!
+
+
+For example, first run in the `K8s Shell` tab the following commands to s:
 
 ```
 kubectl get deployments --selector=website=website-sample

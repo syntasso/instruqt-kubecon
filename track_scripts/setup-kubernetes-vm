@@ -20,6 +20,9 @@ do
     sleep 1 
 done
 
+# Retrieve solutions for all stage
+git clone git@github.com:abangser/kubecon-instruqt-solutions.git
+
 # Make commandline more useable for experienced k8s users
 
 ## Enable bash completion for kubectl

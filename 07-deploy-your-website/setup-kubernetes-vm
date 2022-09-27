@@ -4,50 +4,45 @@ source /root/.bashrc > /dev/null 2>&1
 
 echo '
 // Create a single reference for labels as it is a reused variable
-func SetResourceLabels(customResource *kubeconv1beta1.Website) map[string]string {
-  return map[string]string{
-    "website": customResource.Name,
-    "type": customResource.Kind,
-  }
+func setResourceLabels(name string) map[string]string {
+	return map[string]string{
+		"website": name,
+		"type":    "Website",
+	}
 }
 
-// Define and then create a deployment for your Website resource
-func (r *WebsiteReconciler) createDeployment(ctx context.Context, customResource *kubeconv1beta1.Website) error {
-  // Set the number of replicas to 2
-  replicas := int32(2)
+// Create a deployment with the correct field values. By creating this in a function,
+// it can be reused by all lifecycle functions (create, update, delete).
+func newDeployment(name, namespace, imageTag string) *appsv1.Deployment {
+	replicas := int32(2)
 
-  // Define the key fields of a Kubernetes deployment
-  // Use the CRD spec field `name` to make this deployment a custom name
-  deployment := &appsv1.Deployment{
-    ObjectMeta: metav1.ObjectMeta{
-      Name:      customResource.Name,
-      Namespace: customResource.Namespace,
-      Labels:    SetResourceLabels(customResource),
-    },
-    Spec: appsv1.DeploymentSpec{
-      Replicas: &replicas,
-      Selector: &metav1.LabelSelector{MatchLabels: SetResourceLabels(customResource)},
-      Template: corev1.PodTemplateSpec{
-        ObjectMeta: metav1.ObjectMeta{Labels: SetResourceLabels(customResource)},
-        Spec: corev1.PodSpec{
-          Containers: []corev1.Container{
-            {
-              Name:  "nginx",
-              // This is a publicly available container
-              Image: "abangser/kubecon-dog-website",
-              Ports: []corev1.ContainerPort{{
-                ContainerPort: 80,
-              }},
-            },
-          },
-        },
-      },
-    },
-  }
-
-  // Return the outcome, either an error or nil
-  // The reconcile loop will handle any errors gracefully
-  return r.Client.Create(ctx, deployment)
+	return &appsv1.Deployment{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      name,
+			Namespace: namespace,
+			Labels:    setResourceLabels(name),
+		},
+		Spec: appsv1.DeploymentSpec{
+			Replicas: &replicas,
+			Selector: &metav1.LabelSelector{MatchLabels: setResourceLabels(name)},
+			Template: corev1.PodTemplateSpec{
+				ObjectMeta: metav1.ObjectMeta{Labels: setResourceLabels(name)},
+				Spec: corev1.PodSpec{
+					Containers: []corev1.Container{
+						{
+							Name: "nginx",
+							// This is a publicly available container.  Note the use of
+							//`imageTag` as defined by the original resource request spec.
+							Image: fmt.Sprintf("abangser/kubecon-dog-website:%s", imageTag),
+							Ports: []corev1.ContainerPort{{
+								ContainerPort: 80,
+							}},
+						},
+					},
+				},
+			},
+		},
+	}
 }
 ' >> ${DEMO_HOME:?}/controllers/website_controller.go
 

@@ -71,23 +71,24 @@ In order to make it more obvious when the `Reconcile` function is called, you ca
 To do this, replace the contents of the current function with the below text:
 
 ```
-  // _ indicates an unused variable in Golang.
-  // By naming the variable, you can use the pre-configured logging framework.
-  log := log.FromContext(ctx)
+	// _ indicates an unused variable in Golang.
+	// By naming the variable, you can use the pre-configured logging framework.
+	log := log.FromContext(ctx)
 
-  // Start by declaring the custom resource the type "Website"
-  customResource := &kubeconv1beta1.Website{}
+	// Start by declaring the custom resource to be type "Website"
+	customResource := &kubeconv1beta1.Website{}
 
-  // Then retrieve from the cluster the resource that triggered this reconciliation.
-  // This should be then stored into the customResource "Website" object.
-  if err := r.Client.Get(context.Background(), req.NamespacedName, customResource); err != nil {
-    // If the resource cannot be translated into a "Website" resource type, return failure.
-    return ctrl.Result{}, err
-  }
+	// Then retrieve from the cluster the resource that triggered this reconciliation.
+	// The contents of this resource are then stored into an object used throughout reconciliation.
+	err := r.Client.Get(context.Background(), req.NamespacedName, customResource)
+  // If the resource cannot be translated into a "Website" resource type, return failure.
+  err != nil {
+		return ctrl.Result{}, err
+	}
 
-  log.Info("Hello from your new website reconciler!")
+	log.Info("Hello from your new website reconciler!")
 
-  return ctrl.Result{}, nil
+	return ctrl.Result{}, nil
 ```
 
 What this code snipped does is:
@@ -132,7 +133,7 @@ To use this file, apply it to the Kubernetes cluster with:
 
 ```
 kubectl apply \
-  --filename ./config/samples
+  --filename ./config/samples/kubecon_v1beta1_website.yaml
 ```
 
 Once this is applied, you can return to the `Run Shell` tab and have a look for your log output:

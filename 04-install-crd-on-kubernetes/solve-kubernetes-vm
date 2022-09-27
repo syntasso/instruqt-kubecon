@@ -1,15 +1,6 @@
 #!/bin/bash
 
-# prereqs
 set -euxoH pipefail
 source /root/.bashrc > /dev/null 2>&1
 
-cd ${DEMO_HOME:?}
-rm -rf -v !(".example-namespace.yaml") ${DEMO_HOME:?}/* > /dev/null 2>&1
-
-kubebuilder init --plugins=go/v4-alpha --repo my.domain
-
-kubebuilder create api --kind Website  --group kubecon --version v1beta1 --resource true --controller true
-
-# new this challenge
-make install
+mv /kubecon-instruqt-solutions/04-install-crd-on-kubernetes ${DEMO_HOME:?}

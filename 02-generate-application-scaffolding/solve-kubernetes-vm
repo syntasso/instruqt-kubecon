@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# prereqs
 set -euxoH pipefail
 source /root/.bashrc > /dev/null 2>&1
 
-cd ${DEMO_HOME:?}
-rm -rf -v !(".example-namespace.yaml") ${DEMO_HOME:?}/* > /dev/null 2>&1
-
-# new this challenge
-kubebuilder init --plugins=go/v4-alpha --repo my.domain
+mv /kubecon-instruqt-solutions/02-generate-application-scaffolding ${DEMO_HOME:?}
