@@ -63,7 +63,7 @@ Return to the `Code editor` tab to see a new file populated in the `bases` direc
 
 In particular, look at `config/crd/bases/kubecon.my.domain_websites.yaml:37` and you will see that there is a single property of the `WebsiteSpec` schema. That property is `foo` and it has used the helpful comment as a property description.
 
-Now it is time to actually put this CRD into your Kuberentes cluster.
+Now it is time to actually put this CRD into your Kubernetes cluster.
 
 
 🚀 Installing the CRD into your Kubernetes cluster

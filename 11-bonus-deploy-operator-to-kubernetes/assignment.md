@@ -54,7 +54,7 @@ k3s ctr images import /root/demo/controller-latest.tar
 
 make deploy
 
-🛝 Using the operator in Kuberentes
+🛝 Using the operator in Kubernetes
 ==============
 
 general requests

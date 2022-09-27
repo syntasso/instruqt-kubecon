@@ -119,7 +119,7 @@ kubectl delete website.kubecon.my.domain website-sample
 And when you return to the operator logs now you should see a log line instead of noisy error stack traces.
 
 
-🔥 Deleting from Kuberentes to match requested state
+🔥 Deleting from Kubernetes to match requested state
 ==============
 
 Catching the desire to delete is not enough. You must also complete the reconcilation by actually deleting any created resource.

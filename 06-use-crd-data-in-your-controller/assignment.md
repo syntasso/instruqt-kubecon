@@ -13,7 +13,7 @@ notes:
 
     In this section you will:
     * Introduce a new CRD field
-    * Reinstall the now updated CRD into Kuberentes
+    * Reinstall the now updated CRD into Kubernetes
     * Reference the CRD field in the controller
     * Run the updated controller application to test local changes
 tabs:

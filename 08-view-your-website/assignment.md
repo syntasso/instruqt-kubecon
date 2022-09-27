@@ -7,7 +7,7 @@ teaser: It is time to bring dog smiles to the world!
 notes:
 - type: text
   contents: |-
-    A website is only fun if it is visible! It is time to expose your dog smile website outside of Kuberentes.
+    A website is only fun if it is visible! It is time to expose your dog smile website outside of Kubernetes.
 
     In this section you will:
     * Deploy a service to expose your deployment on a NodePort

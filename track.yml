@@ -3,7 +3,7 @@ id: 3u27ulctsiho
 title: Create you first Kubernetes operator
 teaser: Learn how to build Kubernetes-based tracks with this template
 description: |-
-  Learn how to build a Kuberentes operator.
+  Learn how to build a Kubernetes operator.
 
   **This track demonstrates how to:**
   - Scaffold a Kubernetes operator with Kubebuilder

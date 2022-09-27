@@ -146,7 +146,7 @@ curl -L -o kubebuilder https://github.com/kubernetes-sigs/kubebuilder/releases/d
 chmod +x kubebuilder && mv kubebuilder /usr/local/go/bin/
 kubebuilder completion bash > /dev/null 2>&1
 
-# Install and run Code server on the Kuberentes node
+# Install and run Code server on the Kubernetes node
 
 ## Download and install Code server
 curl -fOL https://github.com/coder/code-server/releases/download/v$CODE_SERVER_VERSION/code-server_${CODE_SERVER_VERSION}_amd64.deb

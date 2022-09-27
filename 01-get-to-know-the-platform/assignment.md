@@ -34,11 +34,11 @@ timelimit: 600
 👋🏾 Introduction
 ==============
 
-Welcome to your personal Kuberentes cluster! 🏡
+Welcome to your personal Kubernetes cluster! 🏡
 
 You can see two tabs on the top left. One named `K8s Shell` tab and the other `Code editor`.
 
-Throughout this course you will use `K8s Shell` to interact with your Kuberentes (K8s) cluster.
+Throughout this course you will use `K8s Shell` to interact with your Kubernetes (K8s) cluster.
 
 To see how this works, try running the following command:
 
