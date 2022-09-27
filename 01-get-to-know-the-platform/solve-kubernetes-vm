@@ -3,4 +3,4 @@
 set -euxoH pipefail
 source /root/.bashrc > /dev/null 2>&1
 
-mv /kubecon-instruqt-solutions/01-get-to-know-the-platform ${DEMO_HOME:?}
+mv /root/kubecon-instruqt-solutions/01-get-to-know-the-platform ${DEMO_HOME:?}

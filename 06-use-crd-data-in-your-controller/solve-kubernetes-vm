@@ -3,4 +3,4 @@
 set -euxoH pipefail
 source /root/.bashrc > /dev/null 2>&1
 
-mv /kubecon-instruqt-solutions/06-use-crd-data-in-your-controll ${DEMO_HOME:?}
+mv /root/kubecon-instruqt-solutions/06-use-crd-data-in-your-controll ${DEMO_HOME:?}

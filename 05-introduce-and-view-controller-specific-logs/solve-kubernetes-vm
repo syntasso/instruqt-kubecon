@@ -3,5 +3,5 @@
 set -euxoH pipefail
 source /root/.bashrc > /dev/null 2>&1
 
-mv /kubecon-instruqt-solutions/05-introduce-and-view-controller-specific-logs ${DEMO_HOME:?}
+mv /root/kubecon-instruqt-solutions/05-introduce-and-view-controller-specific-logs ${DEMO_HOME:?}
 
