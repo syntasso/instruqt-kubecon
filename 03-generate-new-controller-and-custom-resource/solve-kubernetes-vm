@@ -3,4 +3,6 @@
 set -euxoH pipefail
 source /root/.bashrc > /dev/null 2>&1
 
+cd /root
+rm -rf ${DEMO_HOME:?}
 mv /root/kubecon-instruqt-solutions/03-generate-new-controller-and-custom-resource ${DEMO_HOME:?}
