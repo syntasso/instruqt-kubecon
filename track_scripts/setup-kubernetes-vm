@@ -30,7 +30,7 @@ echo "source /usr/share/bash-completion/bash_completion" >> ${BASH_RC}
 
 ## Set zsh plugin helpful aliases (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/kubectl/README.md)
 echo "complete -F __start_kubectl k" >> ${BASH_RC}
-cat /kubecon-instruqt-solutions/setup/bash_aliases >> /root/.bash_aliases
+cat /root/kubecon-instruqt-solutions/setup/bash_aliases >> /root/.bash_aliases
 
 # Setup home dir for the workshop
 mkdir -p ${HOME_DIR}
