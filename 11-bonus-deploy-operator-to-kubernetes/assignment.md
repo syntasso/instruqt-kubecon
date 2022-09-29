@@ -36,7 +36,7 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-timelimit: 600
+timelimit: 360
 ---
 
 🎁 Creating your operator release

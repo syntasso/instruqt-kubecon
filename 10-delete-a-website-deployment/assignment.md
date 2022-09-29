@@ -35,7 +35,7 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-timelimit: 600
+timelimit: 480
 ---
 
 👯‍♂️ Why delete is an interesting use case

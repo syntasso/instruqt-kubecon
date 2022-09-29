@@ -25,10 +25,10 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 600
+timelimit: 300
 ---
 
-🚀 Let's start
+🚀 Get started
 ==============
 
 A Kubernetes operator is an application that extends the functionality of the Kubernetes API to automate resource creation, configuration, and management.

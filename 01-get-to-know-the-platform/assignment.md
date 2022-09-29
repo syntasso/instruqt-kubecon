@@ -28,7 +28,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 600
+timelimit: 300
 ---
 
 👋🏾 Introduction
@@ -48,9 +48,9 @@ kubectl get namespaces
 
 > 💡 You can copy this command by clicking anywhere in the text box and then paste it into the terminal
 
-And in the `Code editor` tab you can create and edit files in a VS Code style environment. To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
+And in the `Code editor` tab you can create and edit files in a [Visual Studio Code](https://code.visualstudio.com/) style environment. To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
 
-The following code configures a new namespace in Kubernetes. Paste this code in the file:
+Then edit that file to configure a new namespace in Kubernetes by pasting the following code into the file:
 
 ```
 ---
@@ -60,19 +60,24 @@ metadata:
   name: example
 ```
 
-Now return to the `K8s Shell` tab and apply this file to your cluster using the following command:
+The real power is in your ability to create files in the code editor and then run those files in the shell. So now return to the `K8s Shell` tab and apply this edited file to your cluster using the following command:
 
 ```
 kubectl apply \
   --filename .example-namespace.yaml
 ```
 
-You can confirm your namespace has been created by running the get namespaces command again.
+You can confirm your namespace has been created by running the first get namespaces command again:
+```
+kubectl get namespaces
+```
 
 📕 Summary
 ==============
 
 Congratulations! You have know navigated your way around the platform and are ready to create your first operator.
+
+To continue to the next challenge, use the green `Check` button at the bottom right of the screen to validate your current work and prepare the next challenge.
 
 > 💡 One last tip: When you are done with a header section, click on the header to minimize and make more space for the next header section. Try this by clicking on "👋🏾 Introduction" now and seeing it minimize.
 
