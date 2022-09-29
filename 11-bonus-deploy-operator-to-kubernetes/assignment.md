@@ -39,12 +39,6 @@ difficulty: basic
 timelimit: 360
 ---
 
-🛂 Permissions
-==============
-
-Do we need to add permissions to do deployments and services??
-
-
 🎁 Creating your operator release
 ==============
 
@@ -57,6 +51,9 @@ make docker-build
 
 This docker image is currently only usable on your local computer. Typically you would look to tag and push this image to a repository in the cloud so that your Kubernetes cluster could pull it down from the internet. Today you will not be doing this.
 
+⬆️ Uploading your image locally
+==============
+
 Instead, today you will load this local image into your local `k3s` Kubernetes cluster in order to keep everything local. To load this image, you first need to create an output of the image:
 ```
 docker save --output /root/demo/controller-latest.tar controller:latest
@@ -66,6 +63,17 @@ Then you can import this to the cluster using:
 ```
 k3s ctr images import /root/demo/controller-latest.tar
 ```
+
+TODO: Set this up as a new kustomization!
+
+Now you need to make sure your operator will use the local image when present. To do this, you need to set the [imagePullPolicy](https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy) to `IfNotPresent`.
+
+config/manager/manager.yaml:41
+```
+image: controller:latest
+imagePullPolicy: IfNotPresent
+```
+
 
 🛫 Deploying to Kubernetes
 ==============
@@ -79,7 +87,7 @@ make deploy
 
 Once applied, you can view the running operator using:
 ```
-kubectl --namespace system get deployments
+kubectl --namespace demo-system get deployments
 ```
 
 🛝 Using the operator in Kubernetes
@@ -90,11 +98,13 @@ With this operator deployed to Kubernetes you can now use it in the same way as 
 For example, you can create a new Website resource, or patch the existing one. The big difference is that to see te logs you need to use the following Kubernetes command:
 
 ```
-Kubectl --namespace system logs XXX
+kubectl --namespace demo-system logs deploy/demo-controller-manager
 ```
 
 
 📕 Summary
 ==============
 
-Writing any code requires a lot of iteration and faster feedback is helpful. That is why you have been working with a local run command for the operator up until this point. That being said, the operator will need to run in Kubernetes in the long run and using the `deploy` make command will allow you you to deploy and test your operator in a more realistic fashion.
+Writing any code requires a lot of iteration and faster feedback is helpful. That is why you have been working with a local run command for the operator up until this point. You can tell the process of deploying to Kubernetes adds a lot of time just from the process of building the docker image.
+
+That being said, the operator will need to run in Kubernetes in the long run and using the `deploy` make command will allow you you to deploy and test your operator in a more realistic fashion. For example, had you not added the permissions to work with deployments and services, your operator would still have worked when running locally since it is using your personal permissions. However, once deployed to Kubernetes the operator is reliant on only its own permissions and would have failed without the additional RBAC provided.

@@ -60,6 +60,22 @@ The below snippet does all of these things and can be added directly under the l
   }
 ```
 
+🛂 Permissions for the operator
+==============
+
+It is all well and good to tell the operator to create a deployment, but is it allowed? In Kubernetes there is strict role based access control (RBAC) that limits what actions people and applications can take.
+
+With this new change, we now need the operator to be allowed to work with deployments. Kubebuilder provides a mechanism to do this very easily through comments much like those used in the CRD fields.
+
+If you look near the top of the controller file you should see some comment lines that start with `//+kubebuilder:rbac`. Each line describes a single RBAC permission.
+
+In order to provide access to work with deployments, you need to add the following permission line:
+```
+//+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
+```
+
+This is fairly broad permissions since it allows all verbs, but you can limit these based on very specific needs. Kubebuilder will then translate this into the necessary service accounts when you build the deployment.
+
 🧞 Creating a deployment for your current website
 ==============
 

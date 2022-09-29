@@ -68,6 +68,16 @@ The below snippet does all of these things and can be added directly under the d
 
 > 💡 This needs to be after the call to `createDeployment` since it assumes `err` has already been set. Otherwise you may get an error when trying to run this code.
 
+🛂 Permissions to work with services
+=============
+
+Just as with the deployment we need to add permission for the operator to work with services. To do this, add an additional permission to the top of the `controllers/website_controller.go` file around line 47 where the other permissions are listed.
+
+```
+//+kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
+```
+
+
 ✏️ Testing this logic
 =============
 

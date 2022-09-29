@@ -1,11 +1,5 @@
 #!/bin/bash
-#
-# This script runs when the platform solve the challenge.
-#
-# The platform determines if the script was successful using the exit code of this
-# script. If the exit code is not 0, the script fails. 
-#
 
-echo "This is the solve script"
+echo "This is not a required step, therefore there will not be any solution granted"
 
 exit 0
