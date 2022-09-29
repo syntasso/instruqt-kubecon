@@ -1,9 +1,11 @@
 slug: create-you-first-kubernetes-operator
 id: 3u27ulctsiho
 title: Create you first Kubernetes operator
-teaser: Learn how to build Kubernetes-based tracks with this template
+teaser: Learn how to build operators using Kubebuilder
 description: |-
-  Learn how to build a Kubernetes operator.
+  Learn how an operator works by building one. Create the framework for an operator and then iteratively add more complexity as you gain confidence in how the components work together.
+
+  This track uses Golang code as well as `kubectl` and `make` command line tools. While familiarity with these tools will make things easier, they are not required since it is possible to follow along with copy and paste solutions.
 
   **This track demonstrates how to:**
   - Scaffold a Kubernetes operator with Kubebuilder
@@ -17,4 +19,4 @@ developers:
 private: true
 published: false
 skipping_enabled: true
-checksum: "14097963402806878715"
+checksum: "14957849386017330748"

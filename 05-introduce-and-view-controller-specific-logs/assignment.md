@@ -12,7 +12,7 @@ notes:
 
     Now it is time to understand the generated controller and view your application respond to a request for a Website custom resource.
 
-    In this section you will:
+    In this challenge you will:
     * Add logs in your controller application
     * Run the application locally
     * Request a Website custom resource and view the corresponding logs
@@ -57,7 +57,7 @@ if err = (&controllers.WebsiteReconciler{
 
 This is a call to the function `SetupWithManager(mgr)` which is defined in the file `controllers/website_controller.go:58`.
 
-When you find this function you will see that a new instance of the controller is returned aready configured with what resource to listen for. This is an example of why defining the custom resource in Golang is so helpful. The `kubeconv1beta1.Website` is the Golang resource type which you explored in the last section.
+When you find this function you will see that a new instance of the controller is returned already configured with what resource to listen for. This is an example of why defining the custom resource in Golang is so helpful. The `kubeconv1beta1.Website` is the Golang resource type which you explored in the last challenge.
 
 Finally, you can look a bit further up in that same `website_controller.go` file to see how the `Reconcile` function has been generated. This is left nearly empty as this is where the core of your business logic will be added.
 
@@ -102,7 +102,7 @@ What this code snipped does is:
 🏃🏿‍♀️ Running your application locally
 ==============
 
-You may have noticed a third tab on this section called `Run Shell`. This has been introduced to allow a long running process in one Shell while ongoing commands in the other.
+You may have noticed a third tab on this challenge called `Run Shell`. This has been introduced to allow a long running process in one Shell while ongoing commands in the other.
 
 In the `Run Shell` tab, start up your newly updated application with:
 
@@ -112,7 +112,7 @@ make run
 
 Remember, this may take a few minutes.
 
-When it completes you should see the same output you saw in the last section which shows the starting of both a metrics and health probe endpoint.
+When it completes you should see the same output you saw in the last challenge which shows the starting of both a metrics and health probe endpoint.
 
 But you should also see new log lines showing the starting of the website controller as well:
 
@@ -144,7 +144,7 @@ INFO    Hello from your new website reconciler! ...
 
 You can add, update, or delete these Website resources and each time those events occur, you will see another printing of the log line from your application.
 
-In order to progress, have one (and only one) Website resource in your cluster before pressing the `Check` button. This will set you up for success on future sections.
+In order to progress, have one (and only one) Website resource in your cluster before pressing the `Check` button. This will set you up for success on future challenges.
 
 📕 Summary
 ==============

@@ -10,7 +10,7 @@ notes:
   contents: |-
     Kubebuilder has generated a Golang application, but it is time to now build your business case in.
 
-    In this section you will:
+    In this challenge you will:
     * Be introduced to the example business case
     * Create a controller and custom resource (CRD) using Kubebuilder
 tabs:
@@ -63,7 +63,7 @@ kubebuilder create api \
   --controller true
 ```
 
-The next two sections will dive into what these two items actually create in your code base and how they work together to operate your dog smile website.
+The next two challenges will dive into what these two items actually create in your code base and how they work together to operate your dog smile website.
 
 
 📕 Summary

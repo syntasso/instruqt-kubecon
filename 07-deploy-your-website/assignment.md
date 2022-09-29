@@ -9,7 +9,7 @@ notes:
   contents: |-
     Log lines allow you to understand when the reconcile loop is called, but now it is time to use your operator to control an application.
 
-    In this section you will:
+    In this challenge you will:
     * Create a deployment to run your website whenever the controller reconciles
 tabs:
 - title: K8s Shell
@@ -32,7 +32,7 @@ timelimit: 600
 ✅ Some new setup has been completed
 ==============
 
-Since you finished the last section, a change has been made to your controller.
+Since you finished the last challenge, a change has been made to your controller.
 
 Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createDeployment`.
 
@@ -120,6 +120,6 @@ That is because the code asks to create a deployment, but there already is one i
 📕 Summary
 ==============
 
-In this section you added a more realistic use case for your controller by asking it to deploy a website for you.
+In this challenge you added a more realistic use case for your controller by asking it to deploy a website for you.
 
 But this quickly resulted in more work to be done to handle when a deployment already exists. Don't worry, that is coming up next!

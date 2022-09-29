@@ -4,18 +4,18 @@ id: yzq8tbn8srib
 type: challenge
 title: Get to know the platform
 teaser: Explore how this course is being delivered in the browser, but has all the
-  power of your laptop
+  power of a local Kubernetes developer's laptop.
 notes:
 - type: text
   contents: |-
     This track uses a single node Kubernetes cluster on a sandbox virtual machine.
 
     Please wait while we boot the VM for you and start Kubernetes. Once the VM
-    is ready you will see a green start bottom in the right hand corner.
+    is ready you will see a green start button in the bottom right hand corner.
 
-    There are a number of slides with corresponding hands on activities, these are each called "sections"
+    There are a number of slides with corresponding hands on activities, these are each called "challenges"
 
-    In this first section, you will:
+    In this first challenge, you will:
     - Get comfortable with this online environment
 tabs:
 - title: K8s Shell
@@ -74,7 +74,7 @@ You can confirm your namespace has been created by running the get namespaces co
 
 Congratulations! You have know navigated your way around the platform and are ready to create your first operator.
 
-> 💡 One last tip: When you are done with a section, click on the header to minimize and make more space for the next section. Try this by clicking on "👋🏾 Introduction" now and seeing it minimize.
+> 💡 One last tip: When you are done with a header section, click on the header to minimize and make more space for the next header section. Try this by clicking on "👋🏾 Introduction" now and seeing it minimize.
 
 
 

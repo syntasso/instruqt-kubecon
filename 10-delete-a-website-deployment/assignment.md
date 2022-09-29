@@ -4,7 +4,7 @@ id: uocpjfaybikk
 type: challenge
 title: Delete a website deployment
 teaser: The power of operators is handling any drift between requested state and cluster
-  state, in this section learn how to detect deletion drift and execute on it
+  state, in this challenge learn how to detect deletion drift and execute on it
 notes:
 - type: text
   contents: |-
@@ -12,7 +12,7 @@ notes:
 
     So far you have created a deployment and service, but have yet to read, update or delete.
 
-    In this section you will:
+    In this challenge you will:
     * Detect the deletion of a website
     * Delete any resources the operator creates when it's CRD is deleted
 tabs:
@@ -178,4 +178,4 @@ Congratulations! You have now not only identified how to detect a delete, but ac
 
 While many of these implementations are not robust enough for heavy production use, you are well on your way to being able to create an operator with real value to your team.
 
-If you still have time, continue to the next two sections for deployment and testing.
+If you still have time, continue to the next two challenges for deployment and testing.

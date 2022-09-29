@@ -8,9 +8,9 @@ teaser: Explore the Kubebuilder generated CRD and then install it on your Kubern
 notes:
 - type: text
   contents: |-
-    In the previous section you created a controller and resource (CRD). Now is your chance to explore the resource CRD!
+    In the previous challenge you created a controller and resource (CRD). Now is your chance to explore the resource CRD!
 
-    In this section you will:
+    In this challenge you will:
     * Understand how the CRD is represented in Golang code
     * Transorm the code CRD to a yaml CRD ready to be installed in Kubernetes
     * Install the CRD using the provided `make` commands
@@ -91,6 +91,6 @@ If you `kubectl get crds` again, you will see the `websites.kubecon.my.domain` l
 📕 Summary
 ==============
 
-After this section you have successfully installed a new Custom Resource Defintion onto your Kuberenetes cluster.
+After this challenge you have successfully installed a new Custom Resource Definition onto your Kubernetes cluster.
 
 Soon you will request an instance of this but first, you will get to dig into the controller that you created alongside this CRD.

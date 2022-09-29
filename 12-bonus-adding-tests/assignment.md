@@ -12,7 +12,7 @@ notes:
 
     Explore how kubebuilder sets you up for success with a testing framework as well.
 
-    In this section you will:
+    In this challenge you will:
     * Write a unit test for your operator
     * Run your test using make targets
 tabs:

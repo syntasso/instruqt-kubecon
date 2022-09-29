@@ -2,15 +2,16 @@
 slug: generate-application-scaffolding
 id: okgzfoly5zg5
 type: challenge
-title: generate-application-scaffolding
-teaser: Scaffold a Golang application that can be deployed to Kubernetes as an operator
+title: Generate application scaffolding
+teaser: At its core, an operator is an application that runs in Kubernetes. In this
+  challenge you will generate scaffolding for this application to get started quickly.
 notes:
 - type: text
   contents: |-
     Now that you are comfortable in the environment,
     it is time to get started with `kubebuilder`.
 
-    In this section you will:
+    In this challenge you will:
     * Initialize Kubebuilder
     * Run the generated controller application locally
 tabs:

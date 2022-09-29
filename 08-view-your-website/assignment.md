@@ -9,7 +9,7 @@ notes:
   contents: |-
     A website is only fun if it is visible! It is time to expose your dog smile website outside of Kubernetes.
 
-    In this section you will:
+    In this challenge you will:
     * Deploy a service to expose your deployment on a NodePort
     * Use Instruqt to view the website
 tabs:
@@ -38,7 +38,7 @@ timelimit: 600
 ✅ Some new setup has been completed
 ==============
 
-Once again, a small helper function has been added to your controller between sections.
+Once again, a small helper function has been added to your controller between challenges.
 
 Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createService`.
 
@@ -95,4 +95,4 @@ I hope that look of pure join on the dog's face made all your hard work worth it
 
 You can now create an externally accessible webpage given only a minimally configured custom resource. However, once created there really isn't much you can do since creating or deleting the Website custom resource causes an error.
 
-You will learn how to detect and then handle these two scenarios in the upcoming sections.
+You will learn how to detect and then handle these two scenarios in the upcoming challenges.
