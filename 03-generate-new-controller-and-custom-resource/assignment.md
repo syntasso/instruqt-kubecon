@@ -40,9 +40,9 @@ You have already packaged your perfected website as a container image and want t
 
 To do this, you have settled on deploying to Kubernetes and want to do so via an operator. To get started, your plan is to support:
 
-* When a website does not yet exist in a cluster, **create** a new one
-* Acknowledging when a request will **update** an existing website
-* **Deleting** a website upon request
+* When a website does not yet exist in a cluster, _**create**_ a new one
+* Acknowledging when a request will _**update**_ an existing website
+* _**Delete**_ a website upon request
 
 You realise there are a lot more things that you will want to operate in the future (e.g. backups) but these lifecycle tasks will set a foundation for a more complex operator to succeed.
 

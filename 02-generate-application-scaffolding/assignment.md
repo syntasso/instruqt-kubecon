@@ -33,9 +33,9 @@ timelimit: 300
 
 A Kubernetes operator is an application that extends the functionality of the Kubernetes API to automate resource creation, configuration, and management.
 
-Operators are different from traditional web apps because rather than an HTTP or grpc request, operators listen to changes of a specified Kubernetes resource.
+Operators are different from traditional web apps because rather than an HTTP or GRPC request, operators listen to changes of a specified Kubernetes resource.
 
-Today you will create both the operator application and a custom resource type for it to react to.
+Today you will create both the operator application and a custom resource type for it to react to when it changes.
 
 🏗 Using the right tools
 ==============
@@ -54,15 +54,12 @@ kubebuilder init \
 
 A number of files have been created to help you get started quickly. While these are exciting to explore more deeply, try to delay this curiosity for now as the rest of this track will jump into key getting started files.
 
-When you are ready, click the next header to first understand the tools provided to build, test, and deploy this code base.
-
-
 ♲ Understanding developer lifecycle tasks
 ==============
 
 Kubebuilder uses a [Makefile](https://www.gnu.org/software/make/manual/html_node/Introduction.html) as home for all useful commands.
 
-In Make, commands are called "targets". It is good practice to design these targets to be consistent across local, remote, and Continuous Integration (CI) environments which allows for more debuggability and maintainability.
+In Make, commands are called "targets", and it is good practice to design these targets to be consistent across local, remote, and Continuous Integration (CI) environments. This consistently enables better debuggability and maintainability.
 
 To see available targets, run in the `K8s Shell`:
 
@@ -70,10 +67,10 @@ To see available targets, run in the `K8s Shell`:
 make help
 ```
 
-Within this help output, take a look for the descriptions of the four main targets you will use today:
+Within this help output, take a look for the descriptions of the four targets you will use most today:
+* `install`
 * `run`
 * `docker-build`
-* `install`
 * `deploy`
 
 Continue to the next header to already put one of these to use.
@@ -82,7 +79,7 @@ Continue to the next header to already put one of these to use.
 👩🏾‍💻 Running your Application
 ==============
 
-While this is generic scaffolding, it does start with a valid and usable Golang application.
+While this is generic scaffolding, the Golang application it creates is usable and even includes basic operability needs.
 
 To run this Golang application locally, go to the `K8s Shell` tab and enter:
 
@@ -122,16 +119,16 @@ run: manifests generate fmt vet ## Run a controller from your host.
   go run ./main.go
 ```
 
-In Makefiles, any names listed after a target is defined are other targets that will be run as prerequisites. In this case, all four of the prerequisites are both other targets defined in this same Makefile. To be more specific, `manifests` and `generate` both run Kubebuilder `controller-gen` commands to generate some Golang code which is then formatted and validated by `fmt` and `vet` before being executed by the intended `run` target.
+In Makefiles, any names listed after a target is defined are other targets that will be run as prerequisites. In this case, all four of the prerequisites are other targets defined in this same Makefile. To be more specific, `manifests` and `generate` both run Kubebuilder `controller-gen` commands to generate some Golang code which is then formatted and validated by `fmt` and `vet` before being executed by the originally requested `run` target.
 
 
 📕 Summary
 ==============
 
-While there are a few options for getting started quickly with developing controllers and operators for Kubernetes, Kubebuilder is a great choice due to its support while also providing enough flexibility to create what you need.
+While there are a few options for getting started quickly with developing controllers and operators for Kubernetes, Kubebuilder is a great choice due to its opinionated support while also providing enough flexibility to create what you need.
 
 You may have noticed that Kubebuilder always uses the term "controller". Don't let this get too confusing, despite you being in a track about building an operator.
 
-Both controllers and operators are at their core an application running in Kubernetes that responds to changes in certain resources. The term operator is just used to clarify a specific type of controller that manages operational concerns for one specific application.
+Both controllers and operators are, at their core, an application running in Kubernetes that responds to changes in specified resources. The term operator is just used to indicate a specific type of controller that manages operational concerns for another application.
 
 Since you will need an application for your core logic, Kubebuilder quickly provides an opinionated way to build, test and deploy a fit for purpose Golang application.
