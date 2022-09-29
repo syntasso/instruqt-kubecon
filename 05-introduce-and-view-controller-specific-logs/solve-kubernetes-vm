@@ -9,4 +9,4 @@ cp -R /root/kubecon-instruqt-solutions/05-introduce-and-view-controller-specific
 
 cd ${DEMO_HOME:?}
 make install
-kubectl apply --filename config/samples/
+kubectl apply --filename config/samples/kubecon_v1beta1_website.yaml
