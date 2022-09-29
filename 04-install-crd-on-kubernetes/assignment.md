@@ -2,9 +2,9 @@
 slug: install-crd-on-kubernetes
 id: zolv3abe59us
 type: challenge
-title: Install CRD on Kubernetes
+title: Install the new CRD on Kubernetes
 teaser: Explore the Kubebuilder generated CRD and then install it on your Kubernetes
-  cluster
+  cluster.
 notes:
 - type: text
   contents: |-

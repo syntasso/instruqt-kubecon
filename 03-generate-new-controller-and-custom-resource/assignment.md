@@ -2,13 +2,15 @@
 slug: generate-new-controller-and-custom-resource
 id: adhjrg6fqgds
 type: challenge
-title: Generate new controller and custom resource
+title: Generate a new controller and custom resource
 teaser: Use Kubebuilder to generate an controller and corresponding custom resource
-  (CRD) for your new business
+  (CRD) for your new business.
 notes:
 - type: text
   contents: |-
     Kubebuilder has generated a Golang application, but it is time to now build your business case in.
+
+
 
     In this challenge you will:
     * Be introduced to the example business case

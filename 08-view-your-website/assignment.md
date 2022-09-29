@@ -2,8 +2,9 @@
 slug: view-your-website
 id: lrtpsez0x5bz
 type: challenge
-title: View your website
-teaser: It is time to bring dog smiles to the world!
+title: View your website by including a service
+teaser: Continue to extend the controller, this time to include a service that exposes
+  your website to public traffic.
 notes:
 - type: text
   contents: |-

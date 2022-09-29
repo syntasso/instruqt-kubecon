@@ -2,8 +2,9 @@
 slug: deploy-your-website
 id: u5nkkdsxujwa
 type: challenge
-title: Deploy your website
-teaser: Use your controller to deploy a website
+title: Deploy your website from the controller
+teaser: Extend the controller to complete a deployment of your website as customized
+  by a Website resource.
 notes:
 - type: text
   contents: |-

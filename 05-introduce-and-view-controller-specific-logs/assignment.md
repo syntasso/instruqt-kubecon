@@ -2,9 +2,9 @@
 slug: introduce-and-view-controller-specific-logs
 id: z2x6mgvsq5om
 type: challenge
-title: Introduce and view controller specific logs
+title: Understand the new controller by adding logs
 teaser: Explore the Kubebuilder created controller by adding logs and viewing them
-  when running locally
+  when running locally.
 notes:
 - type: text
   contents: |-

@@ -2,8 +2,9 @@
 slug: use-crd-data-in-your-controller
 id: zddpwbrzlotj
 type: challenge
-title: Use CRD data in your controller
-teaser: Instead of a generic log line, use CRD data inside your controller
+title: Use data defined in the CRD within the controller
+teaser: Enhance your generic log line to reference CRD defined data from inside your
+  controller.
 notes:
 - type: text
   contents: |-

@@ -3,8 +3,8 @@ slug: delete-a-website-deployment
 id: uocpjfaybikk
 type: challenge
 title: Delete a website deployment
-teaser: The power of operators is handling any drift between requested state and cluster
-  state, in this challenge learn how to detect deletion drift and execute on it
+teaser: Drift between operator expectations and cluster reality does not always mean
+  update. You must also detect and execute on a deletion of existing websites.
 notes:
 - type: text
   contents: |-

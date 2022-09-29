@@ -3,8 +3,8 @@ slug: gracefully-detect-an-update-request
 id: 53brpzghvx0e
 type: challenge
 title: Gracefully detect an update request
-teaser: While creating is necessary, most of the time you will be updating a website.
-  This challenge identifies where update logic will be added.
+teaser: While creating is necessary, most of the time you will be updating an existing
+  website. Learn how to detect and execute an update when needed.
 notes:
 - type: text
   contents: |-
