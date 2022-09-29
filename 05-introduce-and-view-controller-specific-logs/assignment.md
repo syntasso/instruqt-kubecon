@@ -102,7 +102,7 @@ What this code snipped does is:
 🏃🏿‍♀️ Running your application locally
 ==============
 
-You may have noticed a third tab on this challenge called `Run Shell`. This has been introduced to allow a long running process in one Shell while ongoing commands in the other.
+You may have noticed a third tab on this challenge called `Run Shell`. This has been introduced to allow a long running process in one Shell while ongoing commands in the other. It is just another session on the same machine, so the only difference with the `K8s Shell` tab is in the title!
 
 In the `Run Shell` tab, start up your newly updated application with:
 

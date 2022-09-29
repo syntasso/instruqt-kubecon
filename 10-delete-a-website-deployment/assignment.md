@@ -43,7 +43,7 @@ timelimit: 480
 
 Now your operator can create new resources, and is ready to deal with updates as well. The last major CRUD functionality is to deal with delete requests.
 
-In order to handle deletes, you will neeed to first identify that the website resource is requesting a delete, and then read the state of the cluster to reconcile any necessary actions in order to complete that delete.
+In order to handle deletes, you will need to first identify that the website resource is requesting a delete, and then read the state of the cluster to reconcile any necessary actions in order to complete that delete.
 
 
 🧑🏽‍🎓 Learning when a resource should be deleted
@@ -86,7 +86,7 @@ Now you know it is the error `not found` that indicates when the reconcile is oc
 🫴🏾 Gracefully catching the delete error
 ==============
 
-With your new knowledge of a delete error being `not found`, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 59, you should edit the error block to read:
+With your new knowledge of a delete error being `not found`, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 62, you should edit the error block to read:
 
 ```
   // Start by declaring the custom resource to be type "Website"
@@ -163,6 +163,7 @@ To complete the deletes, replace the code inside the new error catch block `if e
   if deployErr != nil || serviceErr != nil {
     return ctrl.Result{}, fmt.Errorf("%v/n%v", deployErr, serviceErr)
   }
+  return ctrl.Result{}, nil
 ```
 
 💪🏿 Seeing your deletes in action
