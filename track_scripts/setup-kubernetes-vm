@@ -63,8 +63,8 @@ dpkg -i code-server_${CODE_SERVER_VERSION}_amd64.deb
 
 ## Install extentions
 
-code-server --install-extension golang.go
-code-server --install-extension redhat.vscode-yaml
+code-server --install-extension /root/kubecon-instruqt-solutions/setup/go-0.35.2.vsix
+code-server --install-extension /root/kubecon-instruqt-solutions/setup/yaml-1.10.1-19523.vsix
 
 ## Create Code Server startup script
 
@@ -88,7 +88,7 @@ echo '
   "security.workspace.trust.enabled": false,
   "security.workspace.trust.banner": "never",
   "security.workspace.trust.emptyWindow": false,
-  "security.workspace.trust.untrustedFiles": "open"
+  "security.workspace.trust.untrustedFiles": "open",
 
   "workbench.colorTheme": "Default Dark+"
 }
