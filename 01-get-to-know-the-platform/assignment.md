@@ -48,7 +48,9 @@ kubectl get namespaces
 
 > 💡 You can copy this command by clicking anywhere in the text box and then paste it into the terminal
 
-And in the `Code editor` tab you can create and edit files in a [Visual Studio Code](https://code.visualstudio.com/) style environment. To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
+And in the `Code editor` tab you can create and edit files in a [Visual Studio Code](https://code.visualstudio.com/) style environment.
+
+To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
 
 Then edit that file to configure a new namespace in Kubernetes by pasting the following code into the file:
 
@@ -60,7 +62,7 @@ metadata:
   name: example
 ```
 
-The real power is in your ability to create files in the code editor and then run those files in the shell. So now return to the `K8s Shell` tab and apply this edited file to your cluster using the following command:
+Now the real power is in your ability to create files in the code editor and then run those files in the shell. Return to the `K8s Shell` tab and apply this edited file to your cluster using the following command:
 
 ```
 kubectl apply \

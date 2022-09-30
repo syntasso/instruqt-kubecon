@@ -32,7 +32,7 @@ timelimit: 300
 🐾 Dreaming of a pet smile website
 ==============
 
-While you already have a working golang application, it is time to add some business logic to create a useful (albeit, simple) operator.
+While you already have a working Golang application, it is time to add some business logic to create a useful (albeit, simple) operator.
 
 In this case, imagine you want to run a website to bring the joy of pet smiles to the world and want to start with a website of dog smiles.
 
@@ -47,12 +47,14 @@ To do this, you have settled on deploying to Kubernetes and want to do so via an
 You realise there are a lot more things that you will want to operate in the future (e.g. backups) but these lifecycle tasks will set a foundation for a more complex operator to succeed.
 
 
-👩🏾‍💻 First, create a controller and corresponding Resource type
+👩🏾‍💻 First, create the controller and resource
 ==============
 
 Kubebuilder provides a command that can create either (or both) the `Controller` application and a new `Resource` type.
 
-Since every controller needs to respond to events of certain resources, if you choose to create these at the same time, Kubebuilder also automatically configures the controller to run when any resources of the new type type emit an event. If you do not create both at the same time, you will need to manually configure what resources the controller will react to.
+Since every controller needs to respond to events of certain resources, if you choose to create these at the same time, Kubebuilder also automatically configures the controller to run when any resources of the new type are created, changed, or deleted.
+
+> 💡 If you do not create both at the same time, you will need to manually configure what resources the controller will react to.
 
 Today you will create both at the same time allowing Kubebuilder to complete the autoconfiguration by running the following command in your `K8s Shell` tab:
 
