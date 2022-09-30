@@ -12,7 +12,7 @@ notes:
 
     So far you have created a deployment and service, but have yet to read, update or delete.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Detect the deletion of a website
     * Delete any resources the operator creates when it's CRD is deleted
 tabs:

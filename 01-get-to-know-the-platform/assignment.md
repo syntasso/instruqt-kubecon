@@ -15,7 +15,7 @@ notes:
 
     There are a number of slides with corresponding hands on activities, these are each called "challenges"
 
-    In this first challenge, you will:
+    **In this first challenge, you will:**
     - Get comfortable with this online environment
 tabs:
 - title: K8s Shell

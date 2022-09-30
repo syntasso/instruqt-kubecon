@@ -10,7 +10,7 @@ notes:
   contents: |-
     A website is only fun if it is visible! It is time to expose your dog smile website outside of Kubernetes.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Deploy a service to expose your deployment on a NodePort
     * Use Instruqt to view the website
 tabs:

@@ -12,7 +12,7 @@ notes:
 
     Now it is time to understand the generated controller and view your application respond to a request for a Website custom resource.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Add logs in your controller application
     * Run the application locally
     * Request a Website custom resource and view the corresponding logs

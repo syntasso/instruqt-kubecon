@@ -12,7 +12,7 @@ notes:
 
     Now it is time to make the Website CRD truly custom and have the controller use the custom data provided as a part of the CRD spec.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Introduce a new CRD field
     * Reinstall the now updated CRD into Kubernetes
     * Reference the CRD field in the controller

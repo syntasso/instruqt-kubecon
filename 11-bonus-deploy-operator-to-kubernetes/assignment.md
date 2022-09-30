@@ -11,7 +11,7 @@ notes:
 
     While `make run` gives a fast feedback look for development, eventually you will need to deploy your operator to a cluster.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Build a docker image for your operator
     * Load the docker image into your cluster
     * Generate an operator distribution

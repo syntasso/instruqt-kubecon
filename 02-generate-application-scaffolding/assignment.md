@@ -11,7 +11,7 @@ notes:
     Now that you are comfortable in the environment,
     it is time to get started with `kubebuilder`.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Initialize Kubebuilder
     * Run the generated controller application locally
 tabs:

@@ -10,7 +10,7 @@ notes:
   contents: |-
     In the previous challenge you created a controller and resource (CRD). Now is your chance to explore the resource CRD!
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Understand how the CRD is represented in Golang code
     * Transorm the code CRD to a yaml CRD ready to be installed in Kubernetes
     * Install the CRD using the provided `make` command

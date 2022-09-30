@@ -10,7 +10,7 @@ notes:
   contents: |-
     While deploying your website for the first time is exciting, dealing with maintenance or feature improvements is far more common. But right now you get an error any time your operator reconciles after creation since it can not re-create using the same command.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Detect an update scenario by catching a specific error
     * Understand more about what logic needs to live in this error catch
 tabs:

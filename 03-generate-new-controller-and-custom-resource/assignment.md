@@ -12,7 +12,7 @@ notes:
 
 
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Be introduced to the example business case
     * Create a controller and custom resource (CRD) using Kubebuilder
 tabs:

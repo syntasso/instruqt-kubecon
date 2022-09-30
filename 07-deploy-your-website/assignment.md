@@ -10,7 +10,7 @@ notes:
   contents: |-
     Log lines allow you to understand when the reconcile loop is called, but now it is time to use your operator to control an application.
 
-    In this challenge you will:
+    **In this challenge you will:**
     * Create a deployment to run your website whenever the controller reconciles
 tabs:
 - title: K8s Shell
