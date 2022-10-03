@@ -43,7 +43,7 @@ Right now, your controller assumes that each time it reconciles, it needs to cre
 
 The reconcile loop runs periodically, on application start and on resource change among other scenarios. In all of these scenarios when the operator tries to create a new deployment and service it will error.
 
-To see this happen, you can just restart your operator in the `Run Shell` tab with:
+To see this happen, restart your operator in the `Run Shell` tab with:
 
 ```
 make run
@@ -81,7 +81,7 @@ Now all you need to do is replace that error catch with this more detailed handl
   }
 ```
 
-You can do the same type of change when catching the error for creating a service as well:
+Do the same type of change when catching the error for creating a service as well:
 
 ```
   err = r.createService(ctx, customResource)
@@ -108,7 +108,7 @@ You should no longer see any error tracing, only the error log for visibility.
 📕 Summary
 ==============
 
-This is a very simple way to track when a resource already exists. This is where you can to codify the update process for your application.
+This is a very simple way to track when a resource already exists. This is where operational tasks like an update process can be codified.
 
 Keep in mind, that different updates may require different actions. For example, adding a label may be simple, but changing image tags may require more caution.
 

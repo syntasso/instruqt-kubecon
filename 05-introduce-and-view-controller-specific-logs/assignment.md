@@ -55,20 +55,20 @@ if err = (&controllers.WebsiteReconciler{
 }
 ```
 
-This is a call to the function `SetupWithManager(mgr)` which is defined in the file `controllers/website_controller.go:58`.
+This is a call to the function `SetupWithManager(mgr)` which is defined in the file `controllers/website_controller.go`.
 
-When you find this function you will see that a new instance of the controller is returned already configured with what resource to listen for. This is an example of why defining the custom resource in Golang is so helpful. The `kubeconv1beta1.Website` is the Golang resource type which you explored in the last challenge.
+Navigate to `controllers/website_controller.go:58` to view this function already configured to know about the CRD `kubeconv1beta1.Website`. This is an example of why defining the custom resource in Golang is so helpful. The `kubeconv1beta1.Website` is the Golang resource type which you explored in the last challenge.
 
-Finally, you can look a bit further up in that same `website_controller.go` file to see how the `Reconcile` function has been generated. This is left nearly empty as this is where the core of your business logic will be added.
+Finally, look a bit further up in that same `website_controller.go` file to see how the `func (r *WebsiteReconciler) Reconcile` function has been generated. This is left nearly empty as this is where the core of your business logic will be added.
 
 While this is an error free implementation, you wouldn't really be able to tell if it worked since there is are no side effects `Reconcile` function, not even any logs!
 
 🪵 Logging from the controller
 ==============
 
-In order to make it more obvious when the `Reconcile` function is called, you can add a simple log line.
+In order to make it more obvious when the `Reconcile` function is called, add a simple log line.
 
-To do this, replace the contents of the current function with the below text:
+To do this, replace the contents of the current function (lines 50 to 54) with the below text:
 
 ```
   // _ indicates an unused variable in Golang.
@@ -93,7 +93,7 @@ To do this, replace the contents of the current function with the below text:
 
 What this code snipped does is:
 
-1. Assign the logger to a variable you can use
+1. Assign the logger to a variable
 1. Tests the ability to read the Website CRD, erroring if it is invalid
 1. If the CRD is valid, writes a log line
 1. Continues on to return healthy at the end of the reconcile loop
@@ -127,7 +127,7 @@ This is the starting of the controller process, but `Reconcile` will only run an
 👀 Request a website
 ==============
 
-In the `K8s Shell` tab request a Custom Resource of type `Website`. It is easiest to use the generated sample file that you can review in the `Code editor` tab in `./config/samples/kubecon_v1beta1_website.yaml`.
+In the `K8s Shell` tab request a Custom Resource of type `Website`. It is easiest to use the generated sample file available in the `Code editor` tab under `./config/samples/kubecon_v1beta1_website.yaml`.
 
 To use this file, apply it to the Kubernetes cluster with:
 
@@ -136,7 +136,7 @@ kubectl apply \
   --filename ./config/samples/kubecon_v1beta1_website.yaml
 ```
 
-Once this is applied, you can return to the `Run Shell` tab and have a look for your log output:
+Once this is applied, return to the `Run Shell` tab and have a look for your log output:
 
 ```
 INFO    Hello from your new website reconciler! ...

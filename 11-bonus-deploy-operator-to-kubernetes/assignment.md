@@ -59,7 +59,7 @@ Instead, today you will load this local image into your local `k3s` Kubernetes c
 docker save --output /root/demo/controller-latest.tar controller:latest
 ```
 
-Then you can import this to the cluster using:
+Then import this to the cluster using:
 ```
 k3s ctr images import /root/demo/controller-latest.tar
 ```
@@ -85,7 +85,7 @@ The following make command generates the manifests and applies them to the clust
 make deploy
 ```
 
-Once applied, you can view the running operator using:
+Once applied, view the running operator using:
 ```
 kubectl --namespace demo-system get deployments
 ```
@@ -95,7 +95,7 @@ kubectl --namespace demo-system get deployments
 
 With this operator deployed to Kubernetes you can now use it in the same way as when it was deployed locally.
 
-For example, you can create a new Website resource, or patch the existing one. The big difference is that to see te logs you need to use the following Kubernetes command:
+For example, create a new Website resource, or patch the existing one. The big difference is that to see te logs you need to use the following Kubernetes command:
 
 ```
 kubectl --namespace demo-system logs deploy/demo-controller-manager
@@ -105,6 +105,6 @@ kubectl --namespace demo-system logs deploy/demo-controller-manager
 📕 Summary
 ==============
 
-Writing any code requires a lot of iteration and faster feedback is helpful. That is why you have been working with a local run command for the operator up until this point. You can tell the process of deploying to Kubernetes adds a lot of time just from the process of building the docker image.
+Writing any code requires a lot of iteration and faster feedback is helpful. That is why you have been working with a local run command for the operator up until this point. This experience shows how the process of deploying to Kubernetes adds a lot of time just from the process of building the docker image.
 
 That being said, the operator will need to run in Kubernetes in the long run and using the `deploy` make command will allow you you to deploy and test your operator in a more realistic fashion. For example, had you not added the permissions to work with deployments and services, your operator would still have worked when running locally since it is using your personal permissions. However, once deployed to Kubernetes the operator is reliant on only its own permissions and would have failed without the additional RBAC provided.

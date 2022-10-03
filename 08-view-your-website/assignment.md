@@ -81,29 +81,29 @@ Just as with the deployment we need to add permission for the operator to work w
 ✏️ Testing this logic
 =============
 
-Since you still haven't handled an update scenario, you can test this code by actually first deleting the existing deployment and then running your controller.
+Since you still haven't handled an update scenario, test this code by actually first deleting the existing deployment and then running your controller.
 
-You may have a pre-existing deployment in your cluster which your operator does not yet know how to react to.  For now to make sure the operator can run successful, you can run use this command in your `K8s Shell` tab to delete any existing deployments:
+You may have a pre-existing deployment in your cluster which your operator does not yet know how to react to.  For now to make sure the operator can run successful, run use this command in your `K8s Shell` tab to delete any existing deployments:
 
 ```
 kubectl delete deployment --selector=type=Website
 ```
 
-Once deleted, you can then call `make run` in the `Run Shell` tab and that will run your controller application again and result in a new deployment being created along with your new service.
+Once deleted, call `make run` in the `Run Shell` tab and that will run your controller application again and result in a new deployment being created along with your new service.
 
-You can see this service by running the following command in your `K8s Shell` tab:
+See this service by running the following command in your `K8s Shell` tab:
 
 ```
 kubectl get service --selector=type=Website
 ```
 
-More excitingly, you can actually view the website now in the new `Website` tab next to your `Code editor` tab.
+More excitingly, view the website now in the new `Website` tab next to your `Code editor` tab.
 
 📕 Summary
 ==============
 
 I hope that look of pure join on the dog's face made all your hard work worth it! 🐶
 
-You can now create an externally accessible webpage given only a minimally configured custom resource. However, once created there really isn't much you can do since creating or deleting the Website custom resource causes an error.
+You can now create an externally accessible webpage given only a minimally configured custom resource. However, once created there really isn't much to do since creating or deleting the Website custom resource causes an error.
 
 You will learn how to detect and then handle these two scenarios in the upcoming challenges.

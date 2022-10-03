@@ -63,7 +63,7 @@ Then delete your current website resource by running the following command in th
 kubectl delete websites.kubecon.my.domain website-sample
 ```
 
-When you do this, you can see that the deployment and service are still just fine:
+When you do this, the deployment and service are still just fine and can be viewed with the following command:
 
 ```
 kubectl get all --selector=type=Website
@@ -109,7 +109,7 @@ With your new knowledge of a delete error being `not found`, it is time to add a
 
 Now make sure to retart the operator in your `Run Shell` tab using `ctrl+c` to cancel the previous run and `make run` to restart it.
 
-With the new version of your code running, you can test your change by adding a new Website resource and promptly deleting it from your `K8s Shell` tab:
+With the new version of your code running, test your change by adding a new Website resource and promptly deleting it from your `K8s Shell` tab:
 
 ```
 kubectl apply --filename ./config/samples/kubecon_v1beta1_website-with-image-tag.yaml
@@ -130,7 +130,7 @@ And when you return to the operator logs now you should see a log line instead o
 
 Catching the desire to delete is not enough. You must also complete the reconciliation by actually deleting any previously created resource.
 
-In this case that will be the deployment and the service. You can find these using the same constructors.
+In this case that will be the deployment and the service. Find these using the same constructors.
 
 > 💡 In more complex scenarios you will likely use labels or annotations to create a more robust clean up strategy, but for this scale operator, name will do just fine!
 
@@ -169,7 +169,7 @@ To complete the deletes, replace the code inside the new error catch block `if e
 💪🏿 Seeing your deletes in action
 ==============
 
-You can now exercise your operator in any way you would like, but in particular you should try and create and delete website resources to see the operator clean up after itself with your new code.
+Now exercise your operator in any way you would like, but in particular you should try and create and delete website resources to see the operator clean up after itself with your new code.
 
 
 📕 Summary

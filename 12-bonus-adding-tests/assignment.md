@@ -8,7 +8,7 @@ teaser: Kubebuilder doesn't just scaffold your operator code, it also prepares t
 notes:
 - type: text
   contents: |-
-    Right now the operator is fairly simple, but you can see how even the error handling logic can get complex.
+    Right now the operator is fairly simple, but even this simple error handling logic can get complex.
 
     Explore how kubebuilder sets you up for success with a testing framework as well.
 

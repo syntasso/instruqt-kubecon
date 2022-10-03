@@ -52,7 +52,7 @@ kubebuilder init \
   --repo my.domain
 ```
 
-This command has generated a number of files that you can see in the `Code editor` tab that will help you get started quickly. While these are exciting to explore more deeply, try to delay this curiosity for now as the rest of this track will jump into key getting started files.
+This command has generated a number of files now visible in the `Code editor` tab that will help you get started quickly. While these are exciting to explore more deeply, try to delay this curiosity for now as the rest of this track will jump into key getting started files.
 
 ♲ Understanding developer lifecycle tasks
 ==============
@@ -92,9 +92,9 @@ make run
 
 This command may take a few minutes, so while it is working, navigate to `main.go` in the root "demo" directory of your `Code editor` tab. In this file, look at line 64 to see where the controller application is created.
 
-> 💡 If you want to navigate to a specific place quickly in the code editor, you can type `ctrl+p` (`cmd+p` on macs) and put the file name there. You can even add the line number after a colon (e.g. `main.go:64`).
+> 💡 If you want to navigate to a specific place quickly in the code editor, type `ctrl+p` (`cmd+p` on macs) and enter the filename or additionally append a specific line number after a colon (e.g. `main.go:64`).
 
-In the list of options passed to this `NewManager` function, you will see configuration for both a metrics and health probe endpoint. These will become visible in the output of the `make run` command.
+In the list of options passed to this `NewManager` function (lines 65 to 70), you will see configuration for both a metrics and health probe endpoint. These will become visible in the output of the `make run` command.
 
 Return to the `K8s Shell` tab and view the progress of the run command.
 

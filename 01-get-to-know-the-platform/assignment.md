@@ -8,7 +8,7 @@ teaser: Explore how this course is being delivered in the browser, but has all t
 notes:
 - type: text
   contents: |-
-    This track uses a single node Kubernetes cluster on a sandbox virtual machine.
+    This track uses a single node Kubernetes cluster on a sandbox virtual machine (VM).
 
     Please wait while we boot the VM for you and start Kubernetes. Once the VM
     is ready you will see a green start button in the bottom right hand corner.
@@ -36,7 +36,7 @@ timelimit: 300
 
 Welcome to your personal Kubernetes cluster! 🏡
 
-You can see two tabs on the top left. One named `K8s Shell` tab and the other `Code editor`.
+There are two tabs on the top left. One named `K8s Shell` tab and the other `Code editor`.
 
 Throughout this course you will use `K8s Shell` to interact with your Kubernetes (K8s) cluster.
 
@@ -48,7 +48,7 @@ kubectl get namespaces
 
 > 💡 You can copy this command by clicking anywhere in the text box and then paste it into the terminal
 
-And in the `Code editor` tab you can create and edit files in a [Visual Studio Code](https://code.visualstudio.com/) style environment.
+And in the `Code editor` tab create and edit files in a [Visual Studio Code](https://code.visualstudio.com/) style environment.
 
 To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
 
@@ -69,7 +69,7 @@ kubectl apply \
   --filename .example-namespace.yaml
 ```
 
-You can confirm your namespace has been created by running the first get namespaces command again:
+Confirm your namespace has been created by running the first get namespaces command again and seeing a much newer namespace called `example` at the bottom of the list:
 ```
 kubectl get namespaces
 ```

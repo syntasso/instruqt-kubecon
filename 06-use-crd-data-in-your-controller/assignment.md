@@ -58,7 +58,7 @@ This code has three key parts:
 
 > 💡 the use of `omitempty` in the json tag is how a field is marked optional. This was added to the `foo` example, but since name is required it is not included.
 
-In order to watch the impact of updating this CRD, you can use the `Run Shell` to watch changes to the CRD properties. The following command will print the current values, and then add any changes as a new line:
+In order to watch the impact of updating this CRD, use the `Run Shell` to watch changes to the CRD properties. The following command will print the current values, and then add any changes as a new line:
 
 ```
 kubectl get crds websites.kubecon.my.domain --output jsonpath="{.spec.versions[0].schema['openAPIV3Schema'].properties.spec.properties}{\"\n\"}" --watch | jq
@@ -75,7 +75,7 @@ Initially you will see the property `foo`:
 }
 ```
 
-Now you can move to the `K8s Shell` tab and rerun:
+Now move to the `K8s Shell` tab and rerun:
 
 ```
 make install
@@ -107,7 +107,7 @@ kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0]
 👯‍♂️ Using this field in the controller
 ==============
 
-Now that there is a new `imageTag` field, you can use this to personalize the log line. Change the existing log line found at `website_controller.go:57` in the controller to:
+Now that there is a new `imageTag` field, the log line can be personalized. Change the existing log line found at `website_controller.go:57` in the controller to:
 
 ```
   // Use the `ImageTag` field from the website spec to personalise the log
@@ -130,7 +130,7 @@ INFO    Hello website reconciler with tag ""! ...
 
 This is because your Website resource does not have an imageTag set. To fix this, edit the existing website request to include an imageTag and you will see the log line use that imageTag.
 
-To edit your website custom resource you can use the `K8s Shell` tab to run:
+To edit your website custom resource use the `K8s Shell` tab to run:
 
 ```
 kubectl patch \

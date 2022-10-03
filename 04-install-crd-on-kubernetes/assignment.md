@@ -37,11 +37,11 @@ This CRD is first written in Golang code found in your `Code editor` tab under `
 
 You may not be familiar with Golang, but that is OK.
 
-Have a look in the document for the `type WebsiteSpec`. Think of this as the code definition of the Kubernetes object `spec`.
+Have a look in the document `api/v1beta1/website_types.go` for the `type WebsiteSpec struct`. Think of this as the code definition of the Kubernetes object `spec`.
 
-You can see here in `api/v1beta1/website_types.go:32` that there is a field called `foo` and there is a helpful comment above it describing the use of `foo`.
+In `api/v1beta1/website_types.go:32` there is a field called `foo` and there is a helpful comment above it describing the use of `foo`.
 
-The reason this is defined first in Golang is to allow reference from the Golang controller. You will get experience using this a few challenges from now.
+The reason this is defined first in Golang is to allow reference these fields from the Golang controller. You will get experience using this a few challenges from now.
 
 
 👩🏾‍💻 Creating a yaml version
@@ -55,7 +55,7 @@ The `install` make target handles all this heavy lifting through its prerequisit
 
 > install: manifests kustomize
 
-Now you can run the prerequisite target `manifests` manually to view the Golang translated into yaml:
+Now run the prerequisite target `manifests` manually in the `K8s Shell` tab to view the Golang translated into yaml:
 
 ```
 make manifests
@@ -63,7 +63,7 @@ make manifests
 
 Return to the `Code editor` tab to see a new file populated in the `bases` directory you previously did not see. Find the field `foo` in this yaml to see how it has been translated from Golang.
 
-In particular, look at `config` > `crd` > `bases` > `kubecon.my.domain_websites.yaml` on line 37 and you will see that there is a single property of the `WebsiteSpec` schema. That property is `foo` and it has used the helpful comment as a property description.
+In particular, `config` > `crd` > `bases` > `kubecon.my.domain_websites.yaml:37` lists the website properties found in the `WebsiteSpec` schema. That property is `foo` and it has used the helpful comment as a property description.
 
 Now it is time to actually put this CRD into your Kubernetes cluster.
 
@@ -79,7 +79,7 @@ To see current state of your cluster, start by viewing all current CRDs in the K
 kubectl get crds
 ```
 
-As you can see that while there are other CRDs installed, website is not on the list.
+While there are other CRDs installed, website is not yet on the list.
 
 Now run the make command to install your new website CRD:
 

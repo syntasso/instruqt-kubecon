@@ -85,6 +85,8 @@ echo '
   "security.workspace.trust.emptyWindow": false,
   "security.workspace.trust.untrustedFiles": "open",
 
+  "update.showReleaseNotes": false,
+
   "workbench.colorTheme": "Default Dark+"
 }
 ' > ${CODE_SERVER_PATH}/User/settings.json

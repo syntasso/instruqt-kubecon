@@ -74,7 +74,7 @@ In order to provide access to work with deployments, you need to add the followi
 //+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 ```
 
-This is fairly broad permissions since it allows all verbs, but you can limit these based on very specific needs. Kubebuilder will then translate this into the necessary service accounts when you build the deployment.
+This is fairly broad permissions since it allows all verbs, but these can be limited these based on very specific needs. Kubebuilder will then translate this into the necessary service accounts when you build the deployment.
 
 🧞 Creating a deployment for your current website
 ==============
@@ -102,20 +102,20 @@ kubectl get deployments
 
 You should now see a single deployment with 2 replicas starting.
 
-To see more details, you can run:
+To see more details, run:
 
 ```
 kubectl describe deployment
 ```
 
-In particular you can see the parts that your code configures including number of `Replicas` and `Labels`.
+In particular look for the parts that your code configures including number of `Replicas` and `Labels`.
 
 🧨 But what happens on update?
 ==============
 
 While creating a deployment is an exciting and real world use case for your controller, what happens if it is updated?
 
-You can test this by just stopping and restarting your controller. To stop you controller go to the `Run Shell` tab and use `ctrl+c`. Then restart with the same `make run` command you used before.
+Test this by just stopping and restarting your controller. To stop you controller go to the `Run Shell` tab and use `ctrl+c`. Then restart with the same `make run` command you used before.
 
 You will see the log line but then an error trace something like:
 
