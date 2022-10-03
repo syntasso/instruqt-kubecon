@@ -74,7 +74,8 @@ echo '
   "extensions.autoCheckUpdates": false,
 
   "files.autoSave": "afterDelay",
-
+  "files.autoSaveDelay": 100,
+  
   "go.formatTool": "goimports",
 
   "redhat.telemetry.enabled": false,

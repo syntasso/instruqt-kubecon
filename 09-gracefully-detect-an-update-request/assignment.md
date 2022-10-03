@@ -33,7 +33,7 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-timelimit: 480
+timelimit: 600
 ---
 
 🙉 Why is the operator so noisy
@@ -56,10 +56,10 @@ While there is a lot to unpack to handle these scenarios in a robust fashion, yo
 
 To do this, you need to add a conditional inside of where you catch the create error.
 
-For example, in the deployment create method, you already catch the error around line 68:
+For example, in `Code editor` tab navigate to `website_controller.go` and look for the following code snippet that you previously added (around line 77):
 
 ```
-  err := r.createDeployment(ctx, customResource)
+  err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
   if err != nil {
     log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
     return ctrl.Result{}, err
@@ -68,7 +68,7 @@ For example, in the deployment create method, you already catch the error around
 
 Now all you need to do is replace that error catch with this more detailed handler:
 ```
-  err := r.createDeployment(ctx, customResource)
+  err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
   if err != nil {
     if errors.IsAlreadyExists(err) {
       // TODO: handle updates gracefully
@@ -81,10 +81,10 @@ Now all you need to do is replace that error catch with this more detailed handl
   }
 ```
 
-Do the same type of change when catching the error for creating a service as well:
+Just below the creation of the deployment, you also create a service which can fail for the same reason. Make the same type of change when catching create new service function by replacing the existing call and error handling with the below snippet:
 
 ```
-  err = r.createService(ctx, customResource)
+  err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
   if err != nil {
     if errors.IsAlreadyExists(err) {
       // TODO: handle updates gracefully
@@ -100,7 +100,7 @@ Do the same type of change when catching the error for creating a service as wel
 😌 Running your operator in peace
 ==============
 
-Once these two changes are in place, try stopping and starting your operator by running `make run` in the `Run Shell`.
+Once these two changes are in place, try stopping your controller using `ctrl+c` in the `Run Shell` tab and then restarting your operator in the same tab using `make run`.
 
 You should no longer see any error tracing, only the error log for visibility.
 

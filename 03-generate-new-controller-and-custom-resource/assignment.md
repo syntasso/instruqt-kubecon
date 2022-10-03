@@ -26,7 +26,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 300
+timelimit: 600
 ---
 
 🐾 Dreaming of a pet smile website

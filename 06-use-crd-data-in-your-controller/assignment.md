@@ -32,7 +32,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 360
+timelimit: 600
 ---
 
 🆙 Updating the CRD fields
@@ -107,14 +107,14 @@ kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0]
 👯‍♂️ Using this field in the controller
 ==============
 
-Now that there is a new `imageTag` field, the log line can be personalized. Change the existing log line found at `website_controller.go:57` in the controller to:
+Now that there is a new `imageTag` field, the log line can be personalized. Change the existing line that starts with `log.Info` found at `website_controller.go` in the controller to instead be:
 
 ```
   // Use the `ImageTag` field from the website spec to personalise the log
   log.Info(fmt.Sprintf(`Hello website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
 ```
 
-Once these changes are made, use the `Run Shell` tab to again run the controller application locally:
+Once these changes are made, save the file with `ctrl+s` and then navigate to the `Run Shell` tab to again run the controller application locally:
 
 ```
 make run
@@ -130,7 +130,7 @@ INFO    Hello website reconciler with tag ""! ...
 
 This is because your Website resource does not have an imageTag set. To fix this, edit the existing website request to include an imageTag and you will see the log line use that imageTag.
 
-To edit your website custom resource use the `K8s Shell` tab to run:
+To edit your website custom resource to set the `imageTag` field to `latest` use the `K8s Shell` tab to run:
 
 ```
 kubectl patch \
@@ -140,7 +140,7 @@ kubectl patch \
   --patch='{"spec":{"imageTag": "latest"}}'
 ```
 
-And now you view the controller logs in the `Run Shell` tab to see the newest log line reference your name:
+And now view the controller logs in the `Run Shell` tab to see the newest log line reference your `imageTag` field value:
 
 ```
 INFO    Hello website reconciler with tag "latest"! ...

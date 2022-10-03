@@ -8,7 +8,7 @@ teaser: Extend the controller to complete a deployment of your website as custom
 notes:
 - type: text
   contents: |-
-    Log lines allow you to understand when the reconcile loop is called, but now it is time to use your operator to control an application.
+    Log lines allow you to understand when the reconcile loop is called, but now it is time to use your operator to actually operate an application.
 
     **In this challenge you will:**
     * Create a deployment to run your website whenever the controller reconciles
@@ -27,7 +27,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 480
+timelimit: 600
 ---
 
 ✅ Some new setup has been completed
@@ -35,7 +35,7 @@ timelimit: 480
 
 Since you finished the last challenge, a change has been made to your controller.
 
-Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createDeployment`.
+Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `newDeployment`.
 
 This function encapsulates the necessary Golang code to create a customized deployment for your website.
 
@@ -44,13 +44,7 @@ However, you still need to call this function in the Reconcile loop.
 ✍🏾 Creating a deployment in the reconcile loop
 ==============
 
-To use the newly available `createDeployment` function, you need to:
-
-1. Call the method from on the `WebReconciler` object
-1. Provide both the context (`ctx`) and triggering resource (`customResource`) as parameters
-1. Catch and then handle the error return value
-
-The below snippet does all of these things and can be added directly under the log line in your reconcile loop:
+This `newDeployment` function can be called using the following snippet. You should place this snippet directly below the log line you edited in the last challenge:
 ```
   // Attempt to create the deployment and return error if it fails
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
@@ -93,7 +87,7 @@ To see this, go to the `Run Shell` tab and start the controller again with:
 make run
 ```
 
-You should see the same log lines as before including a hello to your resource.
+You should see the same log lines as before including the reference to `latest` imageTag.
 
 Once you see this log go back to the `K8s Shell` tab and check for deployments with:
 ```
@@ -102,13 +96,7 @@ kubectl get deployments
 
 You should now see a single deployment with 2 replicas starting.
 
-To see more details, run:
-
-```
-kubectl describe deployment
-```
-
-In particular look for the parts that your code configures including number of `Replicas` and `Labels`.
+> 💡 To see more details about this deployment, run `kubectl describe deployment` and look for configurations that your code sets like number of `Replicas` and `Labels`.
 
 🧨 But what happens on update?
 ==============

@@ -33,7 +33,7 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-timelimit: 360
+timelimit: 600
 ---
 
 ✅ Some new setup has been completed
@@ -41,7 +41,7 @@ timelimit: 360
 
 Once again, a small helper function has been added to your controller between challenges.
 
-Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `createService`.
+Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `newService`.
 
 This function encapsulates the necessary Golang code to create a customized service for your website.
 
@@ -50,13 +50,7 @@ However, just as with the deployment, you still need to call this function in th
 ✍🏾 Creating the service during reconcile
 ==============
 
-Just as with the deployment method, you need to:
-
-1. Call the method from on the `WebReconciler` object
-1. Provide both the context (`ctx`) and triggering resource (`customResource`) as parameters
-1. Catch and then handle the error return value
-
-The below snippet does all of these things and can be added directly under the deployment snippet in your reconcile loop (around line 73):
+Just as with the deployment method, you need to use the following snippet to call the the new function with the necessary parameters and then catch any errors. Add this snippet directly under the recently added deployment snippet in your reconcile loop (around line 80) making sure to keep the `return` statement as the last line of the `Reconcile` function:
 ```
   // Attempt to create the service and return error if it fails
   err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
@@ -66,7 +60,7 @@ The below snippet does all of these things and can be added directly under the d
   }
 ```
 
-> 💡 This needs to be after the call to `createDeployment` since it assumes `err` has already been set. Otherwise you may get an error when trying to run this code.
+> 💡 This needs to be after the call to `newDeployment` since it assumes `err` has already been set. Otherwise you may get an error when trying to run this code.
 
 🛂 Permissions to work with services
 =============
@@ -89,9 +83,14 @@ You may have a pre-existing deployment in your cluster which your operator does 
 kubectl delete deployment --selector=type=Website
 ```
 
-Once deleted, call `make run` in the `Run Shell` tab and that will run your controller application again and result in a new deployment being created along with your new service.
+Once deleted, go to the `Run Shell` tab and:
+```
+make run
+```
 
-See this service by running the following command in your `K8s Shell` tab:
+This will run your controller application again and result in a new deployment being created along with your new service.
+
+See this service by running the following command in your `K8s Shell` tab ✨:
 
 ```
 kubectl get service --selector=type=Website

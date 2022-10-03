@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source /root/.bashrc > /dev/null 2>&1
+
+echo '
+apiVersion: kubecon.my.domain/v1beta1
+kind: Website
+metadata:
+  name: website-sample
+spec:
+  imageTag: latest
+' >> ${DEMO_HOME:?}/config/samples/kubecon_v1beta1_website-with-image-tag.yaml

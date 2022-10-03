@@ -35,7 +35,7 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-timelimit: 480
+timelimit: 600
 ---
 
 👯‍♂️ Why delete is an interesting use case
@@ -81,12 +81,12 @@ sigs.k8s.io/controller-runtime/pkg/...
 
 > 💡 This error may be repeated many times as the reconcile loop will continue to try and reconcile after failures.
 
-Now you know it is the error `not found` that indicates when the reconcile is occuring on a deleted resource.
+In specific, you can see the `error` is stated as `"Website.kubecon.my.domain \"website-sample\" not found"` which means you now know that the error type `not found` indicates when the reconcile runs for a deleted resource.
 
 🫴🏾 Gracefully catching the delete error
 ==============
 
-With your new knowledge of a delete error being `not found`, it is time to add a conditional statement into the error block. When you catch the error fetching the custom resource around line 62, you should edit the error block to read:
+With your new knowledge of a delete error being `not found`, it is time to return to `website_controller.go` in your `Code editor` tab and add a conditional statement into the error block. When you catch the error fetching the custom resource around line 62, you should edit the error block to read:
 
 ```
   // Start by declaring the custom resource to be type "Website"
