@@ -28,7 +28,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 300
+
 ---
 
 👋🏾 Introduction
