@@ -18,5 +18,6 @@ developers:
 - abby@syntasso.io
 private: true
 published: false
+show_timer: true
 skipping_enabled: true
-checksum: "16832402732284716423"
+checksum: "16096176929448970583"
