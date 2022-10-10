@@ -31,7 +31,6 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-
 ---
 
 🕵️ Understanding how the controller is created

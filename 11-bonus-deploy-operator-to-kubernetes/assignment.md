@@ -36,7 +36,6 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-
 ---
 
 🎁 Creating your operator release

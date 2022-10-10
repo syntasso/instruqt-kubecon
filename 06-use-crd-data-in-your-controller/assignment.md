@@ -32,7 +32,6 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-
 ---
 
 🆙 Updating the CRD fields

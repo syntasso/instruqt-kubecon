@@ -35,7 +35,6 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-
 ---
 
 👯‍♂️ Why delete is an interesting use case

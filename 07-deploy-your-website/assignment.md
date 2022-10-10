@@ -27,7 +27,6 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-
 ---
 
 ✅ Some new setup has been completed

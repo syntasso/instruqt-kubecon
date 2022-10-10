@@ -33,7 +33,6 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-
 ---
 
 🙉 Why is the operator so noisy

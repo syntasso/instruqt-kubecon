@@ -28,7 +28,6 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-
 ---
 
 👋🏾 Introduction

@@ -9,3 +9,4 @@ cp -R /root/kubecon-instruqt-solutions/09-gracefully-detect-an-update-request ${
 
 cd ${DEMO_HOME:?}
 make install
+kubectl apply --filename config/samples/kubecon_v1beta1_website-with-image-tag.yaml

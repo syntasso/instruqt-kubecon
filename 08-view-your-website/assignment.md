@@ -33,7 +33,6 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-
 ---
 
 ✅ Some new setup has been completed
