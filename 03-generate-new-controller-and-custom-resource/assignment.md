@@ -26,6 +26,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
+timelimit: 600
 ---
 
 🐾 Dreaming of a better todo app

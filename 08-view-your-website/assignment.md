@@ -33,6 +33,7 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
+timelimit: 600
 ---
 
 ✅ Some new setup has been completed

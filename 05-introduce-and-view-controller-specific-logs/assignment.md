@@ -31,6 +31,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
+timelimit: 600
 ---
 
 🕵️ Understanding how the controller is created
