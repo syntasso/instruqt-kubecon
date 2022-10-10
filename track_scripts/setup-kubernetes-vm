@@ -74,7 +74,7 @@ echo '
   "extensions.autoCheckUpdates": false,
 
   "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 100,
+  "files.autoSaveDelay": 10,
   
   "go.formatTool": "goimports",
 

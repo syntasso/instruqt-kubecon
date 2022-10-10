@@ -29,12 +29,12 @@ difficulty: basic
 timelimit: 1
 ---
 
-🐾 Dreaming of a better todo app
+☑️ Dreaming of a better todo app
 ==============
 
 While you already have a working Golang application, it is time to add some business logic to create a useful (albeit, simple) operator.
 
-In this case, imagine you want to create a better todo application experience.
+In this case, imagine you want to create a better todo application experience (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)).
 
 You have already packaged your perfected user experience as a container image and want to now make it ready for the world. You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) and want to make sure that your deployment choices automate as much of the operations of this site as possible.
 
