@@ -8,7 +8,7 @@ teaser: Continue to extend the controller, this time to include a service that e
 notes:
 - type: text
   contents: |-
-    A website is only fun if it is visible! It is time to expose your dog smile website outside of Kubernetes.
+    A website is only fun if it is visible! It is time to expose your todo application outside of Kubernetes.
 
     **In this challenge you will:**
     * Deploy a service to expose your deployment on a NodePort
@@ -101,7 +101,7 @@ More excitingly, view the website now in the new `Website` tab next to your `Cod
 📕 Summary
 ==============
 
-I hope that look of pure join on the dog's face made all your hard work worth it! 🐶
+Application is up! You can check that off your todo list now ☑😉
 
 You can now create an externally accessible webpage given only a minimally configured custom resource. However, once created there really isn't much to do since creating or deleting the Website custom resource causes an error.
 

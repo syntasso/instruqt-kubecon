@@ -33,7 +33,7 @@ func newDeployment(name, namespace, imageTag string) *appsv1.Deployment {
               Name: "nginx",
               // This is a publicly available container.  Note the use of
               //`imageTag` as defined by the original resource request spec.
-              Image: fmt.Sprintf("abangser/kubecon-dog-website:%s", imageTag),
+              Image: fmt.Sprintf("abangser/todo-local-storage:%s", imageTag),
               Ports: []corev1.ContainerPort{{
                 ContainerPort: 80,
               }},

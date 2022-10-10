@@ -26,17 +26,17 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 600
+timelimit: 300
 ---
 
-🐾 Dreaming of a pet smile website
+🐾 Dreaming of a better todo app
 ==============
 
 While you already have a working Golang application, it is time to add some business logic to create a useful (albeit, simple) operator.
 
-In this case, imagine you want to run a website to bring the joy of pet smiles to the world and want to start with a website of dog smiles.
+In this case, imagine you want to create a better todo application experience.
 
-You have already packaged your perfected website as a container image and want to now make it ready for the world. You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) and want to make sure that your deployment choices automate as much of the operations of this site as possible.
+You have already packaged your perfected user experience as a container image and want to now make it ready for the world. You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) and want to make sure that your deployment choices automate as much of the operations of this site as possible.
 
 To do this, you have settled on deploying to Kubernetes and want to do so via an operator. To get started, your plan is to support:
 
@@ -44,7 +44,7 @@ To do this, you have settled on deploying to Kubernetes and want to do so via an
 * Acknowledging when a request will _**update**_ an existing website
 * _**Delete**_ a website upon request
 
-You realise there are a lot more things that you will want to operate in the future (e.g. backups) but these lifecycle tasks will set a foundation for a more complex operator to succeed.
+You realise there are a lot more things that you will want to operate in the future (e.g. moving to remote storage, storage backups) but these lifecycle tasks will set a foundation for a more complex operator to succeed.
 
 
 👩🏾‍💻 First, create the controller and resource
@@ -67,7 +67,7 @@ kubebuilder create api \
   --controller true
 ```
 
-The next two challenges will dive into what these two items actually create in your code base and how they work together to operate your dog smile website.
+The next two challenges will dive into what these two items actually create in your code base and how they work together to operate your todo application.
 
 
 📕 Summary
@@ -77,7 +77,7 @@ Congratulations, you have officially generated your first operator!
 
 At this stage, Kubebuilder has wired up two key components for your operator:
 
-1. A Resource in the form of a Custom Resource Defintion (CRD) with the kind `Website`.
+1. A Resource in the form of a Custom Resource Definition (CRD) with the kind `Website`.
 2. A Controller that runs each time a `Website` CRD is create, changed, or deleted.
 
 Next up, you will explore these two components in more detail.
