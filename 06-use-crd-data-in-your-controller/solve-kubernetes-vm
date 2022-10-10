@@ -9,4 +9,5 @@ cp -R /root/kubecon-instruqt-solutions/06-use-crd-data-in-your-controller ${DEMO
 
 cd ${DEMO_HOME:?}
 make install
+kubectl delete websites.kubecon.my.domain website-sample
 kubectl apply --filename config/samples/kubecon_v1beta1_website-with-image-tag.yaml
