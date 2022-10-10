@@ -25,7 +25,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 600
+timelimit: 1
 ---
 
 🧬 Viewing the generated CRD code

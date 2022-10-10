@@ -27,7 +27,7 @@ tabs:
   path: /
   port: 8443
 difficulty: basic
-timelimit: 600
+timelimit: 1
 ---
 
 ✅ Some new setup has been completed
