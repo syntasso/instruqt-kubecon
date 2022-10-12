@@ -74,6 +74,8 @@ image: controller:latest
 imagePullPolicy: IfNotPresent
 ```
 
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+
 
 🛫 Deploying to Kubernetes
 ==============

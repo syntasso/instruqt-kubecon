@@ -73,8 +73,10 @@ echo '
   "extensions.autoUpdate": false,
   "extensions.autoCheckUpdates": false,
 
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 10,
+  // Removing autosave as it does not properly run goimports
+  "files.autoSave": "off"
+  // "files.autoSave": "afterDelay",
+  // "files.autoSaveDelay": 10,
   
   "go.formatTool": "goimports",
 

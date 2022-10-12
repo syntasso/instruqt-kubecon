@@ -50,6 +50,8 @@ Below is the code for this field, use this in the place of the existing `foo` fi
   ImageTag string `json:"imageTag"`
 ```
 
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+
 This code has three key parts:
 
 1. `//+kubebuilder` is a comment prefix that will trigger kubebuilder generation changes. In this case, it will set a validation of the field value to only allow dashes, lowercase letters, or digits.
@@ -114,7 +116,9 @@ Now that there is a new `imageTag` field, the log line can be personalized. Chan
   log.Info(fmt.Sprintf(`Hello website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
 ```
 
-Once these changes are made, save the file with `ctrl+s` and then navigate to the `Run Shell` tab to again run the controller application locally:
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+
+Once these changes are made and saved, navigate to the `Run Shell` tab to again run the controller application locally:
 
 ```
 make run

@@ -44,7 +44,7 @@ However, you still need to call this function in the Reconcile loop.
 ✍🏾 Creating a deployment in the reconcile loop
 ==============
 
-This `newDeployment` function can be called using the following snippet. You should place this snippet directly below the log line you edited in the last challenge:
+This `newDeployment` function can be called using the following snippet. You should place this snippet in the `Code editor` tab in the `controllers/website_controller.go` file directly below the log line you edited in the last challenge:
 ```
   // Attempt to create the deployment and return error if it fails
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
@@ -54,6 +54,8 @@ This `newDeployment` function can be called using the following snippet. You sho
   }
 ```
 
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+
 🛂 Permissions for the operator
 ==============
 
@@ -61,12 +63,14 @@ It is all well and good to tell the operator to create a deployment, but is it a
 
 With this new change, we now need the operator to be allowed to work with deployments. Kubebuilder provides a mechanism to do this very easily through comments much like those used in the CRD fields.
 
-If you look near the top of the controller file you should see some comment lines that start with `//+kubebuilder:rbac`. Each line describes a single RBAC permission.
+If you look near the top of the `controllers/website_controller.go` file in the `Code editor` tab you should see some comment lines that start with `//+kubebuilder:rbac` (around line 45). Each line describes a single RBAC permission.
 
 In order to provide access to work with deployments, you need to add the following permission line:
 ```
 //+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 ```
+
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
 
 This is fairly broad permissions since it allows all verbs, but these can be limited these based on very specific needs. Kubebuilder will then translate this into the necessary service accounts when you build the deployment.
 

@@ -99,6 +99,8 @@ Just below the creation of the deployment, you also create a service which can f
   }
 ```
 
+**💾 Once these changes are complete. Remember to save the file which with `ctrl+s`.**
+
 😌 Running your operator in peace
 ==============
 

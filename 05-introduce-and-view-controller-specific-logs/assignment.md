@@ -91,6 +91,8 @@ To do this, replace the contents of the current function (lines 50 to 54) with t
   return ctrl.Result{}, nil
 ```
 
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+
 What this code snipped does is:
 
 1. Assign the logger to a variable

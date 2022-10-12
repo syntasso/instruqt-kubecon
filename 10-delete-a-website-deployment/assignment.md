@@ -107,7 +107,9 @@ With your new knowledge of a delete error being `not found`, it is time to retur
   }
 ```
 
-Now make sure to retart the operator in your `Run Shell` tab using `ctrl+c` to cancel the previous run and `make run` to restart it.
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+
+Now make sure to restart the operator in your `Run Shell` tab using `ctrl+c` to cancel the previous run and `make run` to restart it.
 
 With the new version of your code running, test your change by adding a new Website resource and promptly deleting it from your `K8s Shell` tab:
 
@@ -165,6 +167,8 @@ To complete the deletes, replace the code inside the new error catch block `if e
   }
   return ctrl.Result{}, nil
 ```
+
+**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
 
 💪🏿 Seeing your deletes in action
 ==============
