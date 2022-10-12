@@ -3,7 +3,7 @@ slug: generate-new-controller-and-custom-resource
 id: adhjrg6fqgds
 type: challenge
 title: Generate a new controller and custom resource
-teaser: Use Kubebuilder to generate an controller and corresponding custom resource
+teaser: Use Kubebuilder to generate a controller and corresponding custom resource
   (CRD) for your new business.
 notes:
 - type: text

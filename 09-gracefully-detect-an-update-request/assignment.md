@@ -49,6 +49,8 @@ To see this happen, restart your operator in the `Run Shell` tab with:
 make run
 ```
 
+To stop this error loop, just stop the controller running with `ctrl+c`.
+
 🤫 Not erroring on update
 ==============
 

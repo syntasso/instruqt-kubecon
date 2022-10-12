@@ -77,7 +77,7 @@ kubectl get namespaces
 📕 Summary
 ==============
 
-Congratulations! You have know navigated your way around the platform and are ready to create your first operator.
+Congratulations! You have now navigated your way around the platform and are ready to create your first operator.
 
 To continue to the next challenge, use the green `Check` button at the bottom right of the screen to validate your current work and prepare the next challenge.
 

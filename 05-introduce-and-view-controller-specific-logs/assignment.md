@@ -37,7 +37,7 @@ timelimit: 1
 🕵️ Understanding how the controller is created
 ==============
 
-When you selected to create an controller along with the Resource, Kubebuilder took care of some key setup:
+When you selected to create a controller along with the Resource, Kubebuilder took care of some key setup:
 
 1. Start the controller process during application boot
 1. Implement a custom `Reconcile` function run on each resource event
@@ -61,7 +61,7 @@ Navigate to `controllers/website_controller.go:58` to view this function already
 
 Finally, look a bit further up in that same `website_controller.go` file to see how the `func (r *WebsiteReconciler) Reconcile` function has been generated. This is left nearly empty as this is where the core of your business logic will be added.
 
-While this is an error free implementation, you wouldn't really be able to tell if it worked since there is are no side effects `Reconcile` function, not even any logs!
+While this is an error free implementation, you wouldn't really be able to tell if it worked since there are no side effects `Reconcile` function, not even any logs!
 
 🪵 Logging from the controller
 ==============
@@ -102,7 +102,7 @@ What this code snipped does is:
 🏃🏿‍♀️ Running your application locally
 ==============
 
-You may have noticed a third tab on this challenge called `Run Shell`. This has been introduced to allow a long running process in one Shell while ongoing commands in the other. It is just another session on the same machine, so the only difference with the `K8s Shell` tab is in the title!
+You may have noticed a third tab on this challenge called `Run Shell`. This has been introduced to allow a long running process in one Shell while ongoing commands are in the other. It is just another session on the same machine, so the only difference with the `K8s Shell` tab is in the title!
 
 In the `Run Shell` tab, start up your newly updated application with:
 

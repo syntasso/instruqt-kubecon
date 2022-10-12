@@ -95,7 +95,7 @@ Once this command has completed, return to the `Run Shell` tab and you should se
 
 Now that you have seen this, feel free to stop the "watch" command by pressing `ctrl+c` in the `Run Shell` tab.
 
-You can also see this is required in the CRD by either navigating in the `Code editor` tab or with the following command:
+You can also see this is required in the CRD by either navigating in the `Code editor` tab or with the following command (in the `K8s Shell`):
 
 ```
 kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0].schema.openAPIV3Schema.properties.spec}" | jq
@@ -107,7 +107,7 @@ kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0]
 👯‍♂️ Using this field in the controller
 ==============
 
-Now that there is a new `imageTag` field, the log line can be personalized. Change the existing line that starts with `log.Info` found at `website_controller.go` in the controller to instead be:
+Now that there is a new `imageTag` field, the log line can be personalized. Change the existing line that starts with `log.Info` found at `website_controller.go` in the controller to instead be (around line 67):
 
 ```
   // Use the `ImageTag` field from the website spec to personalise the log
