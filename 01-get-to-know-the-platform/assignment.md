@@ -62,7 +62,7 @@ metadata:
   name: example
 ```
 
-When you edit the file, you will see the top of the tab look like a white dot. This indicates a change is not yet saved. Press `ctrl+s` to save the file.
+When you edit the file, you will see the top of the tab look like a white dot. This indicates a change is not yet saved. Press `ctrl+s` (or `⌘ + s` on a mac) to save the file.
 
 Now the real power is in your ability to create files in the code editor and then run those files in the shell. Return to the `K8s Shell` tab and apply this edited file to your cluster using the following command:
 

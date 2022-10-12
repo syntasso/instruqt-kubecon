@@ -91,7 +91,7 @@ To do this, replace the contents of the current function (lines 50 to 54) with t
   return ctrl.Result{}, nil
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 What this code snipped does is:
 

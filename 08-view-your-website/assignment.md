@@ -60,7 +60,7 @@ Just as with the deployment method, you need to use the following snippet to cal
   }
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 > 💡 This needs to be after the call to `newDeployment` since it assumes `err` has already been set. Otherwise you may get an error when trying to run this code.
 
@@ -73,7 +73,7 @@ Just as with the deployment we need to add permission for the operator to work w
 //+kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 
 ✏️ Testing this logic

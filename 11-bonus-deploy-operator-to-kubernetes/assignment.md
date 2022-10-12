@@ -64,17 +64,16 @@ Then import this to the cluster using:
 k3s ctr images import /root/demo/controller-latest.tar
 ```
 
-TODO: Set this up as a new kustomization!
+[//]: <> (⚠️ TODO: Set this up as a new kustomization!)
 
 Now you need to make sure your operator will use the local image when present. To do this, you need to set the [imagePullPolicy](https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy) to `IfNotPresent`.
 
-config/manager/manager.yaml:41
+Make this change in `config/manager/manager.yaml:41` by adding a pull policy directly under the image line:
 ```
-image: controller:latest
 imagePullPolicy: IfNotPresent
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 
 🛫 Deploying to Kubernetes

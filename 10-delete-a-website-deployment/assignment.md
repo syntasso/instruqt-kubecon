@@ -107,7 +107,7 @@ With your new knowledge of a delete error being `not found`, it is time to retur
   }
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 Now make sure to restart the operator in your `Run Shell` tab using `ctrl+c` to cancel the previous run and `make run` to restart it.
 
@@ -168,7 +168,7 @@ To complete the deletes, replace the code inside the new error catch block `if e
   return ctrl.Result{}, nil
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 💪🏿 Seeing your deletes in action
 ==============

@@ -54,7 +54,7 @@ This `newDeployment` function can be called using the following snippet. You sho
   }
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 🛂 Permissions for the operator
 ==============
@@ -70,7 +70,7 @@ In order to provide access to work with deployments, you need to add the followi
 //+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 ```
 
-**💾 Once this change is complete. Remember to save the file which with `ctrl+s`.**
+**💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
 This is fairly broad permissions since it allows all verbs, but these can be limited these based on very specific needs. Kubebuilder will then translate this into the necessary service accounts when you build the deployment.
 
