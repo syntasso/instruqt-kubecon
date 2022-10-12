@@ -132,9 +132,7 @@ As before, this run command may take a bit of time, but when the command complet
 INFO    Hello website reconciler with tag ""! ...
 ```
 
-This is because your Website resource does not have an imageTag set. To fix this, edit the existing website request to include an imageTag and you will see the log line use that imageTag.
-
-To edit your website custom resource to set the `imageTag` field to `latest` use the `K8s Shell` tab to run:
+This is because your Website resource does not have an `imageTag` set. To fix this, you will need to edit the existing website request to include an `imageTag`. To edit your website custom resource to set the `imageTag` field to `latest` use the `K8s Shell` tab to run:
 
 ```
 kubectl patch \
