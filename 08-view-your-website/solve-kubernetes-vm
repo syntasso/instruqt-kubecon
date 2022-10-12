@@ -9,5 +9,5 @@ cp -R /root/kubecon-instruqt-solutions/08-view-your-website ${DEMO_HOME:?}
 
 cd ${DEMO_HOME:?}
 make install
-kubectl delete websites.kubecon.my.domain website-sample
+kubectl delete websites.kubecon.my.domain website-sample || true
 kubectl apply --filename config/samples/kubecon_v1beta1_website-with-image-tag.yaml
