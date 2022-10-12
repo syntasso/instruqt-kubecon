@@ -49,6 +49,8 @@ Kubebuilder of course knows this and again provides the Make command you need. I
 make docker-build
 ```
 
+> ⏳ Note that this docker build may take a few minutes!
+
 This docker image is currently only usable on your local computer. Typically you would look to tag and push this image to a repository in the cloud so that your Kubernetes cluster could pull it down from the internet. Today you will not be doing this.
 
 ⬆️ Uploading your image locally
@@ -90,6 +92,8 @@ Once applied, view the running operator using:
 ```
 kubectl --namespace demo-system get deployments
 ```
+
+If it is not healthy when you first check, you can use the `--watch` flag on your previous command, or just try again. It should take no more than about 15 seconds to start healthy.
 
 🛝 Using the operator in Kubernetes
 ==============

@@ -38,7 +38,7 @@ difficulty: basic
 timelimit: 1
 ---
 
-👯‍♂️ Why delete is an interesting use case
+🫥 Why delete is an interesting use case
 ==============
 
 Now your operator can create new resources, and is ready to deal with updates as well. The last major CRUD functionality is to deal with delete requests.
