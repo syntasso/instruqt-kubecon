@@ -8,15 +8,15 @@ teaser: Enhance your generic log line to reference CRD defined data from inside 
 notes:
 - type: text
   contents: |-
-    You have seen how requesting a custom resource of type Website can trigger the controller application.
+    You have seen how requesting a custom resource of type Website can trigger the controller.
 
-    Now it is time to make the Website CRD truly custom and have the controller use the custom data provided as a part of the CRD spec.
+    Now it is time to make the Website CRD truly custom and have the controller use the custom data that is provided as a part of the CRD spec.
 
     **In this challenge you will:**
     * Introduce a new CRD field
     * Reinstall the now updated CRD into Kubernetes
     * Reference the CRD field in the controller
-    * Run the updated controller application to test local changes
+    * Run the updated controller to test local changes
 tabs:
 - title: K8s Shell
   type: terminal
@@ -38,7 +38,7 @@ timelimit: 1
 🆙 Updating the CRD fields
 ==============
 
-Earlier you had a look at the Golang representation of the CRD. Return to the `Code editor` tab and view this file again by navigating to `api/v1beta1/website_types.go`.
+Earlier you looked at the Golang representation of the CRD. Return to the `Code editor` tab and view this file again by navigating to `api/v1beta1/website_types.go`.
 
 In this CRD there is currently an optional field called `foo` but now we will replace that with a more useful, and required, field called `imageTag`.
 
@@ -60,7 +60,7 @@ This code has three key parts:
 
 > 💡 the use of `omitempty` in the json tag is how a field is marked optional. This was added to the `foo` example, but since name is required it is not included.
 
-In order to watch the impact of updating this CRD, use the `Run Shell` to watch changes to the CRD properties. The following command will print the current values, and then add any changes as a new line:
+To see this change in action, use the `Run Shell` to watch changes to the CRD properties. The following command will print the current values, and then add any changes as a new line:
 
 ```
 kubectl get crds websites.kubecon.my.domain --output jsonpath="{.spec.versions[0].schema['openAPIV3Schema'].properties.spec.properties}{\"\n\"}" --watch | jq
@@ -97,13 +97,17 @@ Once this command has completed, return to the `Run Shell` tab and you should se
 
 Now that you have seen this, feel free to stop the "watch" command by pressing `ctrl+c` in the `Run Shell` tab.
 
-You can also see this is required in the CRD by either navigating in the `Code editor` tab or with the following command (in the `K8s Shell`):
+You can see that the new `imageTag` is required in the CRD in two ways. 
+
+In the `Code editor` tab, in the `api/v1beta1/website_types.go` file you can see that `ImageTag` (line 33) no longer has `omitempty` in the tags. 
+
+Alternatively in the `K8s Shell`, you can run the following command to see that `imageTag` is listed in `required` fields:
 
 ```
 kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0].schema.openAPIV3Schema.properties.spec}" | jq
 ```
 
-> 💡 These kubectl commands are using the built in `jsonpath` output format to narrow in the details displayed about the object and then using [jq](https://stedolan.github.io/jq/) to make the formatting a bit easier to read.
+> 💡 These kubectl commands are using the built-in `jsonpath` output format to simplify the details displayed for the object and then are using [jq](https://stedolan.github.io/jq/) to make the formatting easier to read.
 
 
 👯‍♂️ Using this field in the controller
@@ -126,7 +130,7 @@ make run
 
 > 💡 If your previous command is still running, use `ctrl+c` to stop that command
 
-As before, this run command may take a bit of time, but when the command completes you should see an initial log line for the existing website request you made in the last challenge. But oops, that log line will not have a personalized name:
+As before, this run command may take a bit of time. When the command completes you should see an initial log line for the existing website request you made in the last challenge. But oops, that log line will not have a personalized name:
 
 ```
 INFO    Hello website reconciler with tag ""! ...

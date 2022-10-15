@@ -8,7 +8,7 @@ teaser: While creating is necessary, most of the time you will be updating an ex
 notes:
 - type: text
   contents: |-
-    While deploying your website for the first time is exciting, dealing with maintenance or feature improvements is far more common. But right now you get an error any time your operator reconciles after creation since it can not re-create using the same command.
+    Deploying your website for the first time is very exciting! After the initial launch, the excitement comes when you release new features and improvmenents to what you've already built. Right now you launched your website, and now you're blocked. You get an error any time your operator reconciles after creation since it can not re-create using the same command.
 
     **In this challenge you will:**
     * Detect an update scenario by catching a specific error
@@ -54,11 +54,9 @@ To stop this error loop, just stop the controller running with `ctrl+c`.
 🤫 Not erroring on update
 ==============
 
-While there is a lot to unpack to handle these scenarios in a robust fashion, you can at least capture the fact that these resources already exist as a known failure rather than the rather noisy errors that currently get printed.
+There is a lot to unpack to handle update scenarios in a robust fashion. A natural starting point is to capture the fact that these resources already exist as a known failure rather than doing what happens now where you throw noisy errors that get logged.
 
-To do this, you need to add a conditional inside of where you catch the create error.
-
-For example, in `Code editor` tab navigate to `website_controller.go` and look for the following code snippet that you previously added (around line 77):
+You need to add a conditional inside of where you catch the create error. In `Code editor` tab navigate to `website_controller.go` and look for the following code snippet that you previously added (around line 77):
 
 ```
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
@@ -68,7 +66,7 @@ For example, in `Code editor` tab navigate to `website_controller.go` and look f
   }
 ```
 
-Now all you need to do is replace that error catch with this more detailed handler:
+Replace that error catch with this more detailed handler:
 ```
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
   if err != nil {
@@ -83,20 +81,32 @@ Now all you need to do is replace that error catch with this more detailed handl
   }
 ```
 
-Just below the creation of the deployment, you also create a service which can fail for the same reason. Make the same type of change when catching create new service function by replacing the existing call and error handling with the below snippet:
+Follow the pattern to make the same change for creating a new service. 
+
+Find the code snippet you added previously:
 
 ```
-  err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
-  if err != nil {
-    if errors.IsAlreadyExists(err) {
-      // TODO: handle updates gracefully
-      log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
-      return ctrl.Result{}, nil
-    } else {
-      log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
-      return ctrl.Result{}, err
-    }
+// Attempt to create the service and return error if it fails
+err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
+if err != nil {
+  log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
+  return ctrl.Result{}, err
+}
+```
+
+Replace that error catch with this more detailed handler:
+```
+err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
+if err != nil {
+  if errors.IsAlreadyExists(err) {
+    // TODO: handle updates gracefully
+    log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
+    return ctrl.Result{}, nil
+  } else {
+    log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
+    return ctrl.Result{}, err
   }
+}
 ```
 
 **💾 Once these changes are complete. Remember to save the file which with `ctrl+s`.**
@@ -112,8 +122,6 @@ You should no longer see any error tracing, only the error log for visibility.
 📕 Summary
 ==============
 
-This is a very simple way to track when a resource already exists. This is where operational tasks like an update process can be codified.
-
-Keep in mind, that different updates may require different actions. For example, adding a label may be simple, but changing image tags may require more caution.
+You've implemented a very simple way to track when a resource already exists. Different updates may require different actions. For example, adding a label may be simple, but changing image tags may require more caution.
 
 This tutorial will not delve into these nuances due to strict time constraints, but you should have all the tools to tackle these business cases as you reach them!

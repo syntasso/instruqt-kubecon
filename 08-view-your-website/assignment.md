@@ -62,7 +62,7 @@ Just as with the deployment method, you need to use the following snippet to cal
 
 **💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
-> 💡 This needs to be after the call to `newDeployment` since it assumes `err` has already been set. Otherwise you may get an error when trying to run this code.
+> 💡 This function to create a service should be called after creating the deployment for two reasons. First, if you can't create a deployment and you get an error, you don't need a new service&mdash;creating a deployment is the logical first step. Second, programmatically if you put the call to `newService` before calling `newDeployment` you will get a failure since the code above assumes `err` has already been set.
 
 🛂 Permissions to work with services
 =============

@@ -34,18 +34,17 @@ timelimit: 1
 
 While you already have a working Golang application, it is time to add some business logic to create a useful (albeit, simple) operator.
 
-In this case, imagine you want to create a better todo application experience (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)).
+In this case, imagine you want to create a better todo application experience (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)). You have your website application ready to deploy as a container image, and you want to now make it ready for the world. 
 
-You have already packaged your perfected user experience as a container image and want to now make it ready for the world. You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) and want to make sure that your deployment choices automate as much of the operations of this site as possible.
+You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) so you want to make sure that your deployment choices automate as much of the operations of this site as possible.
 
-To do this, you have settled on deploying to Kubernetes and want to do so via an operator. To get started, your plan is to support:
+To reduce toil for this application, you will create a Kubernetes operator. As the first phase of functionality, this operator will:
 
-* When a website does not yet exist in a cluster, _**create**_ a new one
-* Acknowledging when a request will _**update**_ an existing website
-* _**Delete**_ a website upon request
+* _**create**_ a new instance of the website in a cluster if the cluster does not already have one
+* _**acknowledge**_ when a request will update an existing website instance
+* _**delete**_ a website instance upon request
 
-You realise there are a lot more things that you will want to operate in the future (e.g. moving to remote storage, storage backups) but these lifecycle tasks will set a foundation for a more complex operator to succeed.
-
+There are a lot more things that you will want to automate in the future (e.g. moving to remote storage, storage backups), but this first release of your operator sets the foundation for future complexity.
 
 👩🏾‍💻 First, create the controller and resource
 ==============

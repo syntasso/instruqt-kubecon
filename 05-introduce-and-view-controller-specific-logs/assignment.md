@@ -8,9 +8,9 @@ teaser: Explore the Kubebuilder created controller by adding logs and viewing th
 notes:
 - type: text
   contents: |-
-    You have now explored how the CRD was generated and have a cluster that knows about your Website custom resources kind.
+    You explored how the CRD was generated, and you have cluster that knows about your Website custom resources kind.
 
-    Now it is time to understand the generated controller and view your application respond to a request for a Website custom resource.
+    Now it is time to understand the generated controller. You will get to see your application respond to a request for a Website custom resource.
 
     **In this challenge you will:**
     * Add logs in your controller application
@@ -61,7 +61,7 @@ Navigate to `controllers/website_controller.go:58` to view this function already
 
 Finally, look a bit further up in that same `website_controller.go` file to see how the `func (r *WebsiteReconciler) Reconcile` function has been generated. This is left nearly empty as this is where the core of your business logic will be added.
 
-While this is an error free implementation, you wouldn't really be able to tell if it worked since there are no side effects `Reconcile` function, not even any logs!
+While this is an error free implementation, you wouldn't really be able to tell if it worked since there are no side effects for running the `Reconcile` function, not even any logs!
 
 🪵 Logging from the controller
 ==============
@@ -104,7 +104,7 @@ What this code snipped does is:
 🏃🏿‍♀️ Running your application locally
 ==============
 
-You may have noticed a third tab on this challenge called `Run Shell`. This has been introduced to allow a long running process in one Shell while ongoing commands are in the other. It is just another session on the same machine, so the only difference with the `K8s Shell` tab is in the title!
+You may have noticed a third tab on this challenge called `Run Shell`&mdash;you will use this for a long-running process. It is just another session on the same machine, so the only difference between it and the `K8s Shell` tab is the title!
 
 In the `Run Shell` tab, start up your newly updated application with:
 
@@ -129,7 +129,7 @@ This is the starting of the controller process, but `Reconcile` will only run an
 👀 Request a website
 ==============
 
-In the `K8s Shell` tab request a Custom Resource of type `Website`. It is easiest to use the generated sample file available in the `Code editor` tab under `./config/samples/kubecon_v1beta1_website.yaml`.
+In the `K8s Shell` tab, request a Custom Resource of type `Website`. It is easiest to use the generated sample file available in the `Code editor` tab under `./config/samples/kubecon_v1beta1_website.yaml`.
 
 To use this file, apply it to the Kubernetes cluster with:
 
@@ -144,7 +144,7 @@ Once this is applied, return to the `Run Shell` tab and have a look for your log
 INFO    Hello from your new website reconciler! ...
 ```
 
-You can add, update, or delete these Website resources and each time those events occur, you will see another printing of the log line from your application.
+Any time you interact with your Website resources and trigger an event, you will see another printing of the log line from your application.
 
 In order to progress, have one (and only one) Website resource in your cluster before pressing the `Check` button. This will set you up for success on future challenges.
 
@@ -153,4 +153,4 @@ In order to progress, have one (and only one) Website resource in your cluster b
 
 Congratulations, you have officially triggered a Website reconciliation by requesting a Website resource!
 
-Next up, you will change look at how to change the CRD fields and use these custom fields in your controller reconciliation.
+Next up, you will look at how to change the CRD fields and use these custom fields in your controller reconciliation.

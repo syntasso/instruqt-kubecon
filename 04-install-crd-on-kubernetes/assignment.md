@@ -41,7 +41,7 @@ Have a look in the document `api/v1beta1/website_types.go` for the `type Website
 
 In `api/v1beta1/website_types.go:32` there is a field called `foo` and there is a helpful comment above it describing the use of `foo`.
 
-The reason this is defined first in Golang is to allow reference these fields from the Golang controller. You will get experience using this a few challenges from now.
+The reason your CRD is defined first in Golang is so that the Golang controller can  reference the definition, and you will explore this more later.
 
 
 👩🏾‍💻 Creating a yaml version
@@ -71,7 +71,7 @@ Now it is time to actually put this CRD into your Kubernetes cluster.
 🚀 Installing the CRD into your Kubernetes cluster
 ==============
 
-The generated YAML is in written in [Kustomize](https://kustomize.io/). This means that it is combined with a number of other files before it is fully prepare to be installed in the cluster. Kubebuilder provides a make target to codify this further configuration of the yaml as well as the application of the final yaml files to Kubernetes.
+The generated YAML is written in [Kustomize](https://kustomize.io/). This means that it is combined with a number of other files before it is ready to be installed in the cluster. Kubebuilder provides a single make target that prepares the final YAML files and applies the files to Kubernetes.
 
 To see current state of your cluster, start by viewing all current CRDs in the Kubernetes cluster by running the following command in the `K8s Shell` tab:
 

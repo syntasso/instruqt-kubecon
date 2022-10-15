@@ -8,13 +8,11 @@ teaser: Drift between operator expectations and cluster reality does not always 
 notes:
 - type: text
   contents: |-
-    Create Read Update and Delete (CRUD) is considered basic functionality for most applciations and an operator is no different.
-
-    So far you have created a deployment and service, but have yet to read, update or delete.
+    Create Read Update and Delete (CRUD) is considered basic functionality for most applications, and an operator is no different. So far you have **created**, but you have yet to read, update or delete.
 
     **In this challenge you will:**
     * Detect the deletion of a website
-    * Delete any resources the operator creates when it's CRD is deleted
+    * Delete any resources the operator creates when its CRD is deleted
 tabs:
 - title: K8s Shell
   type: terminal
@@ -41,7 +39,7 @@ timelimit: 1
 🫥 Why delete is an interesting use case
 ==============
 
-Now your operator can create new resources, and is ready to deal with updates as well. The last major CRUD functionality is to deal with delete requests.
+Now your operator can create new resources, and it is ready to deal with updates. The last major CRUD functionality is to deal with delete requests.
 
 In order to handle deletes, you will need to first identify that the website resource is requesting a delete, and then read the state of the cluster to reconcile any necessary actions in order to complete that delete.
 
@@ -63,14 +61,15 @@ Then delete your current website resource by running the following command in th
 kubectl delete websites.kubecon.my.domain website-sample
 ```
 
-When you do this, the deployment and service are still just fine and can be viewed with the following command:
+When you do this, the deployment and service are fine and can be viewed with the following command:
 
 ```
 kubectl get all --selector=type=Website
 ```
 
-And if you return to the `Run Shell` tab you will see a large set of error messages and stack traces in the operator logs. Something similar to:
+If you return to the `Run Shell` tab you will see a large set of error messages and stack traces in the operator logs. 
 
+Something similar to:
 ```
 ERROR   Reconciler error        {"controller": "website", ... "error": "Website.kubecon.my.domain \"website-sample\" not found"}
 sigs.k8s.io/controller-runtime/...
@@ -81,7 +80,7 @@ sigs.k8s.io/controller-runtime/pkg/...
 
 > 💡 This error may be repeated many times as the reconcile loop will continue to try and reconcile after failures.
 
-In specific, you can see the `error` is stated as `"Website.kubecon.my.domain \"website-sample\" not found"` which means you now know that the error type `not found` indicates when the reconcile runs for a deleted resource.
+You can see the `error` is stated as `"Website.kubecon.my.domain \"website-sample\" not found"`. Now you now know that the error type `not found` indicates that the reconciler has run for a deleted resource.
 
 🫴🏾 Gracefully catching the delete error
 ==============
@@ -111,33 +110,37 @@ With your new knowledge of a delete error being `not found`, it is time to retur
 
 Now make sure to restart the operator in your `Run Shell` tab using `ctrl+c` to cancel the previous run and `make run` to restart it.
 
-With the new version of your code running, test your change by adding a new Website resource and promptly deleting it from your `K8s Shell` tab:
+With the new version of your code running, test your change.
 
+From your `K8s Shell` tab, add a new Website resource:
 ```
 kubectl apply --filename ./config/samples/kubecon_v1beta1_website-with-image-tag.yaml
 ```
 
-This first command will trigger the update message since you are creating a resource by the same name as before.
+This will trigger the update message since you are creating a resource by the same name as before.
 
-But next you need to delete that resource:
+Now delete that resource:
 ```
 kubectl delete website.kubecon.my.domain website-sample
 ```
 
-And when you return to the operator logs now you should see a log line instead of noisy error stack traces.
+When you return to the operator logs now you should see a log line instead of noisy error stack traces.
+```
+1.6657585490296276e+09  INFO    Custom resource for website "website-sample" does not exist 
+...
+```
 
 
 🔥 Deleting from Kubernetes to match requested state
 ==============
 
-Catching the desire to delete is not enough. You must also complete the reconciliation by actually deleting any previously created resource.
-
-In this case that will be the deployment and the service. Find these using the same constructors.
+Catching the desire to delete is not enough. You must also complete the reconciliation by actually deleting any previously created resources.
 
 > 💡 In more complex scenarios you will likely use labels or annotations to create a more robust clean up strategy, but for this scale operator, name will do just fine!
 
+You need to delete the deployment and the service resources for the website. 
 
-To complete the deletes, replace the code inside the new error catch block `if errors.IsNotFound(err) {` with the following code:
+In the `website_controller.go` in your `Code editor` tab replace the code inside the new error catch block `if errors.IsNotFound(err)` with the following code:
 
 ```
   // If the resource is not found, that is OK. It just means the desired state is to
@@ -179,8 +182,8 @@ Now exercise your operator in any way you would like, but in particular you shou
 📕 Summary
 ==============
 
-Congratulations! You have now not only identified how to detect a delete, but actually written a basic delete implementation.
+Congratulations! You have now detected a delete, but you actually wrote a basic implementation of delete.
 
-While many of these implementations are not robust enough for heavy production use, you are well on your way to being able to create an operator with real value to your team.
+You are well on your way to being able to create an operator with real value to your team.
 
 If you still have time, continue to the next two challenges for deployment and testing.

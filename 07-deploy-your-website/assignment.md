@@ -39,7 +39,7 @@ Navigate to `controllers/website_controller.go` in your `Code editor` tab and sc
 
 This function encapsulates the necessary Golang code to create a customized deployment for your website.
 
-However, you still need to call this function in the Reconcile loop.
+This function is defined but not used. You need to call this function in the Reconcile loop.
 
 ✍🏾 Creating a deployment in the reconcile loop
 ==============
@@ -61,7 +61,7 @@ This `newDeployment` function can be called using the following snippet. You sho
 
 It is all well and good to tell the operator to create a deployment, but is it allowed? In Kubernetes there is strict role based access control (RBAC) that limits what actions people and applications can take.
 
-With this new change, we now need the operator to be allowed to work with deployments. Kubebuilder provides a mechanism to do this very easily through comments much like those used in the CRD fields.
+With this new change, we now need the operator to be allowed to work with deployments. Kubebuilder provides a mechanism to do this very easily through comments, much like those used in the CRD fields.
 
 If you look near the top of the `controllers/website_controller.go` file in the `Code editor` tab you should see some comment lines that start with `//+kubebuilder:rbac` (around line 45). Each line describes a single RBAC permission.
 
@@ -72,7 +72,9 @@ In order to provide access to work with deployments, you need to add the followi
 
 **💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
-This is fairly broad permissions since it allows all verbs, but these can be limited these based on very specific needs. Kubebuilder will then translate this into the necessary service accounts when you build the deployment.
+This is fairly broad permissions since it allows all verbs, but these can be limited for very specific needs. 
+
+Kubebuilder will translate this change into the necessary service accounts when you build the deployment.
 
 🧞 Creating a deployment for your current website
 ==============
@@ -82,6 +84,12 @@ Since you created a Website resource earlier, this should still be in your clust
 Confirm this by running the following command in the `K8s Shell` tab:
 ```
 kubectl get websites.kubecon.my.domain
+```
+
+You should see something like:
+```
+NAME             AGE
+website-sample   26m
 ```
 
 With this already in your cluster, when you start up your controller again it will reconcile immediately. During reconciliation the controller will try to create a deployment as you have defined.
@@ -99,6 +107,10 @@ kubectl get deployments
 ```
 
 You should now see a single deployment with 2 replicas starting.
+```
+READY   UP-TO-DATE   AVAILABLE   AGE
+website-sample   2/2     2            2           61s
+```
 
 > 💡 To see more details about this deployment, run `kubectl describe deployment` and look for configurations that your code sets like number of `Replicas` and `Labels`.
 
@@ -123,7 +135,7 @@ sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2
         /root/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.12.2/pkg/internal/controller/controller.go:234
 ```
 
-That is because the code asks to create a deployment, but there already is one in the cluster. Continue on to see how to deal with this issue.
+That is because the code asks to create a deployment, but there already is one in the cluster. Next you will see how to deal with this issue.
 
 
 📕 Summary
