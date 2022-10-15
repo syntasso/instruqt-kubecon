@@ -86,7 +86,7 @@ To do this, replace the contents of the current function (lines 50 to 54) with t
     return ctrl.Result{}, err
   }
 
-  log.Info("Hello from your new website reconciler!")
+  log.Info(`Hello from your new website reconciler!`)
 
   return ctrl.Result{}, nil
 ```

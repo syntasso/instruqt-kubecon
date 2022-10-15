@@ -113,7 +113,7 @@ Now that there is a new `imageTag` field, the log line can be personalized. Chan
 
 ```
   // Use the `ImageTag` field from the website spec to personalise the log
-  log.Info(fmt.Sprintf(`Hello website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
+  log.Info(fmt.Sprintf(`Hello from your new website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
 ```
 
 **💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
@@ -129,7 +129,7 @@ make run
 As before, this run command may take a bit of time, but when the command completes you should see an initial log line for the existing website request you made in the last challenge. But oops, that log line will not have a personalized name:
 
 ```
-INFO    Hello website reconciler with tag ""! ...
+INFO    Hello from your new website reconciler ""! ...
 ```
 
 This is because your Website resource does not have an `imageTag` set. To fix this, you will need to edit the existing website request to include an `imageTag`. To edit your website custom resource to set the `imageTag` field to `latest` use the `K8s Shell` tab to run:
@@ -145,7 +145,7 @@ kubectl patch \
 And now view the controller logs in the `Run Shell` tab to see the newest log line reference your `imageTag` field value:
 
 ```
-INFO    Hello website reconciler with tag "latest"! ...
+INFO    Hello from your new website reconciler "latest"! ...
 ```
 
 > 💡 If you want to test the validation, try and create a patch with an imageTag that does not match the set requirements of only `-`, lower case alphabet, or digits. The patch should result in an error and the change not applied.
