@@ -8,7 +8,9 @@ teaser: While creating is necessary, most of the time you will be updating an ex
 notes:
 - type: text
   contents: |-
-    Deploying your website for the first time is very exciting! After the initial launch, the excitement comes when you release new features and improvmenents to what you've already built. Right now you launched your website, and now you're blocked. You get an error any time your operator reconciles after creation since it can not re-create using the same command.
+    Deploying your website for the first time is very exciting! After an initial launch, the excitement comes when you release new features and improvements.
+
+    While you have launched your website,  you are now blocked. You get an error any time you update your website since the operator can not re-create a deployment using the initial command.
 
     **In this challenge you will:**
     * Detect an update scenario by catching a specific error
@@ -39,24 +41,45 @@ timelimit: 1
 🙉 Why is the operator so noisy
 ==============
 
-Right now, your controller assumes that each time it reconciles, it needs to create two new resources, a deployment and a service. But that is not true!
+Right now, your controller will try to create two new resources each time it reconciles, a deployment and a service. But this is not always necessary!
 
-The reconcile loop runs periodically, on application start and on resource change among other scenarios. In all of these scenarios when the operator tries to create a new deployment and service it will error.
+The reconcile loop runs under a few scenarios:
+1. On controller start / restart
+1. Periodically (by default this is daily)
+1. Each time a Website resource event happens
 
-To see this happen, restart your operator in the `Run Shell` tab with:
+If the deployment and service already exist, the current code will error when any of these scenarios occur.
+
+To see this happen, imitate the first scenario by restarting your operator in the `Run Shell` tab with:
 
 ```
 make run
 ```
 
-To stop this error loop, just stop the controller running with `ctrl+c`.
+To stop this noisy error loop, stop the controller running with `ctrl+c`.
+
+🧑🏽‍🎓 Learning the update error
+==============
+
+There is a lot to unpack to handle update scenarios in a robust fashion. A natural starting point is to capture the fact that these resources already exist as a known failure. Then you can at least choose to ignore this failure rather than doing what happens now where you throw noisy errors that get logged.
+
+The errors in the `Run Shell` tab should look similar to:
+```
+ERROR   Reconciler error        {"controller": "website", ... "error": "Website.kubecon.my.domain \"website-sample\" already exists"}
+sigs.k8s.io/controller-runtime/...
+        /root/go/pkg/mod/sigs.k8s.io/...
+sigs.k8s.io/controller-runtime/pkg/...
+        /root/go/pkg/mod/sigs.k8s.io/...
+```
+
+> 💡 This error may be repeated many times as the reconcile loop will continue to try and reconcile after failures. To stop this use `ctrl+c` to cancel the run.
+
+You can see the `error` is `"Website.kubecon.my.domain \"website-sample\" already exists"`. Now you now know that the error type `already exists` indicates that the create method is failing due to a pre-existing resource.
 
 🤫 Not erroring on update
 ==============
 
-There is a lot to unpack to handle update scenarios in a robust fashion. A natural starting point is to capture the fact that these resources already exist as a known failure rather than doing what happens now where you throw noisy errors that get logged.
-
-You need to add a conditional inside of where you catch the create error. In `Code editor` tab navigate to `website_controller.go` and look for the following code snippet that you previously added (around line 77):
+To handle the `already exists` error you need to add a conditional inside of where you catch the create error. In `Code editor` tab navigate to `website_controller.go` and look for the existing `newDeployment` function call (around line 77). It should look like this:
 
 ```
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
@@ -66,7 +89,7 @@ You need to add a conditional inside of where you catch the create error. In `Co
   }
 ```
 
-Replace that error catch with this more detailed handler:
+Now replace that entire snippet with this more detailed handler:
 ```
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
   if err != nil {
@@ -81,9 +104,9 @@ Replace that error catch with this more detailed handler:
   }
 ```
 
-Follow the pattern to make the same change for creating a new service. 
+Follow the pattern to make the same change for creating a new service.
 
-Find the code snippet you added previously:
+Find the previously added `newService` code snippet that looks like this:
 
 ```
 // Attempt to create the service and return error if it fails
@@ -94,7 +117,7 @@ if err != nil {
 }
 ```
 
-Replace that error catch with this more detailed handler:
+Replace that full snippit catch with this more detailed handler:
 ```
 err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
 if err != nil {
@@ -114,7 +137,7 @@ if err != nil {
 😌 Running your operator in peace
 ==============
 
-Once these two changes are in place, try stopping your controller using `ctrl+c` in the `Run Shell` tab and then restarting your operator in the same tab using `make run`.
+Once these two changes are in place, stop your operator using `ctrl+c` in the `Run Shell` tab. Then restart your operator in the same tab using `make run`.
 
 You should no longer see any error tracing, only the error log for visibility.
 
@@ -122,6 +145,8 @@ You should no longer see any error tracing, only the error log for visibility.
 📕 Summary
 ==============
 
-You've implemented a very simple way to track when a resource already exists. Different updates may require different actions. For example, adding a label may be simple, but changing image tags may require more caution.
+Now you have implemented a very simple way to track when a resource already exists! 💪🏿
 
-This tutorial will not delve into these nuances due to strict time constraints, but you should have all the tools to tackle these business cases as you reach them!
+Different updates may require different actions. For example, adding a label may be simple, but changing image tags may require more caution.
+
+This tutorial will not delve into these nuances due to strict time constraints. But with these basics should have all the tools to tackle these business cases as you reach them!

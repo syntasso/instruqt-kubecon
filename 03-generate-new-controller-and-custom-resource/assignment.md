@@ -10,8 +10,6 @@ notes:
   contents: |-
     Kubebuilder has generated a Golang application, but it is time to now build your business case in.
 
-
-
     **In this challenge you will:**
     * Be introduced to the example business case
     * Create a controller and custom resource (CRD) using Kubebuilder
@@ -29,14 +27,12 @@ difficulty: basic
 timelimit: 1
 ---
 
-☑️ Dreaming of a better todo app
+☑️ Dreaming of a better to-do app
 ==============
 
-While you already have a working Golang application, it is time to add some business logic to create a useful (albeit, simple) operator.
-
-In this case, imagine you want to create a better todo application experience (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)). You have your website application ready to deploy as a container image, and you want to now make it ready for the world. 
-
-You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/) so you want to make sure that your deployment choices automate as much of the operations of this site as possible.
+So you have a working Golang application. Now it is time to add some business logic to create a useful (albeit, simple) operator.
+In this case, imagine you have created a to-do application and want to make it available to others (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)). You have already packaged your website application as a container image and now you need to deploy it.
+You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/). You want to make sure that your deployment choices automate as much of the operations as possible.
 
 To reduce toil for this application, you will create a Kubernetes operator. As the first phase of functionality, this operator will:
 
@@ -44,18 +40,17 @@ To reduce toil for this application, you will create a Kubernetes operator. As t
 * _**acknowledge**_ when a request will update an existing website instance
 * _**delete**_ a website instance upon request
 
-There are a lot more things that you will want to automate in the future (e.g. moving to remote storage, storage backups), but this first release of your operator sets the foundation for future complexity.
+Of course there are a lot more things that you will want to automate in the future (e.g. moving to remote storage, storage backups). But this first release of your operator sets the foundation for future complexity.
 
 👩🏾‍💻 First, create the controller and resource
 ==============
 
-Kubebuilder provides a command that can create either (or both) the `Controller` application and a new `Resource` type.
+Kubebuilder provides a command that can create either the `Controller` application or a new `Resource` type (or both!).
 
-Since every controller needs to respond to events of certain resources, if you choose to create these at the same time, Kubebuilder also automatically configures the controller to run when any resources of the new type are created, changed, or deleted.
+Remember, every controller responds to events of certain resource types. In this case, you are creating a custom type (called `Website`). If you choose to create your custom type at the same time as your controller, Kubebuilder automatically configures the controller to know about the type.
 
-> 💡 If you do not create both at the same time, you will need to manually configure what resources the controller will react to.
-
-Today you will create both at the same time allowing Kubebuilder to complete the autoconfiguration by running the following command in your `K8s Shell` tab:
+> 💡 If you do not create both at the same time, you will need to manually configure the controller to know what resources to track.
+Today you will create both at the same time allowing Kubebuilder to complete the auto-configuration. Create these by running the following command in your `K8s Shell` tab:
 
 ```
 kubebuilder create api \
@@ -65,8 +60,7 @@ kubebuilder create api \
   --resource true \
   --controller true
 ```
-
-The next two challenges will dive into what these two items actually create in your code base and how they work together to operate your todo application.
+The next two challenges will dive into what these two items actually create in your code base and how they work together to operate your to-do application.
 
 
 📕 Summary

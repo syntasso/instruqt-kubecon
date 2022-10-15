@@ -13,7 +13,7 @@ notes:
     Please wait while we boot the VM for you and start Kubernetes. Once the VM
     is ready you will see a green start button in the bottom right hand corner.
 
-    There are a number of slides with corresponding hands-on activities, these are each called "challenges."
+    This tutorial track contains a set of challenges. Each challenge begins with a slide like this. After you click "Start" you will get a set of instructions and any necessary tools.
 
     **In this first challenge, you will:**
     - Get comfortable with this online environment
@@ -52,7 +52,7 @@ You will use the `Code editor` tab to create and edit files in a [Visual Studio 
 
 To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
 
-Then edit that file to configure a new namespace in Kubernetes by pasting the following code into the file:
+Define a new namespace in Kubernetes by pasting the following code into the file:
 
 ```
 ---
@@ -71,7 +71,7 @@ kubectl apply \
   --filename .example-namespace.yaml
 ```
 
-Confirm your namespace has been created by running the first get namespaces command again and seeing a much newer namespace called `example` at the bottom of the list:
+Confirm your new namespace by running the first get namespaces command again. You should see a much newer namespace (based on the `AGE` column) called `example` at the bottom of the list:
 ```
 kubectl get namespaces
 ```
@@ -81,9 +81,9 @@ kubectl get namespaces
 
 Congratulations! You have now navigated your way around the platform and are ready to create your first operator.
 
-To continue to the next challenge, use the green `Check` button at the bottom right of the screen to validate your current work and prepare the next challenge.
+To continue to the next challenge, use the green `Check` button in the bottom right corner of the screen. This validates your current work and loads the next challenge.
 
-> 💡 One last tip: When you are done with a header section, click on the header to minimize and make more space for the next header section. Try this by clicking on "👋🏾 Introduction" now and seeing it minimize.
+> 💡 One last tip: After you complete a header section in these instructions, you can minimize the section by clicking on the header. This makes more space for the next header section. Try this by clicking on "👋🏾 Introduction" now and seeing it fold closed.
 
 
 
@@ -96,10 +96,10 @@ kubectl [bash auto-completion](https://kubernetes.io/docs/tasks/tools/included/o
 k get ns
 ```
 
-And the shortcuts provided by [zsh plugins](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/kubectl/README.md) have also been set up, allowing the same command to be run as:
+And the shortcuts provided by [zsh plugins](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/kubectl/README.md) have also been set up, allowing the same command to also shorten to:
 
 ```
 kgns
 ```
 
-If you are not familiar with these that is OK as all commands will be provided in long form. If you are familiar, you should feel comfortable exploring with these available shortcuts!
+If you are not familiar with these that is OK as all tutorial commands are provided in long form. If you are familiar, you should feel comfortable exploring with these available shortcuts!

@@ -8,9 +8,9 @@ teaser: Enhance your generic log line to reference CRD defined data from inside 
 notes:
 - type: text
   contents: |-
-    You have seen how requesting a custom resource of type Website can trigger the controller.
+    You have seen how requesting a custom resource of type Website can trigger the controller reconcile function.
 
-    Now it is time to make the Website CRD truly custom and have the controller use the custom data that is provided as a part of the CRD spec.
+    Now it is time to customizes the Website CRD and use the custom data as a part of the CRD spec.
 
     **In this challenge you will:**
     * Introduce a new CRD field
@@ -40,7 +40,7 @@ timelimit: 1
 
 Earlier you looked at the Golang representation of the CRD. Return to the `Code editor` tab and view this file again by navigating to `api/v1beta1/website_types.go`.
 
-In this CRD there is currently an optional field called `foo` but now we will replace that with a more useful, and required, field called `imageTag`.
+In this CRD there is an optional field called `foo`. Now we will replace that with a more useful, and required, field called `imageTag`.
 
 Below is the code for this field, use this in the place of the existing `foo` field and comment (lines 31 and 32):
 
@@ -58,7 +58,7 @@ This code has three key parts:
 2. The capital `ImageTag` is the Golang variable used throughout the codebase. Golang uses capitalized public variable names by convention.
 3. `json:"imageTag"` defines a "tag" that Kubebuilder uses to generate the yaml field. Yaml parameters starts with lower case variable names by convention.
 
-> 💡 the use of `omitempty` in the json tag is how a field is marked optional. This was added to the `foo` example, but since name is required it is not included.
+> 💡 the use of `omitempty` in the json tag is how a field is marked as optional. This was present for the `foo` example, but to make name required, you have now removed it.
 
 To see this change in action, use the `Run Shell` to watch changes to the CRD properties. The following command will print the current values, and then add any changes as a new line:
 
@@ -66,7 +66,7 @@ To see this change in action, use the `Run Shell` to watch changes to the CRD pr
 kubectl get crds websites.kubecon.my.domain --output jsonpath="{.spec.versions[0].schema['openAPIV3Schema'].properties.spec.properties}{\"\n\"}" --watch | jq
 ```
 
-Initially you will see the property `foo`:
+For now, you should see the property `foo`:
 
 ```
 {
@@ -82,8 +82,7 @@ Now move to the `K8s Shell` tab and rerun:
 ```
 make install
 ```
-
-Once this command has completed, return to the `Run Shell` tab and you should see a second line in the shell that looks like:
+Once this command has completed, return to the `Run Shell` tab. Any updates append to the list, so you should now see a second line in the shell that looks like:
 
 ```
 {
@@ -95,25 +94,28 @@ Once this command has completed, return to the `Run Shell` tab and you should se
 }
 ```
 
-Now that you have seen this, feel free to stop the "watch" command by pressing `ctrl+c` in the `Run Shell` tab.
+Stop the CRD "watch" command by pressing `ctrl+c` in the `Run Shell` tab.
 
-You can see that the new `imageTag` is required in the CRD in two ways. 
+There are two indications that the new `imageTag` in the CRD is required.
 
-In the `Code editor` tab, in the `api/v1beta1/website_types.go` file you can see that `ImageTag` (line 33) no longer has `omitempty` in the tags. 
+In the `Code editor` tab, look at the `config/crd/bases/kubecon.my.domain_websites.yaml` file. On line 43 there is a required list with `ImageTag`.
 
-Alternatively in the `K8s Shell`, you can run the following command to see that `imageTag` is listed in `required` fields:
+Alternatively, you can view this in the cluster. Navigate to the `K8s Shell` tab and run the following command:
 
 ```
 kubectl get crd websites.kubecon.my.domain --output jsonpath="{.spec.versions[0].schema.openAPIV3Schema.properties.spec}" | jq
 ```
 
+This is the same required list that you saw in yaml.
+
 > 💡 These kubectl commands are using the built-in `jsonpath` output format to simplify the details displayed for the object and then are using [jq](https://stedolan.github.io/jq/) to make the formatting easier to read.
+
 
 
 👯‍♂️ Using this field in the controller
 ==============
 
-Now that there is a new `imageTag` field, the log line can be personalized. Change the existing line that starts with `log.Info` found at `website_controller.go` in the controller to instead be (around line 67):
+Now that there is a new `imageTag` field, you can personalize the log line. Use your `Code editor` tab to change the existing log line and comment in `website_controller.go` file (around line 67) to instead read:
 
 ```
   // Use the `ImageTag` field from the website spec to personalise the log
@@ -122,7 +124,7 @@ Now that there is a new `imageTag` field, the log line can be personalized. Chan
 
 **💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
-Once these changes are made and saved, navigate to the `Run Shell` tab to again run the controller application locally:
+Once these changes are saved, navigate to the `Run Shell` tab to again start running the controller application locally:
 
 ```
 make run
@@ -157,4 +159,4 @@ INFO    Hello from your new website reconciler "latest"! ...
 📕 Summary
 ==============
 
-Fantastic! You now have a controller application that not only responds to a custom resource being added, changed, or deleted but actually uses details from the custom resource in it's logic.
+Fantastic! You now have a controller application that not only responds to when a custom resource is added, changed, or deleted but actually uses details from the custom resource in its logic.

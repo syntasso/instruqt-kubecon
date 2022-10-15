@@ -8,7 +8,7 @@ teaser: Extend the controller to complete a deployment of your website as custom
 notes:
 - type: text
   contents: |-
-    Log lines allow you to understand when the reconcile loop is called, but now it is time to use your operator to actually operate an application.
+    Log lines allow you to understand when the reconcile loop runs. Now it is time to use your operator to actually operate an application.
 
     **In this challenge you will:**
     * Create a deployment to run your website whenever the controller reconciles
@@ -30,21 +30,21 @@ difficulty: basic
 timelimit: 1
 ---
 
-✅ Some new setup has been completed
+🕵🏿 Some new setup to review
 ==============
 
 Since you finished the last challenge, a change has been made to your controller.
 
 Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `newDeployment`.
 
-This function encapsulates the necessary Golang code to create a customized deployment for your website.
+This new function encapsulates the how to create a customized deployment for your website.
 
-This function is defined but not used. You need to call this function in the Reconcile loop.
+While this function was defined for you, you still need to use it in the Reconcile loop.
 
 ✍🏾 Creating a deployment in the reconcile loop
 ==============
 
-This `newDeployment` function can be called using the following snippet. You should place this snippet in the `Code editor` tab in the `controllers/website_controller.go` file directly below the log line you edited in the last challenge:
+This `newDeployment` function can return an error, and the following snippet handles that error. Navigate in the `Code editor` tab to the `controllers/website_controller.go` file. This snippet should be added directly below the log line you edited in the last challenge (around line 73):
 ```
   // Attempt to create the deployment and return error if it fails
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
@@ -61,20 +61,20 @@ This `newDeployment` function can be called using the following snippet. You sho
 
 It is all well and good to tell the operator to create a deployment, but is it allowed? In Kubernetes there is strict role based access control (RBAC) that limits what actions people and applications can take.
 
-With this new change, we now need the operator to be allowed to work with deployments. Kubebuilder provides a mechanism to do this very easily through comments, much like those used in the CRD fields.
+With this new change, we now need allow the operator to work with deployments. Kubebuilder provides a mechanism to do this through powerful comments, much like those used in the CRD fields.
 
-If you look near the top of the `controllers/website_controller.go` file in the `Code editor` tab you should see some comment lines that start with `//+kubebuilder:rbac` (around line 45). Each line describes a single RBAC permission.
+Look near the top of the `controllers/website_controller.go` file in the `Code editor` tab for comment lines that start with `//+kubebuilder:rbac` (around line 45). Each line describes a single RBAC permission.
 
-In order to provide access to work with deployments, you need to add the following permission line:
+To provide access to work with deployments, you need to add the following permission line:
 ```
 //+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 ```
 
 **💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**
 
-This is fairly broad permissions since it allows all verbs, but these can be limited for very specific needs. 
+Kubebuilder translates this change into necessary service accounts when you build the deployment.
 
-Kubebuilder will translate this change into the necessary service accounts when you build the deployment.
+> 💡 Note that this is a broad permission since it allows all verbs. These can be limited when tighter security is necessary.
 
 🧞 Creating a deployment for your current website
 ==============
@@ -112,14 +112,14 @@ READY   UP-TO-DATE   AVAILABLE   AGE
 website-sample   2/2     2            2           61s
 ```
 
-> 💡 To see more details about this deployment, run `kubectl describe deployment` and look for configurations that your code sets like number of `Replicas` and `Labels`.
+> 💡 To see more details about this deployment, run `kubectl describe deployment`. You can look for configurations that the `newDeployment` function set like number of `Replicas` and `Labels`.
 
 🧨 But what happens on update?
 ==============
 
-While creating a deployment is an exciting and real world use case for your controller, what happens if it is updated?
+While creating a deployment is an exciting and real world use case for your controller, what happens on update?
 
-Test this by just stopping and restarting your controller. To stop you controller go to the `Run Shell` tab and use `ctrl+c`. Then restart with the same `make run` command you used before.
+Test this by stopping and restarting your controller. To stop you controller go to the `Run Shell` tab and use `ctrl+c`. Then restart with the same `make run` command you used before.
 
 You will see the log line but then an error trace something like:
 
@@ -137,10 +137,11 @@ sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2
 
 That is because the code asks to create a deployment, but there already is one in the cluster. Next you will see how to deal with this issue.
 
+> 💡These log lines will repeat a lot because the reconcile loop retries on failure. This is fine to leave, but you can use `ctrl+c` again to stop them if it is distracting.
 
 📕 Summary
 ==============
 
 In this challenge you added a more realistic use case for your controller by asking it to deploy a website for you.
 
-But this quickly resulted in more work to be done to handle when a deployment already exists. Don't worry, that is coming up next!
+But this quickly resulted in more things to do (🥁) to handle when a deployment already exists. Don't worry, that is coming up next!

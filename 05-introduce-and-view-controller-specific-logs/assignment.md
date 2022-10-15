@@ -3,19 +3,18 @@ slug: introduce-and-view-controller-specific-logs
 id: z2x6mgvsq5om
 type: challenge
 title: Understand the new controller by adding logs
-teaser: Explore the Kubebuilder created controller by adding logs and viewing them
-  when running locally.
+teaser: Explore the Kubebuilder created controller by adding logs and viewing them.
 notes:
 - type: text
   contents: |-
-    You explored how the CRD was generated, and you have cluster that knows about your Website custom resources kind.
+    You explored the generated CRD, and added this custom `Website` type to your cluster.
 
     Now it is time to understand the generated controller. You will get to see your application respond to a request for a Website custom resource.
 
     **In this challenge you will:**
     * Add logs in your controller application
     * Run the application locally
-    * Request a Website custom resource and view the corresponding logs
+    * Request a Website custom resource and view the corresponding  logs
 tabs:
 - title: K8s Shell
   type: terminal
@@ -34,14 +33,14 @@ difficulty: basic
 timelimit: 1
 ---
 
-🕵️ Understanding how the controller is created
+🕵️ Understanding your new controller
 ==============
 
 When you selected to create a controller along with the Resource, Kubebuilder took care of some key setup:
 
-1. Start the controller process during application boot
-1. Implement a custom `Reconcile` function run on each resource event
-1. Configure the controller to know which resource events to listen to
+1. Starts the controller process during application boot
+1. Implements a custom `Reconcile` function to run on each resource event
+1. Configures the controller to know which resource events to listen to
 
 To see the start process, navigate to `main.go:92` in the root of your `Code editor`. You will see a section that starts the website controller:
 
@@ -55,18 +54,18 @@ if err = (&controllers.WebsiteReconciler{
 }
 ```
 
-This is a call to the function `SetupWithManager(mgr)` which is defined in the file `controllers/website_controller.go`.
+This is a call to the function `SetupWithManager(mgr)`  defined in the file `controllers/website_controller.go`.
 
-Navigate to `controllers/website_controller.go:58` to view this function already configured to know about the CRD `kubeconv1beta1.Website`. This is an example of why defining the custom resource in Golang is so helpful. The `kubeconv1beta1.Website` is the Golang resource type which you explored in the last challenge.
+Navigate to `controllers/website_controller.go:58` to view this function. It is already configured to know about the CRD `kubeconv1beta1.Website` that you explored in the last challenge. This is an example of why defining the custom resource in Golang is so helpful.
 
-Finally, look a bit further up in that same `website_controller.go` file to see how the `func (r *WebsiteReconciler) Reconcile` function has been generated. This is left nearly empty as this is where the core of your business logic will be added.
+Finally, look a bit further up in that same `website_controller.go` file to see the `func (r *WebsiteReconciler) Reconcile` function. This is nearly empty and is where you will add the core of your business logic.
 
-While this is an error free implementation, you wouldn't really be able to tell if it worked since there are no side effects for running the `Reconcile` function, not even any logs!
+You can run the controller as is since this is an error free implementation. But, you wouldn't be able to tell if it worked since there are no side effects for running the `Reconcile` function, not even any logs!
 
 🪵 Logging from the controller
 ==============
 
-In order to make it more obvious when the `Reconcile` function is called, add a simple log line.
+To make it more obvious when the `Reconcile` function runs, add a simple log line.
 
 To do this, replace the contents of the current function (lines 50 to 54) with the below text:
 
@@ -79,9 +78,9 @@ To do this, replace the contents of the current function (lines 50 to 54) with t
   customResource := &kubeconv1beta1.Website{}
 
   // Then retrieve from the cluster the resource that triggered this reconciliation.
-  // The contents of this resource are then stored into an object used throughout reconciliation.
+  // Store these contents into an object used throughout reconciliation.
   err := r.Client.Get(context.Background(), req.NamespacedName, customResource)
-  // If the resource cannot be translated into a "Website" resource type, return failure.
+  // If the resource does not match a "Website" resource type, return failure.
   if err != nil {
     return ctrl.Result{}, err
   }
@@ -104,9 +103,9 @@ What this code snipped does is:
 🏃🏿‍♀️ Running your application locally
 ==============
 
-You may have noticed a third tab on this challenge called `Run Shell`&mdash;you will use this for a long-running process. It is just another session on the same machine, so the only difference between it and the `K8s Shell` tab is the title!
+You may have noticed a third tab on this challenge called `Run Shell`, you will use this for a long-running process. This shell is another session on the same machine, so the only difference between it and the `K8s Shell` tab is the title!
 
-In the `Run Shell` tab, start up your newly updated application with:
+In the `Run Shell` tab, start up your updated application with:
 
 ```
 make run
@@ -114,7 +113,7 @@ make run
 
 Remember, this may take a few minutes.
 
-When it completes you should see the same output you saw in the last challenge which shows the starting of both a metrics and health probe endpoint.
+When it completes you should see the same output you saw in the last challenge including both a metrics and health probe endpoint starting.
 
 But you should also see new log lines showing the starting of the website controller as well:
 
@@ -124,33 +123,33 @@ INFO    Starting Controller     {"controller": "website", "controllerGroup": "ku
 INFO    Starting workers        {"controller": "website", "controllerGroup": "kubecon.my.domain", "controllerKind": "Website", "worker count": 1}
 ```
 
-This is the starting of the controller process, but `Reconcile` will only run and print your log line when a `Website` Resource is created.
+This is the starting of the controller process. You have not yet seen the log line since `Reconcile` will only run and print the log line when a `Website` Resource event occurs.
 
-👀 Request a website
+👀 Request a new Website
 ==============
 
-In the `K8s Shell` tab, request a Custom Resource of type `Website`. It is easiest to use the generated sample file available in the `Code editor` tab under `./config/samples/kubecon_v1beta1_website.yaml`.
+In the `K8s Shell` tab, request a Custom Resource of type `Website` using the Kubebuilder generated sample file. To see this file, look in the `Code editor` tab under `./config/samples/kubecon_v1beta1_website.yaml`.
 
-To use this file, apply it to the Kubernetes cluster with:
+Apply the sample file to the Kubernetes cluster with:
 
 ```
 kubectl apply \
   --filename ./config/samples/kubecon_v1beta1_website.yaml
 ```
 
-Once this is applied, return to the `Run Shell` tab and have a look for your log output:
+Once applied, return to the `Run Shell` tab and have a look for your log output:
 
 ```
 INFO    Hello from your new website reconciler! ...
 ```
 
-Any time you interact with your Website resources and trigger an event, you will see another printing of the log line from your application.
+Any time you interact with your Website resources a new event triggers. And each event will print the log line from your application.
 
-In order to progress, have one (and only one) Website resource in your cluster before pressing the `Check` button. This will set you up for success on future challenges.
+> 💡You are welcome to play with the resource now. But in order to progress, have one (and only one) Website resource in your cluster before pressing the `Check` button. This will set you up for success on future challenges.
 
 📕 Summary
 ==============
 
-Congratulations, you have officially triggered a Website reconciliation by requesting a Website resource!
+Congratulations, you have triggered a Website reconciliation by requesting a Website resource!
 
 Next up, you will look at how to change the CRD fields and use these custom fields in your controller reconciliation.
