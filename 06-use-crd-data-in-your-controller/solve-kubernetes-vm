@@ -5,7 +5,7 @@ source /root/.bashrc > /dev/null 2>&1
 
 cd /root
 rm -rf ${DEMO_HOME:?}
-cp -R /root/kubecon-instruqt-solutions/06-use-crd-data-in-your-controller ${DEMO_HOME:?}
+cp -R ${SOLUTIONS_DIR:?}/06-use-crd-data-in-your-controller ${DEMO_HOME:?}
 
 cd ${DEMO_HOME:?}
 make install

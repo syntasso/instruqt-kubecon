@@ -6,6 +6,7 @@ BASH_RC=/root/.bashrc
 CODE_SERVER_VERSION=4.7.0
 GO_VERSION=1.18.6
 HOME_DIR=/root/demo
+SOLUTIONS_DIR=/root/kubecon-instruqt-solutions
 KUBEBUILDER_VERSION=3.6.0
 
 # Wait for the Instruqt host bootstrap to finish
@@ -30,12 +31,13 @@ echo "source /usr/share/bash-completion/bash_completion" >> ${BASH_RC}
 
 ## Set zsh plugin helpful aliases (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/kubectl/README.md)
 echo "complete -F __start_kubectl k" >> ${BASH_RC}
-cat /root/kubecon-instruqt-solutions/setup/bash_aliases >> /root/.bash_aliases
+cat ${SOLUTIONS_DIR}/track/bash_aliases >> /root/.bash_aliases
 
 # Setup home dir for the workshop
 mkdir -p ${HOME_DIR}
 echo "# Create your namespace yaml here" > ${HOME_DIR}/.example-namespace.yaml
 echo "export DEMO_HOME=${HOME_DIR}" >> ${BASH_RC}
+echo "export SOLUTIONS_DIR=${SOLUTIONS_DIR} >> ${BASH_RC}"
 
 # Install the necessary Golang version onto the PATH
 rm -rf /usr/bin/go
@@ -119,5 +121,5 @@ systemctl start code-server
 
 ## Install Code server extentions
 
-code-server --install-extension /root/kubecon-instruqt-solutions/setup/go-0.35.2.vsix
-code-server --install-extension /root/kubecon-instruqt-solutions/setup/yaml-1.10.1-19523.vsix
+code-server --install-extension ${SOLUTIONS_DIR}/track/go-0.35.2.vsix
+code-server --install-extension ${SOLUTIONS_DIR}/track/yaml-1.10.1-19523.vsix

@@ -5,7 +5,7 @@ source /root/.bashrc > /dev/null 2>&1
 
 cd /root
 rm -rf ${DEMO_HOME:?}
-cp -R /root/kubecon-instruqt-solutions/04-install-crd-on-kubernetes ${DEMO_HOME:?}
+cp -R ${SOLUTIONS_DIR:?}/04-install-crd-on-kubernetes ${DEMO_HOME:?}
 
 cd ${DEMO_HOME:?}
 make install
