@@ -37,7 +37,7 @@ cat ${SOLUTIONS_DIR}/track/bash_aliases >> /root/.bash_aliases
 mkdir -p ${HOME_DIR}
 echo "# Create your namespace yaml here" > ${HOME_DIR}/.example-namespace.yaml
 echo "export DEMO_HOME=${HOME_DIR}" >> ${BASH_RC}
-echo "export SOLUTIONS_DIR=${SOLUTIONS_DIR} >> ${BASH_RC}"
+echo "export SOLUTIONS_DIR=${SOLUTIONS_DIR}" >> ${BASH_RC}
 
 # Install the necessary Golang version onto the PATH
 rm -rf /usr/bin/go

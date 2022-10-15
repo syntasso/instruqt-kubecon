@@ -9,4 +9,4 @@ metadata:
   name: website-sample
 spec:
   imageTag: latest
-' >> ${DEMO_HOME:?}/config/samples/kubecon_v1beta1_website-with-image-tag.yaml
+' > ${DEMO_HOME:?}/config/samples/kubecon_v1beta1_website-with-image-tag.yaml
