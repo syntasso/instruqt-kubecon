@@ -39,7 +39,7 @@ difficulty: basic
 timelimit: 1
 ---
 
-📬 Completing one todo item
+📬 Completing your `TODO` item
 ==============
 
 In the last challenge you captured when a deployment or service already exists. This is because your create code does not update an existing resource. While this may seem unreasonable, a create can in some instances differ from an update. For example, you may have certain labels that get added over time that you do not want to remove from a running deployment. You left a `// TODO` comment which you will now complete.
@@ -47,17 +47,17 @@ In the last challenge you captured when a deployment or service already exists. 
 Find your previous `// TODO` comment by navigating in the `Code editor` tab to the `controllers/website_controller.go` file. Specifically look inside the error handling for `newDeployment` (around line 80). It should look like this:
 
 ```
-	err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
-  if err != nil {
-    if errors.IsAlreadyExists(err) {
-      log.Info(fmt.Sprintf(`Deployment for website "%s" already exists"`, customResource.Name))
-      // TODO: handle updates gracefully
-      return ctrl.Result{}, nil
-    } else {
-      log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
-      return ctrl.Result{}, err
-    }
+err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
+if err != nil {
+  if errors.IsAlreadyExists(err) {
+    log.Info(fmt.Sprintf(`Deployment for website "%s" already exists"`, customResource.Name))
+    // TODO: handle updates gracefully
+    return ctrl.Result{}, nil
+  } else {
+    log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
+    return ctrl.Result{}, err
   }
+}
 ```
 
 Now in place of the `// TODO` line, you will need to add three things:
@@ -115,7 +115,7 @@ if currentImage != desiredImage {
 
 With this change saved, you can start the operator in the `Run Shell` tab again using `make run`.
 
-The image tag will only change if you change the field value in the `Website` resource. To see this, first change the something else in the `Website`. For example, use the following code in the `K8s Shell` tab to add a harmless label:
+The image tag will only change if you change the field value in the `Website` resource. To see this, first change the something else in the `Website`. For example, use the following code in the `K8s Shell` tab to add a label:
 
 ```
 kubectl label \
@@ -169,7 +169,7 @@ You can continue to update this as frequently as you would like using the [three
 🚷 No need to repeat for the service
 ==============
 
-You can handle a service update in the same way, however at this stage there is no known use case for updating the service.
+You can handle a service update in the same way, however at this stage you don't have a use case for updating the service.
 
 In the future, you may add a new field to the `Website` custom resource that requires a service update and you can use the same technique as above to update it safely.
 
