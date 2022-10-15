@@ -13,7 +13,7 @@ notes:
 
     **In this challenge you will:**
     * Initialize Kubebuilder
-    * Run the generated controller application locally
+    * Run the generated operator application locally
 tabs:
 - title: K8s Shell
   type: terminal
@@ -91,7 +91,7 @@ make run
 
 This command may take a few minutes.
 
-While the command is running, navigate to `main.go` in the root directory (`demo`) of your `Code editor` tab. In this file, look at line 64 to see the `NewManager` function, which is what creates the controller application.
+While the command is running, navigate to `main.go` in the root directory (`demo`) of your `Code editor` tab. In this file, look at line 64 to see the `NewManager` function, which is what creates the operator application.
 
 > 💡 If you want to navigate to a specific place in the code editor quickly, type `ctrl+p` (`cmd+p` on macs) and enter the filename. Additionally, you can append a specific line number after a colon (e.g. `main.go:64`).
 
@@ -132,8 +132,10 @@ In this case, there are four prerequisites defined as other targets in this same
 
 There are a number of options for getting started with developing controllers and operators for Kubernetes. Kubebuilder is a great choice due to its opinionated support while also providing enough flexibility to create what you need.
 
-> 💡 You may have noticed that Kubebuilder always uses the term "controller". Don't let this get too confusing, despite you being in a track about building an operator.
+> 💡 You may have noticed that Kubebuilder always uses the term "controller". Don't let this get too confusing, despite you being in a track about building an operator
 >
 > Both controllers and operators are, applications running in Kubernetes that respond to changes in specified resources. Operators are a subset type of controller. An operator specifically manages operational concerns for another application.
+>
+> For the remainder of this tutorial you can treat the `controller` referenced in Kubebuilder code as synonymous with `operator`.
 
 You need a way to define and run your core business logic as an operator. Using Kubebuilder, you get started with an opinionated way to build, test and deploy a fit for purpose Golang application.

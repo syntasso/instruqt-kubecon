@@ -8,7 +8,7 @@ teaser: Explore the Kubebuilder generated CRD and then install it on your Kubern
 notes:
 - type: text
   contents: |-
-    In the previous challenge you created a controller and resource definition (CRD). Now is your chance to explore the resource CRD!
+    In the previous challenge you created a operator and resource definition (CRD). Now is your chance to explore the resource CRD!
 
     **In this challenge you will:**
     * Understand the Golang code representation of the CRD
@@ -38,7 +38,7 @@ You may not be familiar with Golang, but that is OK.
 
 Have a look in the document `api/v1beta1/website_types.go` for the `type WebsiteSpec struct`. This as the code definition of the Kubernetes object `spec`. This spec contains a field named `foo` which is defined in `api/v1beta1/website_types.go:32`. There is even a helpful comment above the field describing the use of `foo`.
 
-The CRD is defined first in Golang so that the controller (also written in Golang) can reference the definition. You will see this benefit in the next challenge.
+The CRD is defined first in Golang so that the operator (also written in Golang) can reference the definition. You will see this benefit in the next challenge.
 
 
 👩🏾‍💻 Creating a yaml version
@@ -89,4 +89,4 @@ If you `kubectl get crds` again, you will see the `websites.kubecon.my.domain` l
 
 You have successfully installed a new Custom Resource Definition onto your Kubernetes cluster!
 
-Soon you will request an instance (or Custom Resource) from this definition. But first, you will get to dig into the controller that you created alongside this CRD.
+Soon you will request an instance (or Custom Resource) from this definition. But first, you will get to dig into the operator that you created alongside this CRD.

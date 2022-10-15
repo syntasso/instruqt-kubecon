@@ -3,7 +3,7 @@ slug: view-your-website
 id: lrtpsez0x5bz
 type: challenge
 title: View your website by including a service
-teaser: Continue to extend the controller. This time include a service that exposes
+teaser: Continue to extend the operator. This time include a service that exposes
   your website to public traffic.
 notes:
 - type: text
@@ -39,7 +39,7 @@ timelimit: 1
 🕵🏽‍♂️ Some new setup to review
 ==============
 
-Once again, a small helper function has been added to your controller between challenges.
+Once again, a small helper function has been added to your operator between challenges.
 
 Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `newService`.
 
@@ -78,7 +78,7 @@ Just as with the deployment we need to add permission for the operator to work w
 ✏️ Testing this logic
 =============
 
-This is not as easy as rerunning the controller since updates still are not handled. If you test this code with the previously created deployment, your controller will error.
+This is not as easy as re-running the operator since updates still are not handled. If you test this code with the previously created deployment, your operator will error.
 
 To be sure you do not have any pre-existing deployments in your cluster , use this command in your `K8s Shell` tab:
 
@@ -90,7 +90,7 @@ Once any Website deployments have been deleted, go to the `Run Shell` tab and:
 ```
 make run
 ```
-Since you only deleted the deployment and not the Website CRD, running the controller will reconcile the Website and create both a new deployment and now also your new service.
+Since you only deleted the deployment and not the Website CRD, running the operator will reconcile the Website and create both a new deployment and now also your new service.
 
 See this service by running the following command in your `K8s Shell` tab ✨:
 

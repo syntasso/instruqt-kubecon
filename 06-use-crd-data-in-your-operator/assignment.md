@@ -3,8 +3,8 @@ slug: use-crd-data-in-your-operator
 id: zddpwbrzlotj
 type: challenge
 title: Use data defined in the CRD within the operator
-teaser: |-
-  Enhance your generic log line to reference CRD defined data from inside your operator.
+teaser: Enhance your generic log line to reference CRD defined data from inside your
+  operator.
 notes:
 - type: text
   contents: |-

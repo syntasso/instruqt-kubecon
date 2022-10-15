@@ -2,8 +2,8 @@
 slug: deploy-your-website
 id: u5nkkdsxujwa
 type: challenge
-title: Deploy your website from the controller
-teaser: Extend the controller to complete a deployment of your website as customized
+title: Deploy your website from the operator
+teaser: Extend the operator to complete a deployment of your website as customized
   by a Website resource.
 notes:
 - type: text
@@ -11,7 +11,7 @@ notes:
     Log lines allow you to understand when the reconcile loop runs. Now it is time to use your operator to actually operate an application.
 
     **In this challenge you will:**
-    * Create a deployment to run your website whenever the controller reconciles
+    * Create a deployment to run your website whenever the operator reconciles
 tabs:
 - title: K8s Shell
   type: terminal
@@ -33,7 +33,7 @@ timelimit: 1
 🕵🏿 Some new setup to review
 ==============
 
-Since you finished the last challenge, a change has been made to your controller.
+Since you finished the last challenge, a change has been made to your operator.
 
 Navigate to `controllers/website_controller.go` in your `Code editor` tab and scroll all the way to the bottom. Here you should find a new function called `newDeployment`.
 
@@ -92,9 +92,9 @@ NAME             AGE
 website-sample   26m
 ```
 
-With this already in your cluster, when you start up your controller again it will reconcile immediately. During reconciliation the controller will try to create a deployment as you have defined.
+With this already in your cluster, when you start up your operator again it will reconcile immediately. During reconciliation the operator will try to create a deployment as you have defined.
 
-To see this, go to the `Run Shell` tab and start the controller again with:
+To see this, go to the `Run Shell` tab and start the operator again with:
 ```
 make run
 ```
@@ -117,9 +117,9 @@ website-sample   2/2     2            2           61s
 🧨 But what happens on update?
 ==============
 
-While creating a deployment is an exciting and real world use case for your controller, what happens on update?
+While creating a deployment is an exciting and real world use case for your operator, what happens on update?
 
-Test this by stopping and restarting your controller. To stop you controller go to the `Run Shell` tab and use `ctrl+c`. Then restart with the same `make run` command you used before.
+Test this by stopping and restarting your operator. To stop you operator go to the `Run Shell` tab and use `ctrl+c`. Then restart with the same `make run` command you used before.
 
 You will see the log line but then an error trace something like:
 
@@ -142,6 +142,6 @@ That is because the code asks to create a deployment, but there already is one i
 📕 Summary
 ==============
 
-In this challenge you added a more realistic use case for your controller by asking it to deploy a website for you.
+In this challenge you added a more realistic use case for your operator by asking it to deploy a website for you.
 
 But this quickly resulted in more things to do (🥁) to handle when a deployment already exists. Don't worry, that is coming up next!

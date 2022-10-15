@@ -3,8 +3,8 @@ slug: generate-new-operator-and-custom-resource
 id: adhjrg6fqgds
 type: challenge
 title: Generate a new operator and custom resource
-teaser: Use Kubebuilder to generate a operator and corresponding custom resource
-  (CRD) for your new business.
+teaser: Use Kubebuilder to generate a operator and corresponding custom resource (CRD)
+  for your new business.
 notes:
 - type: text
   contents: |-

@@ -41,10 +41,10 @@ timelimit: 1
 🙉 Why is the operator so noisy
 ==============
 
-Right now, your controller will try to create two new resources each time it reconciles, a deployment and a service. But this is not always necessary!
+Right now, your operator will try to create two new resources each time it reconciles, a deployment and a service. But this is not always necessary!
 
 The reconcile loop runs under a few scenarios:
-1. On controller start / restart
+1. On operator start / restart
 1. Periodically (by default this is daily)
 1. Each time a Website resource event happens
 
@@ -56,7 +56,7 @@ To see this happen, imitate the first scenario by restarting your operator in th
 make run
 ```
 
-To stop this noisy error loop, stop the controller running with `ctrl+c`.
+To stop this noisy error loop, stop the operator running with `ctrl+c`.
 
 🧑🏽‍🎓 Learning the update error
 ==============
