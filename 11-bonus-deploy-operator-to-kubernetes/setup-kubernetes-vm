@@ -33,4 +33,4 @@ patchesJSON6902:
     - op: replace
       path: "/spec/template/spec/containers/0/imagePullPolicy"
       value: Always
-' >> ${DEMO_HOME:?}/config/manager/kustomization.yaml
+' > ${DEMO_HOME:?}/config/manager/kustomization.yaml
