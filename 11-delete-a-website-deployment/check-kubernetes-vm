@@ -5,7 +5,6 @@ set -euxoH pipefail
 WEBSITES=$(kubectl get websites.kubecon.my.domain --output json | jq '.items | length')
 [[ ${WEBSITES} -eq 0 ]] || fail-message "You should have deleted the website installed in the cluster. Currently you have ${WEBSITES} installed."  
 
-
 DEPLOYMENTS=$(kubectl get deployment -ltype=Website --output json| jq '.items | length')
 [[ ${DEPLOYMENTS} -eq 0 ]] || fail-message "Your delete should have deleted the deployment. Currently you have ${DEPLOYMENTS} deployments."
 

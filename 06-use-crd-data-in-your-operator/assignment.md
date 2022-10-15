@@ -56,7 +56,7 @@ This code has three key parts:
 
 1. `//+kubebuilder` is a comment prefix that will trigger kubebuilder generation changes. In this case, it will set a validation of the field value to only allow dashes, lowercase letters, or digits.
 2. The capital `ImageTag` is the Golang variable used throughout the codebase. Golang uses capitalized public variable names by convention.
-3. `json:"imageTag"` defines a "tag" that Kubebuilder uses to generate the yaml field. Yaml parameters starts with lower case variable names by convention.
+3. `json:"imageTag"` defines a "tag" that Kubebuilder uses to generate the yaml field. Yaml parameters starts with lower case variable names by convention. If you want to learn more about tags in Golang, you can check out [this blog](https://towardsdev.com/golang-struct-tags-explained-ccb589dcbb98) by [Satyajit Roy](https://mobile.twitter.com/__initialized__).
 
 > 💡 the use of `omitempty` in the json tag is how a field is marked as optional. This was present for the `foo` example, but to make name required, you have now removed it.
 

@@ -94,8 +94,8 @@ Now replace that entire snippet with this more detailed handler:
   err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
   if err != nil {
     if errors.IsAlreadyExists(err) {
-      // TODO: handle updates gracefully
       log.Info(fmt.Sprintf(`Deployment for website "%s" already exists"`, customResource.Name))
+      // TODO: handle updates gracefully
       return ctrl.Result{}, nil
     } else {
       log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
@@ -122,8 +122,8 @@ Replace that full snippit catch with this more detailed handler:
 err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
 if err != nil {
   if errors.IsAlreadyExists(err) {
-    // TODO: handle updates gracefully
     log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
+    // TODO: handle updates gracefully
     return ctrl.Result{}, nil
   } else {
     log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))

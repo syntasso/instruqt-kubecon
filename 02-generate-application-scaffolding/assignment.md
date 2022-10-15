@@ -83,7 +83,7 @@ Continue to the next header to use your first Make target.
 
 Yes, this is only generic scaffolding. But the provided Golang application is usable and even includes basic operability needs.
 
-To run this Golang application locally, go to the `K8s Shell` tab and enter:
+While you are developing a new application, it is quite time consuming to build and deploy it to a cluster each time. Kubebuilder supports running the application locally which lets you iterate more quickly as you are developing. To run this Golang application locally, go to the `K8s Shell` tab and enter:
 
 ```
 make run

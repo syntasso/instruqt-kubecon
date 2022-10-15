@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euxoH pipefail
+source /root/.bashrc > /dev/null 2>&1
+
+cd /root
+rm -rf ${DEMO_HOME:?}
+cp -R ${SOLUTIONS_DIR:?}/10-update-the-deployment-when-tag-changes ${DEMO_HOME:?}
+
+cd ${DEMO_HOME:?}
+make install
+kubectl delete websites.kubecon.my.domain website-sample || true
+kubectl apply --filename config/samples/kubecon_v1beta1_website-with-image-tag.yaml

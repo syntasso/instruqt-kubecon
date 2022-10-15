@@ -44,19 +44,21 @@ timelimit: 1
 
 Your operator is an application, so it needs to be packaged as a OCI compliant container image just like any other container you want to deploy.
 
-Kubebuilder knows this and provides the Make command you need. If you run the following command, you will end up with a local docker image. By default the `IMG` tag found at the top of the Makefile is used as the tag:
+Kubebuilder knows this and provides the Make command you need. Run the following command in your `Run Shell` tab and you generate a local docker image:
 ```
 make docker-build
 ```
 
-> ⏳ Note that this may take a few minutes!
+> ⏳ **Note that this may take a few minutes!**
+
+> 💡 By default the `IMG` tag found at the top of the Makefile is used as the tag. You can see this value in the `Code editor` tab at the top of the `Makefile`.
 
 This docker image is currently only usable on your local computer. Typically you would tag and push this image to a repository in the cloud so that your Kubernetes cluster could pull it down from the internet. Today you will not be doing this.
 
 ⬆️ Loading an image in a local k3s cluster
 ==============
 
-Instead, today you will load this local image into your local `k3s` Kubernetes cluster in order to keep everything local. To load this image, you first need to create an output of the image:
+Instead, today you will load this local image into your local `k3s` Kubernetes cluster in order to keep everything local. To load this image, you first need to create an output of the image. Run the following command in the `Run Shell` tab:
 ```
 docker save --output /root/demo/controller-latest.tar controller:latest
 ```
@@ -71,7 +73,7 @@ k3s ctr images import /root/demo/controller-latest.tar
 
 Now that you have your application packaged and available to your cluster, you are ready to actually run the operator. This operator relies on simple deployment configuration which is generated using `make manifests`. The configuration is stored in `config` > `manager`.
 
-The following make command generates the manifests and applies them to the cluster:
+The following make command generates the manifests and applies them to the cluster in the `Run Shell` tab:
 ```
 make deploy
 ```
@@ -81,7 +83,7 @@ Once applied, view the running operator using:
 kubectl --namespace demo-system get deployments
 ```
 
-If it is not healthy when you first check, you can use the `--watch` flag on your previous command, or just try again. It should take no more than about 15 seconds to start healthy.
+> 💡 If it is not healthy when you first check, you can use the `--watch` flag on your previous command, or just try again. It should take no more than about 15 seconds to start healthy.
 
 🛝 Using the operator in Kubernetes
 ==============
@@ -93,7 +95,6 @@ For example, create a new Website resource, or patch the existing one. The big d
 ```
 kubectl --namespace demo-system logs deploy/demo-controller-manager
 ```
-
 
 📕 Summary
 ==============
