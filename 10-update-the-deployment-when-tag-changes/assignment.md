@@ -2,7 +2,7 @@
 slug: update-the-deployment-when-tag-changes
 id: l8nj2v0ywovq
 type: challenge
-title: Update the deployment when tag changes
+title: Update the deployment when imageTag changes
 teaser: Now that you detect an update, it can actually update based on your operational
   playbook.
 notes:
@@ -10,12 +10,12 @@ notes:
   contents: |-
     The whole value of an operator is to codify the operations for your applications.
 
-    In the last section you identified a possible update scenario, now you will codify when and how to update the deployment and service.
+    In the last section you identified a possible update scenario. Now you will codify when and how to update the deployment and service.
 
     **In this challenge you will:**
     * Check the Website custom resource `imageTag` value
     * Check the deployment container tag
-    * Use the reconcile function to keep the deployment tag in line with what is defined in the custom resource
+    * Use the reconcile function to keep the deployment tag aligned with the custom resource field value
 tabs:
 - title: K8s Shell
   type: terminal
@@ -36,15 +36,15 @@ tabs:
   path: /
   port: 31000
 difficulty: basic
-timelimit: 600
+timelimit: 1
 ---
 
 📬 Completing one todo item
 ==============
 
-In the last challenge you captured when a deployment or service already exists. This is because your create code does not update an existing resource. While this may seem unreasonable, a create can in some instances differ from an update. For example, you may have certain annotations that get added over time that you do not want to remove from a running deployment. You left a `// TODO` comment which you will now complete.
+In the last challenge you captured when a deployment or service already exists. This is because your create code does not update an existing resource. While this may seem unreasonable, a create can in some instances differ from an update. For example, you may have certain labels that get added over time that you do not want to remove from a running deployment. You left a `// TODO` comment which you will now complete.
 
-Find your previous `// TODO` comment by navigating in the `Code editor` tab to the `controllers/website_controller.go` file inside the error handling for `newDeployment` (around line 80). It should look like this:
+Find your previous `// TODO` comment by navigating in the `Code editor` tab to the `controllers/website_controller.go` file. Specifically look inside the error handling for `newDeployment` (around line 80). It should look like this:
 
 ```
 	err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
@@ -118,13 +118,17 @@ With this change saved, you can start the operator in the `Run Shell` tab again 
 The image tag will only change if you change the field value in the `Website` resource. To see this, first change the something else in the `Website`. For example, use the following code in the `K8s Shell` tab to add a harmless label:
 
 ```
-# Update deployment 'my-deployment' with the label 'unhealthy' and the value 'true'.
-$ kubectl label deployment website-sample sample-label=new
+kubectl label \
+  website.kubecon.my.domain \
+  website-sample \
+  new-label=hello
 ```
 
-When you look at the log output in the `Run Shell` you should see the log indicating an update was identified, but not the log indicating the image was updated:
+When you look at the log output in the `Run Shell` you should see the log that the deployment already existed, but not the log about a change in imageTag:
 
 ```
+INFO    Hello from your new website reconciler "latest"!        {"controller": "website"...}
+INFO    Deployment for website "website-sample" already exists" {"controller": "website"...}
 
 ```
 
@@ -138,12 +142,14 @@ kubectl patch \
   --patch='{"spec":{"imageTag": "v1"}}'
 ```
 
-You can now see three things happen.
+You can now see a few things happen.
 
 First, you can see the log lines in the `Run Shell` tab indicate an image tag change:
 
 ```
-
+INFO    Hello from your new website reconciler "v1"!    {"controller": "website"...}
+INFO    Deployment for website "website-sample" already exists" {"controller": "website"...}
+INFO    Image tag has updated from "abangser/todo-local-storage:latest" to "abangser/todo-local-storage:v1"     {"controller": "website"...}
 ```
 
 Then you can see the pods be replaced with new ones (notice the very young `AGE` value):
@@ -152,10 +158,13 @@ Then you can see the pods be replaced with new ones (notice the very young `AGE`
 kubectl get pods
 ```
 
+<!---
+THIS DOES NOT YET WORK - not refreshing on the view
+
 And finally, you can see the tag name in the title of your website in the `Website` tab.
 
 You can continue to update this as frequently as you would like using the [three available tags](https://hub.docker.com/r/abangser/todo-local-storage/tags).
-
+--->
 
 🚷 No need to repeat for the service
 ==============
