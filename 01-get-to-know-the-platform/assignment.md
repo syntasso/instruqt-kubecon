@@ -13,7 +13,7 @@ notes:
     Please wait while we boot the VM for you and start Kubernetes. Once the VM
     is ready you will see a green start button in the bottom right hand corner.
 
-    There are a number of slides with corresponding hands on activities, these are each called "challenges"
+    There are a number of slides with corresponding hands-on activities, these are each called "challenges."
 
     **In this first challenge, you will:**
     - Get comfortable with this online environment
@@ -48,7 +48,7 @@ kubectl get namespaces
 
 > 💡 You can copy this command by clicking anywhere in the text box and then paste it into the terminal
 
-And in the `Code editor` tab create and edit files in a [Visual Studio Code](https://code.visualstudio.com/) style environment.
+You will use the `Code editor` tab to create and edit files in a [Visual Studio Code](https://code.visualstudio.com/) style environment.
 
 To see how this works, click on the `Code editor` tab and navigate to the file `.example-namespace.yaml`
 

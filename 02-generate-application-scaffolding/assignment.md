@@ -76,7 +76,7 @@ Then in the bonus challenges you may also touch on:
 * `deploy`
 * `test`
 
-Continue to the next header to already put one of these to use.
+Continue to the next header to use your first Make target.
 
 
 👩🏾‍💻 Running your Application
@@ -90,7 +90,9 @@ To run this Golang application locally, go to the `K8s Shell` tab and enter:
 make run
 ```
 
-This command may take a few minutes, so while it is working, navigate to `main.go` in the root "demo" directory of your `Code editor` tab. In this file, look at line 64 to see where the controller application is created.
+This command may take a few minutes.
+
+While the command is running, navigate to `main.go` in the root directory (`DEMO`) of your `Code editor` tab. In this file, look at line 64 to see the `NewManager` function, which is where the controller application is created.
 
 > 💡 If you want to navigate to a specific place quickly in the code editor, type `ctrl+p` (`cmd+p` on macs) and enter the filename or additionally append a specific line number after a colon (e.g. `main.go:64`).
 

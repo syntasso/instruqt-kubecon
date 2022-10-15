@@ -42,16 +42,16 @@ timelimit: 1
 🎁 Creating your operator release
 ==============
 
-Since the operator is essentially just an application, it needs to be packaged as a OCI compliant container image just like any other container you want to deploy.
+Your operator is just an application, so it needs to be packaged as a OCI compliant container image just like any other container you want to deploy.
 
-Kubebuilder of course knows this and again provides the Make command you need. If you run the following command, you will end up with a local docker image. By default it is named based on the `IMG` tag found at the top of the Makefile:
+Kubebuilder knows this and provides the Make command you need. If you run the following command, you will end up with a local docker image. By default it is named based on the `IMG` tag found at the top of the Makefile:
 ```
 make docker-build
 ```
 
-> ⏳ Note that this docker build may take a few minutes!
+> ⏳ Note that this may take a few minutes!
 
-This docker image is currently only usable on your local computer. Typically you would look to tag and push this image to a repository in the cloud so that your Kubernetes cluster could pull it down from the internet. Today you will not be doing this.
+This docker image is currently only usable on your local computer. Typically you would tag and push this image to a repository in the cloud so that your Kubernetes cluster could pull it down from the internet. Today you will not be doing this.
 
 ⬆️ Uploading your image locally
 ==============
