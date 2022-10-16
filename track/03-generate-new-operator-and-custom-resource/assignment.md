@@ -32,7 +32,7 @@ timelimit: 1
 
 So you have a working Golang application. Now it is time to add some business logic to create a useful (albeit, simple) operator.
 
-In this case, imagine you have created a to-do application and want to deploy a number of custom versions of it (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)). 
+In this case, imagine you have created a to-do application and want to deploy a number of custom versions of it (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)).
 
 You have already packaged your website application as a container image and now you want to deploy the first version of it.
 

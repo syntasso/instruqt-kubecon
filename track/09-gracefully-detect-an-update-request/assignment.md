@@ -118,7 +118,7 @@ if err != nil {
 }
 ```
 
-Replace that full snippit catch with this more detailed handler:
+Replace that full snippet catch with this more detailed handler:
 ```
 err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
 	if err != nil {

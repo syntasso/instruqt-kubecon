@@ -161,32 +161,32 @@ You need to delete the deployment and the service resources for the website.
 In the `website_controller.go` in your `Code editor` tab replace the code inside the new error catch block `if errors.IsNotFound(err)` with the following code:
 
 ```
-  // If the resource is not found, that is OK. It just means the desired state is to
-  // not have any resources for this Website, so we will need to delete them.
-  log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist, deleting associated resources`, req.Name))
+// If the resource is not found, that is OK. It just means the desired state is to
+// not have any resources for this Website, so we will need to delete them.
+log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist, deleting associated resources`, req.Name))
 
-  // Now, try and delete the resource, catch any errors
-  deployErr := r.Client.Delete(ctx, newDeployment(req.Name, req.Namespace, "n/a"))
+// Now, try and delete the resource, catch any errors
+deployErr := r.Client.Delete(ctx, newDeployment(req.Name, req.Namespace, "n/a"))
 
-  // Success for this delete is either:
-  // 1. the delete is successful without error
-  // 2. the resource already doesn't exist so delete can't take action
-  if deployErr != nil && !errors.IsNotFound(deployErr) {
-    // If any other error occurs, log it
-    log.Error(deployErr, fmt.Sprintf(`Failed to delete deployment "%s"`, req.Name))
+// Success for this delete is either:
+// 1. the delete is successful without error
+// 2. the resource already doesn't exist so delete can't take action
+if deployErr != nil && !errors.IsNotFound(deployErr) {
+  // If any other error occurs, log it
+  log.Error(deployErr, fmt.Sprintf(`Failed to delete deployment "%s"`, req.Name))
   }
 
-  // repeat logic from the deployment delete
-  serviceErr := r.Client.Delete(ctx, newService(req.Name, req.Namespace))
-  if serviceErr != nil && !errors.IsNotFound(serviceErr) {
-    log.Error(serviceErr, fmt.Sprintf(`Failed to delete service "%s"`, req.Name))
+// repeat logic from the deployment delete
+serviceErr := r.Client.Delete(ctx, newService(req.Name, req.Namespace))
+if serviceErr != nil && !errors.IsNotFound(serviceErr) {
+  log.Error(serviceErr, fmt.Sprintf(`Failed to delete service "%s"`, req.Name))
   }
 
-  // If either the deploy or service deletes fail, the reconcile should fail
-  if deployErr != nil || serviceErr != nil {
-    return ctrl.Result{}, fmt.Errorf("%v/n%v", deployErr, serviceErr)
+// If either the deploy or service deletes fail, the reconcile should fail
+if deployErr != nil || serviceErr != nil {
+  return ctrl.Result{}, fmt.Errorf("%v/n%v", deployErr, serviceErr)
   }
-  return ctrl.Result{}, nil
+return ctrl.Result{}, nil
 ```
 
 **💾 Once this change is complete. Remember to save the file with `ctrl+s` (or `⌘ + s` on a mac).**

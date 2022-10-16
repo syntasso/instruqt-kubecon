@@ -22,7 +22,7 @@ This is the code necessary to build a track in [Instruqt](https://instruqt.com/)
 
 The tutorial is stored in the [track](./track/) folder. Each step is in order with it's number prepended to the directory name. These are called "challenges".
 
-Inside of each challenge directory you will see an `assignment.yaml`. This file contains some configuration at the top in YAML format and then the tutorial instructions at the bottom in Markdown. You can follow this markdown instruction from any computer that meets the prerequisites.
+Inside of each challenge directory you will see an `assignment.md`. This file contains some configuration at the top in YAML format and then the tutorial instructions at the bottom in Markdown. You can follow this markdown instruction from any computer that meets the prerequisites.
 
 If you see a `setup-kubernetes-vm` file in the directory, you should review the bash commands in this file before starting the assignment. Running these bash scripts is at your own risk. They were built to run on a sandbox VM. It is advised that you view the intention and recreate as necessary.
 

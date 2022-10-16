@@ -86,7 +86,7 @@ Congratulations! You have now navigated your way around the platform and are rea
 To continue to the next challenge, use the green `Check` button in the bottom right corner of the screen. This validates your current work and loads the next challenge.
 
 > 💡 Making space: After you complete a header section in these instructions, you can minimize the section by clicking on the header. This makes more space for the next header section. Try this by clicking on "👋🏾 Introduction" now and seeing it fold closed.
-> 
+>
 > You can also resize the sidebar with instructions and even close it if you need more working space!
 
 
