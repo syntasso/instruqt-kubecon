@@ -10,6 +10,11 @@ Some additional information can be found on the tutorial website.
 > 
 > **It is advised not to run any of the scripts in this repository on your computer without deep personal review.**
 
+## Creating your own Instruqt track
+
+This is all the code required to create and run your own [Instruqt](https://instruqt.com/) track.
+
+You will need to create new track and challenge IDs but all of this content should be reusable should you sign up for and create content with Instruqt.
 
 ## Using this outside of Instruqt
 
