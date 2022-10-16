@@ -1,0 +1,16 @@
+domain: my.domain
+layout:
+- go.kubebuilder.io/v4-alpha
+projectName: demo
+repo: my.domain
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: my.domain
+  group: kubecon
+  kind: Website
+  path: my.domain/api/v1beta1
+  version: v1beta1
+version: "3"

@@ -1,0 +1,6 @@
+apiVersion: kubecon.my.domain/v1beta1
+kind: Website
+metadata:
+  name: website-sample
+spec:
+  # TODO(user): Add fields here
