@@ -64,6 +64,8 @@ metadata:
 
 When you edit the file, you will see the top of the tab look like a white dot. This indicates a change is not yet saved. Press `ctrl+s` (or `⌘ + s` on a mac) to save the file.
 
+> 💡 Golang files will be formatted on save, so as you continue with pasting code snippets, saving will help make sure your files are always formatted correctly!
+
 Now the real power is in your ability to create files in the code editor and then run those files in the shell. Return to the `K8s Shell` tab and apply this edited file to your cluster using the following command:
 
 ```

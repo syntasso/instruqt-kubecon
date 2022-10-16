@@ -96,7 +96,6 @@ Now replace that entire snippet with this more detailed handler:
     if errors.IsAlreadyExists(err) {
       log.Info(fmt.Sprintf(`Deployment for website "%s" already exists"`, customResource.Name))
       // TODO: handle updates gracefully
-      return ctrl.Result{}, nil
     } else {
       log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
       return ctrl.Result{}, err
@@ -124,7 +123,6 @@ if err != nil {
   if errors.IsAlreadyExists(err) {
     log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
     // TODO: handle updates gracefully
-    return ctrl.Result{}, nil
   } else {
     log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
     return ctrl.Result{}, err
