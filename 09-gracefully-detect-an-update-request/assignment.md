@@ -58,6 +58,8 @@ make run
 
 To stop this noisy error loop, stop the operator running with `ctrl+c`.
 
+> 💡 If you skipped to this section, you may not have an already running operator. This would mean `make run` will not show errors. In this case, just stop and restart the operator to see the errors.
+
 🧑🏽‍🎓 Learning the update error
 ==============
 
@@ -119,15 +121,15 @@ if err != nil {
 Replace that full snippit catch with this more detailed handler:
 ```
 err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
-if err != nil {
-  if errors.IsAlreadyExists(err) {
-    log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
-    // TODO: handle updates gracefully
-  } else {
-    log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
-    return ctrl.Result{}, err
-  }
-}
+	if err != nil {
+		if errors.IsInvalid(err) && strings.Contains(err.Error(), "provided port is already allocated") {
+			log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
+      // TODO: handle updates gracefully
+		} else {
+			log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
+			return ctrl.Result{}, err
+		}
+	}
 ```
 
 **💾 Once these changes are complete. Remember to save the file which with `ctrl+s`.**
