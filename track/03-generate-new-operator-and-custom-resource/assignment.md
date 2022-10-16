@@ -32,14 +32,16 @@ timelimit: 1
 
 So you have a working Golang application. Now it is time to add some business logic to create a useful (albeit, simple) operator.
 
-In this case, imagine you have created a to-do application and want to deploy a number of custom versions of it (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)). You have already packaged your website application as a container image and now you want to deploy the first version of it.
+In this case, imagine you have created a to-do application and want to deploy a number of custom versions of it (based on [this code](https://github.com/hariramjp777/frontend-todo-app) by [Hari Ram](https://dev.to/hariramjp777)). 
+
+You have already packaged your website application as a container image and now you want to deploy the first version of it.
 
 You are well versed in how maintenance can create a lot of [toil](https://sre.google/sre-book/eliminating-toil/). You want to make sure that your deployment choices automate as much of the operations as possible.
 
 To reduce toil for this application, you will create a Kubernetes operator. As the first phase of functionality, this operator will:
 
 * _**create**_ a new instance of the todo application as a website in a cluster if the cluster does not already have one
-* _**acknowledge**_ when a request will update an existing website instance
+* _**update**_ when the request changes in a known way
 * _**delete**_ a website instance upon request
 
 Of course there are a lot more things that you will want to automate in the future (e.g. moving to remote storage, storage backups). But this first release of your operator sets the foundation for future complexity.
@@ -47,7 +49,7 @@ Of course there are a lot more things that you will want to automate in the futu
 👩🏾‍💻 First, create the operator and resource
 ==============
 
-Kubebuilder provides a command that can create either the `Controller` application or a new `Resource` type (or both!).
+Kubebuilder provides a command that can create either the `Controller` process or a new `Resource` type (or both!).
 
 Remember, every operator responds to events of certain resource types. In this case, you are creating a custom type (called `Website`). If you choose to create your custom type at the same time as your operator, Kubebuilder automatically configures the operator to know about the type.
 

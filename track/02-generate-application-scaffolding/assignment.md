@@ -89,7 +89,7 @@ While you are developing a new application, it is quite time consuming to build 
 make run
 ```
 
-This command may take a few minutes.
+This command may take a few minutes (particularly `go vet` may appear to hang!).
 
 While the command is running, navigate to `main.go` in the root directory (`demo`) of your `Code editor` tab. In this file, look at line 64 to see the `NewManager` function, which is what creates the operator application.
 
@@ -99,7 +99,7 @@ In the list of options passed to this `NewManager` function (lines 65 to 70), yo
 
 Return to the `K8s Shell` tab and view the progress of the run command.
 
-Returning to your `K8s Shell`, you should see a few commands running. This includes prerequisite Make targets like `test` and `vet`. When it is complete, you should see the following four log lines:
+Returning to your `K8s Shell`, you should see a few commands running. This includes prerequisite Make targets like `test` and `vet`. When it is complete, you should see the following four log lines at the end of the output:
 
 ```
 INFO  controller-runtime.metrics  Metrics server is starting to listen  {"addr": ":8080"}
@@ -132,10 +132,10 @@ In this case, there are four prerequisites defined as other targets in this same
 
 There are a number of options for getting started with developing controllers and operators for Kubernetes. Kubebuilder is a great choice due to its opinionated support while also providing enough flexibility to create what you need.
 
-> 💡 You may have noticed that Kubebuilder always uses the term "controller". Don't let this get too confusing, despite you being in a track about building an operator
+You need a way to define and run your core business logic as an operator. Using Kubebuilder, you get started with an opinionated way to build, test and deploy a fit for purpose Golang application.
+
+> 💡 You may have noticed that Kubebuilder always uses the term "controller". Don't let this get too confusing, despite this track focusing on building an operator.
 >
 > Both controllers and operators are, applications running in Kubernetes that respond to changes in specified resources. Operators are a subset type of controller. An operator specifically manages operational concerns for another application.
 >
 > For the remainder of this tutorial you can treat the `controller` referenced in Kubebuilder code as synonymous with `operator`.
-
-You need a way to define and run your core business logic as an operator. Using Kubebuilder, you get started with an opinionated way to build, test and deploy a fit for purpose Golang application.
