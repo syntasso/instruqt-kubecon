@@ -42,16 +42,16 @@ timelimit: 1
 📬 Completing your `TODO` item
 ==============
 
-In the last challenge you captured when a deployment or service already exists. This is because your create code will error and not be able to update an existing resource. While this may seem unreasonable, and solveable by just overwriting with a new create, a create can in some instances differ from an update. For example, you may have certain labels that get added over time that you do not want to remove from a running deployment. You left a `// TODO` comment which you will now complete.
+In the last challenge you captured when a deployment or service already exists. This is because your create code will error and not be able to update an existing resource. While this may seem unreasonable, and solveable by just overwriting with a new create, a create can in some instances differ from an update. For example, you may have certain labels that get added over time that you do not want to remove from a running deployment. You left a `// TODO: handle deployment updates gracefully` comment which you will now complete.
 
-Find your previous `// TODO` comment by navigating in the `Code editor` tab to the `controllers/website_controller.go` file. Specifically look inside the error handling for `newDeployment` (around line 80). It should look like this:
+Find your previous `// TODO: handle deployment updates gracefully` comment by navigating in the `Code editor` tab to the `controllers/website_controller.go` file. Specifically look inside the error handling for `newDeployment` (around line 80). It should look like this:
 
 ```
 err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
 if err != nil {
   if errors.IsAlreadyExists(err) {
     log.Info(fmt.Sprintf(`Deployment for website "%s" already exists"`, customResource.Name))
-    // TODO: handle updates gracefully
+    // TODO: handle deployment updates gracefully
   } else {
     log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
     return ctrl.Result{}, err

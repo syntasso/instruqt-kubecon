@@ -97,7 +97,7 @@ Now replace that entire snippet with this more detailed handler:
   if err != nil {
     if errors.IsAlreadyExists(err) {
       log.Info(fmt.Sprintf(`Deployment for website "%s" already exists"`, customResource.Name))
-      // TODO: handle updates gracefully
+      // TODO: handle deployment updates gracefully
     } else {
       log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
       return ctrl.Result{}, err
@@ -124,7 +124,7 @@ err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namesp
 	if err != nil {
 		if errors.IsInvalid(err) && strings.Contains(err.Error(), "provided port is already allocated") {
 			log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
-      // TODO: handle updates gracefully
+      // TODO: handle service updates gracefully
 		} else {
 			log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
 			return ctrl.Result{}, err
