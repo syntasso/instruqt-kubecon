@@ -87,7 +87,7 @@ You can see the `error` is `"Website.kubecon.my.domain \"website-sample\" not fo
 
 Knowing that on delete the operator reports `not found` allows you to handle this case independently. Return to `website_controller.go` in your `Code editor` tab and add another conditional statement into the error block.
 
-This error is created when you fetch the custom resource around line 62. The code looks something like:
+This error is created when you fetch the custom resource around line 65. The code looks something like:
 
 ```
   // Start by declaring the custom resource to be type "Website"
@@ -143,7 +143,7 @@ kubectl delete website.kubecon.my.domain website-sample
 
 When you return to the operator logs now you should see a log line instead of noisy error stack traces.
 ```
-1.6657585490296276e+09  INFO    Custom resource for website "website-sample" does not exist
+INFO    Custom resource for website "website-sample" does not exist
 ...
 ```
 
@@ -158,7 +158,7 @@ Catching the desire to delete is not enough. You must also complete the reconcil
 
 You need to delete the deployment and the service resources for the website.
 
-In the `website_controller.go` in your `Code editor` tab replace the code inside the new error catch block `if errors.IsNotFound(err)` with the following code:
+In the `website_controller.go` in your `Code editor` tab replace the three lines of code inside the new error catch block `if errors.IsNotFound(err)` with the following code:
 
 ```
 // If the resource is not found, that is OK. It just means the desired state is to
@@ -194,9 +194,17 @@ return ctrl.Result{}, nil
 💪🏿 Seeing your deletes in action
 ==============
 
-You are now able to exercise your operator in any way you would like. In particular you can try to create and delete website resources to see the operator clean up after itself with your new code.
+You need to stop the controller running in the `Run Shell` tab with `ctrl+c` and restart it with `make run`. This will use the new code changes.
 
+Once the controller is restarted, you are now able to exercise your operator in any way you would like.
 
+In particular you can try to create and delete website resources to see the operator clean up after itself with your new code.
+
+Remember to use the following command to see all resources associated with your custom website resources:
+
+```
+kubectl get all --selector=type=Website
+```
 
 📕 Summary
 ==============
