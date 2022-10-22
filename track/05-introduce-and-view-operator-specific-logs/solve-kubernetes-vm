@@ -10,4 +10,5 @@ cp -R ${SOLUTIONS_DIR:?}/05-introduce-and-view-controller-specific-logs ${DEMO_H
 cd ${DEMO_HOME:?}
 make install
 kubectl delete websites.kubecon.my.domain website-sample || true
+kubectl wait --for condition=established --timeout=60s crd/websites.kubecon.my.domain
 kubectl apply --filename config/samples/kubecon_v1beta1_website.yaml

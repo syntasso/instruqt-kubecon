@@ -9,3 +9,4 @@ cp -R ${SOLUTIONS_DIR:?}/04-install-crd-on-kubernetes ${DEMO_HOME:?}
 
 cd ${DEMO_HOME:?}
 make install
+kubectl wait --for condition=established --timeout=60s crd/websites.kubecon.my.domain
