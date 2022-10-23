@@ -2,14 +2,12 @@
 
 set -euxoH pipefail
 
-# Install docker
-wget https://download.docker.com/linux/ubuntu/dists/hirsute/pool/stable/amd64/containerd.io_1.4.13-1_amd64.deb
-wget https://download.docker.com/linux/ubuntu/dists/hirsute/pool/stable/amd64/docker-ce-cli_20.10.14~3-0~ubuntu-hirsute_amd64.deb
-wget https://download.docker.com/linux/ubuntu/dists/hirsute/pool/stable/amd64/docker-ce_20.10.14~3-0~ubuntu-hirsute_amd64.deb
+source /root/.bashrc > /dev/null 2>&1
 
-dpkg -i docker-ce-cli_20.10.14~3-0~ubuntu-hirsute_amd64.deb 
-dpkg -i containerd.io_1.4.13-1_amd64.deb 
-dpkg -i docker-ce_20.10.14~3-0~ubuntu-hirsute_amd64.deb 
+# Install docker
+dpkg -i ${SOLUTIONS_DIR:?}/track/docker-ce-cli_20.10.14~3-0~ubuntu-hirsute_amd64.deb 
+dpkg -i ${SOLUTIONS_DIR:?}/track/containerd.io_1.4.13-1_amd64.deb 
+dpkg -i ${SOLUTIONS_DIR:?}/track/docker-ce_20.10.14~3-0~ubuntu-hirsute_amd64.deb 
 
 echo '
 resources:
