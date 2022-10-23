@@ -10,5 +10,5 @@ cp -R ${SOLUTIONS_DIR:?}/06-use-crd-data-in-your-controller ${DEMO_HOME:?}
 cd ${DEMO_HOME:?}
 make install
 kubectl delete websites.kubecon.my.domain website-sample || true
-kubectl wait --for condition=established --timeout=60s crd/websites.kubecon.my.domain
+sleep 2 # Can't use wait since it is a field change (crd is already established) and jsonpath not implemented in this version
 kubectl apply --filename config/samples/kubecon_v1beta1_website-with-image-tag.yaml
