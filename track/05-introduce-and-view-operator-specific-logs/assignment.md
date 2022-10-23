@@ -111,7 +111,7 @@ In the `Run Shell` tab, start up your updated application with:
 make run
 ```
 
-Remember, this may take a few minutes.
+> 💡 Remember, this may take a few minutes
 
 When it completes you should see the same output you saw in the last challenge including both a metrics and health probe endpoint starting.
 
