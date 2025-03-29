@@ -1,6 +1,6 @@
 ---
 slug: introduce-and-view-operator-specific-logs
-id: z2x6mgvsq5om
+id: xsewrjjavy5v
 type: challenge
 title: Understand the new operator by adding logs
 teaser: Explore the Kubebuilder created operator by adding logs and viewing them.
@@ -16,21 +16,25 @@ notes:
     * Run the application locally
     * Request a Website custom resource and view the corresponding  logs
 tabs:
-- title: K8s Shell
+- id: 8czl00apheyy
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: qdmgjbfvwd45
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: 7qkhv7ool3oj
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🕵️ Understanding your new operator

@@ -1,6 +1,6 @@
 ---
 slug: install-crd-on-kubernetes
-id: zolv3abe59us
+id: rcro61w5yvou
 type: challenge
 title: Install the new CRD on Kubernetes
 teaser: Explore the Kubebuilder generated CRD and then install it on your Kubernetes
@@ -15,17 +15,20 @@ notes:
     * Transform the code CRD into YAML and install it in Kubernetes
     * Install the CRD using the provided `make` command
 tabs:
-- title: K8s Shell
+- id: nrgv6zq1ssc8
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: opyvk7y4tjpt
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🧬 Viewing the generated CRD code

@@ -1,6 +1,6 @@
 ---
 slug: get-to-know-the-platform
-id: yzq8tbn8srib
+id: sj5bwgeem2od
 type: challenge
 title: Get to know the platform
 teaser: Explore how this course is being delivered in the browser, but has all the
@@ -18,17 +18,20 @@ notes:
     **In this first challenge, you will:**
     - Get comfortable with this online environment
 tabs:
-- title: K8s Shell
+- id: pud5gre9gazn
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: wzr1qh98l4oa
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
 difficulty: basic
 timelimit: 7189
+enhanced_loading: null
 ---
 
 👋🏾 Introduction

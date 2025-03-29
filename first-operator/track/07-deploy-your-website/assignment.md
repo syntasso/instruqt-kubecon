@@ -1,6 +1,6 @@
 ---
 slug: deploy-your-website
-id: u5nkkdsxujwa
+id: iqt39pja0qvh
 type: challenge
 title: Deploy your website from the operator
 teaser: Extend the operator to complete a deployment of your website as customized
@@ -13,21 +13,25 @@ notes:
     **In this challenge you will:**
     * Create a deployment to run your website whenever the operator reconciles
 tabs:
-- title: K8s Shell
+- id: slzxc41kagwg
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: tbvip15at1vr
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: cnncixsxnaw5
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🕵🏿 Some new setup to review

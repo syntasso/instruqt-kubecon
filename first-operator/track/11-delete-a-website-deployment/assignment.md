@@ -1,6 +1,6 @@
 ---
 slug: delete-a-website-deployment
-id: uocpjfaybikk
+id: tyysvo9m0rb1
 type: challenge
 title: Delete a website deployment
 teaser: Drift between operator expectations and cluster reality does not always mean
@@ -14,26 +14,31 @@ notes:
     * Detect the deletion of a website
     * Delete any resources the operator creates when its resource is deleted
 tabs:
-- title: K8s Shell
+- id: e8esfneiqkca
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: wn3ub8oq14iy
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: 8xwhf2jpd8bl
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
-- title: Website
+- id: prpcv2w7cqwo
+  title: Website
   type: service
   hostname: kubernetes-vm
   path: /
   port: 31000
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🫥 Why delete is an interesting use case

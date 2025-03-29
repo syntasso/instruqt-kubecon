@@ -1,6 +1,6 @@
 ---
 slug: update-the-deployment-when-tag-changes
-id: l8nj2v0ywovq
+id: 2yzurfp1h1qp
 type: challenge
 title: Update the deployment when imageTag changes
 teaser: Now that you detect an update, it can actually update based on your operational
@@ -17,26 +17,31 @@ notes:
     * Check the deployment container tag
     * Use the reconcile function to keep the deployment tag aligned with the custom resource field value
 tabs:
-- title: K8s Shell
+- id: bbqxy7qhwq6t
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: xcbxalsrei2z
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: xmojfgkbxmyn
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
-- title: Website
+- id: hgbiv2kx0zsp
+  title: Website
   type: service
   hostname: kubernetes-vm
   path: /
   port: 31000
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 📬 Completing your `TODO` item

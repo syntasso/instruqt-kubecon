@@ -1,6 +1,6 @@
 ---
 slug: gracefully-detect-an-update-request
-id: 53brpzghvx0e
+id: 8m4de8vunhrt
 type: challenge
 title: Gracefully detect an update request
 teaser: While creating is necessary, most of the time you will be updating an existing
@@ -16,26 +16,31 @@ notes:
     * Detect an update scenario by catching a specific error
     * Understand more about what logic needs to live in this error catch
 tabs:
-- title: K8s Shell
+- id: 0nbqqhbtlngy
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: zfr1dlwxeexs
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: x1iw0je3ktxw
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
-- title: Website
+- id: 3x9yckms72uk
+  title: Website
   type: service
   hostname: kubernetes-vm
   path: /
   port: 31000
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🙉 Why is the operator so noisy

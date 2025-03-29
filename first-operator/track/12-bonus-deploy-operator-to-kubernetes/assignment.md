@@ -1,6 +1,6 @@
 ---
 slug: bonus-deploy-operator-to-kubernetes
-id: kx3btbmriphs
+id: twgtxexf3zqg
 type: challenge
 title: 'Bonus: Deploy operator to Kubernetes'
 teaser: It is time to stop running locally, and start deploying to Kubernetes
@@ -17,26 +17,31 @@ notes:
     * Generate an operator distribution
     * Deploy the operator distribution into your cluster
 tabs:
-- title: K8s Shell
+- id: 5chw9mjljrbs
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: 2pdw9us027hw
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: o6vu62gbp3mz
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
-- title: Website
+- id: jr7x24lizzyz
+  title: Website
   type: service
   hostname: kubernetes-vm
   path: /
   port: 31000
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🎁 Creating your operator release

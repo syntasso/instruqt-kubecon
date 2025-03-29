@@ -1,6 +1,6 @@
 ---
 slug: generate-new-operator-and-custom-resource
-id: adhjrg6fqgds
+id: m4yxhsiwkumg
 type: challenge
 title: Generate a new operator and custom resource
 teaser: Use Kubebuilder to generate a operator and corresponding custom resource (CRD)
@@ -14,17 +14,20 @@ notes:
     * Be introduced to the example business case
     * Create a operator and custom resource (CRD) using Kubebuilder
 tabs:
-- title: K8s Shell
+- id: vdliu8howvlp
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: spqarhajfhlj
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 ☑️ Dreaming of a better to-do app

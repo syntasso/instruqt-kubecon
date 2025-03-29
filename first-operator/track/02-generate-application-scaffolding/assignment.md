@@ -1,6 +1,6 @@
 ---
 slug: generate-application-scaffolding
-id: okgzfoly5zg5
+id: pg5lovanl0ss
 type: challenge
 title: Generate application scaffolding
 teaser: At its core, an operator is an application that runs in Kubernetes. In this
@@ -15,17 +15,20 @@ notes:
     * Initialize Kubebuilder
     * Run the generated operator application locally
 tabs:
-- title: K8s Shell
+- id: z41c3lzgzuan
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: yrfmse5f49jy
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🚀 Get started

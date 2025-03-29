@@ -1,6 +1,6 @@
 ---
 slug: view-your-website
-id: lrtpsez0x5bz
+id: ys1l0muserel
 type: challenge
 title: View your website by including a service
 teaser: Continue to extend the operator. This time include a service that exposes
@@ -14,26 +14,31 @@ notes:
     * Deploy a service to expose your deployment on a NodePort
     * Use Instruqt to view the website
 tabs:
-- title: K8s Shell
+- id: id6c8a6mu2qq
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: dbgddqr3wgiz
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: 6qxpa1v1qobz
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
-- title: Website
+- id: wljsdbpkuyhp
+  title: Website
   type: service
   hostname: kubernetes-vm
   path: /
   port: 31000
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🕵🏽‍♂️ Some new setup to review

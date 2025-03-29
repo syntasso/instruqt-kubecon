@@ -1,6 +1,6 @@
 ---
 slug: use-crd-data-in-your-operator
-id: zddpwbrzlotj
+id: aszgjlgd2bh9
 type: challenge
 title: Use data defined in the CRD within the operator
 teaser: Enhance your generic log line to reference CRD defined data from inside your
@@ -18,21 +18,25 @@ notes:
     * Reference the CRD field in the operator
     * Run the updated operator to test local changes
 tabs:
-- title: K8s Shell
+- id: rdlnj54cdrfc
+  title: K8s Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Run Shell
+- id: fwzu2c2xo9la
+  title: Run Shell
   type: terminal
   hostname: kubernetes-vm
   workdir: /root/demo
-- title: Code editor
+- id: ev8yrumlpxj9
+  title: Code editor
   type: service
   hostname: kubernetes-vm
   path: /
   port: 8443
 difficulty: basic
 timelimit: 1
+enhanced_loading: null
 ---
 
 🆙 Updating the CRD fields
