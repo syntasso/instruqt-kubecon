@@ -66,7 +66,7 @@ To see available targets, run in the `K8s Shell`:
 make help
 ```
 
-Within this help output, take a look for the descriptions of the four targets you will use most today:
+Within this help output, take a look for the descriptions of the two targets you will use most today:
 * `install`
 * `run`
 
