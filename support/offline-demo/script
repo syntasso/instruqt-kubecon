@@ -1,0 +1,388 @@
+# Offline demo
+
+To be used in place of hands on work during KubeCon. This is a last resort but will at least showcase the learnings of the online tutorial.
+
+## Prerequisites
+
+* Running Kubernetes cluster (use docker desktop for easy image load in the next step)
+* Pre-loaded docker images
+  * ...
+* From [`12-bonus-deploy-operator-to-kubernetes`](./12-bonus-deploy-operator-to-kubernetes/):
+  * `make install`
+  * `make docker-build`
+  * `make run`
+
+## Script
+
+### 2 KubeBuilder init
+
+KubeBuilder gives us a quick start option. Under the hood it uses Operator Framework but adds some nice user experience and opinioned bootstrap on top.
+
+First init within a directory to create the bootstrap code.
+
+```
+kubebuilder init \
+  --plugins=go/v4-alpha \
+  --repo my.domain
+```
+
+Things to call out are:
+* makefile and how prereqs work
+* `make run`
+  * main.go:64
+
+### 3 KubeBuilder create API
+
+Intro todo app:
+```
+docker run --rm -it -p 8080:80 abangser/todo-local-storage:latest
+```
+
+To create an operator we need a custom resource to define the properties, and an application to create it.
+```
+kubebuilder create api \
+  --kind Website \
+  --group kubecon \
+  --version v1beta1 \
+  --resource true \
+  --controller true
+```
+
+### 4 Install CRD
+
+Describe Golang CRD (api/v1beta1/website_types.go:32)
+
+```
+make manifests
+```
+config/crd/bases/kubecon.my.domain_websites.yaml:37
+
+kubectl get crds
+make install
+
+### 5 Log from controller
+
+Navigate the Golang app to show the process. Start with `main.go:92`.
+
+SetupWithManager(mgr) defined in the file controllers/website_controller.go
+
+```
+  // _ indicates an unused variable in Golang.
+  // By naming the variable, you can use the pre-configured logging framework.
+  log := log.FromContext(ctx)
+
+  // Start by declaring the custom resource to be type "Website"
+  customResource := &kubeconv1beta1.Website{}
+
+  // Then retrieve from the cluster the resource that triggered this reconciliation.
+  // Store these contents into an object used throughout reconciliation.
+  err := r.Client.Get(context.Background(), req.NamespacedName, customResource)
+  // If the resource does not match a "Website" resource type, return failure.
+  if err != nil {
+    return ctrl.Result{}, err
+  }
+
+  log.Info(`Hello from your new website reconciler!`)
+
+  return ctrl.Result{}, nil
+```
+
+make run
+
+kubectl apply \
+  --filename ./config/samples/kubecon_v1beta1_website.yaml
+
+
+### 6 use CRD data in logs
+
+update the golang CRD at `api/v1beta1/website_types.go` to be:
+```
+  // ImageTag will be used to set the container image for the website to deploy
+  //+kubebuilder:validation:Pattern=`^[-a-z0-9]*$`
+  ImageTag string `json:"imageTag"`
+```
+
+```
+kubectl get crds websites.kubecon.my.domain --output jsonpath="{.spec.versions[0].schema['openAPIV3Schema'].properties.spec.properties}{\"\n\"}" --watch | jq
+```
+
+```
+make install
+```
+
+website_controller.go:67
+```
+  // Use the `ImageTag` field from the website spec to personalise the log
+  log.Info(fmt.Sprintf(`Hello from your new website reconciler with tag "%s"!`, customResource.Spec.ImageTag))
+```
+
+```
+make run
+```
+
+```
+kubectl patch \
+  website.kubecon.my.domain website-sample \
+  --namespace default \
+  --type=merge \
+  --patch='{"spec":{"imageTag": "latest"}}'
+```
+
+### 7 deploy website
+
+```
+// Create a single reference for labels as it is a reused variable
+func setResourceLabels(name string) map[string]string {
+  return map[string]string{
+    "website": name,
+    "type":    "Website",
+  }
+}
+
+// Create a deployment with the correct field values. By creating this in a function,
+// it can be reused by all lifecycle functions (create, update, delete).
+func newDeployment(name, namespace, imageTag string) *appsv1.Deployment {
+  replicas := int32(2)
+
+  return &appsv1.Deployment{
+    ObjectMeta: metav1.ObjectMeta{
+      Name:      name,
+      Namespace: namespace,
+      Labels:    setResourceLabels(name),
+    },
+    Spec: appsv1.DeploymentSpec{
+      Replicas: &replicas,
+      Selector: &metav1.LabelSelector{MatchLabels: setResourceLabels(name)},
+      Template: corev1.PodTemplateSpec{
+        ObjectMeta: metav1.ObjectMeta{Labels: setResourceLabels(name)},
+        Spec: corev1.PodSpec{
+          Containers: []corev1.Container{
+            {
+              Name: "nginx",
+              // This is a publicly available container.  Note the use of
+              //`imageTag` as defined by the original resource request spec.
+              Image: fmt.Sprintf("abangser/todo-local-storage:%s", imageTag),
+              Ports: []corev1.ContainerPort{{
+                ContainerPort: 80,
+              }},
+            },
+          },
+        },
+      },
+    },
+  }
+}
+```
+
+```
+  // Attempt to create the deployment and return error if it fails
+  err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
+  if err != nil {
+    log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
+    return ctrl.Result{}, err
+  }
+```
+
+```
+//+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
+```
+
+```
+make run
+```
+
+update fails!
+
+### 8 view your website
+
+```
+// Create a service with the correct field values. By creating this in a function,
+// it can be reused by all lifecycle functions (create, update, delete).
+func newService(name, namespace string) *corev1.Service {
+  return &corev1.Service{
+    ObjectMeta: metav1.ObjectMeta{
+      Name:      name,
+      Namespace: namespace,
+      Labels:    setResourceLabels(name),
+    },
+    Spec: corev1.ServiceSpec{
+      Ports: []corev1.ServicePort{
+        {
+          Port:     80,
+          NodePort: 31000,
+        },
+      },
+      Selector: setResourceLabels(name),
+      Type:     corev1.ServiceTypeNodePort,
+    },
+  }
+}
+```
+
+```
+  // Attempt to create the service and return error if it fails
+  err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
+  if err != nil {
+    log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
+    return ctrl.Result{}, err
+  }
+```
+
+```
+//+kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
+```
+
+```
+kubectl delete deployment --selector=type=Website
+```
+
+```
+make run
+```
+
+```
+kubectl get service --selector=type=Website
+```
+
+```
+kubectl port-forward svc/website-sample 8080:80
+```
+
+### 9 detect update
+
+```
+  err = r.Client.Create(ctx, newDeployment(customResource.Name, customResource.Namespace, customResource.Spec.ImageTag))
+  if err != nil {
+    if errors.IsAlreadyExists(err) {
+      log.Info(fmt.Sprintf(`Deployment for website "%s" already exists"`, customResource.Name))
+      // TODO: handle deployment updates gracefully
+    } else {
+      log.Error(err, fmt.Sprintf(`Failed to create deployment for website "%s"`, customResource.Name))
+      return ctrl.Result{}, err
+    }
+  }
+```
+
+```
+  err = r.Client.Create(ctx, newService(customResource.Name, customResource.Namespace))
+    if err != nil {
+        if errors.IsInvalid(err) && strings.Contains(err.Error(), "provided port is already allocated") {
+            log.Info(fmt.Sprintf(`Service for website "%s" already exists`, customResource.Name))
+      // TODO: handle service updates gracefully
+        } else {
+            log.Error(err, fmt.Sprintf(`Failed to create service for website "%s"`, customResource.Name))
+            return ctrl.Result{}, err
+        }
+    }
+```
+
+### 10 handle update
+
+```
+// Retrieve the current deployment for this website
+deploymentNamespacedName := types.NamespacedName{
+  Name:      customResource.Name,
+  Namespace: customResource.Namespace,
+}
+deployment := appsv1.Deployment{}
+r.Client.Get(ctx, deploymentNamespacedName, &deployment)
+
+// Update can be based on any or all fields of the resource. In this simple operator, only
+// the imageTag field which is being provided by the custom resource will be validated.
+currentImage := deployment.Spec.Template.Spec.Containers[0].Image
+desiredImage := fmt.Sprintf("abangser/todo-local-storage:%s", customResource.Spec.ImageTag)
+
+if currentImage != desiredImage {
+  log.Info(fmt.Sprintf(`Image tag has updated from "%s" to "%s"`, currentImage, desiredImage))
+
+  // This operator only cares about the one field, it does not want
+  // to alter any other changes that may be acceptable. Therefore,
+  // this update will only patch the single field!
+  patch := client.StrategicMergeFrom(deployment.DeepCopy())
+  deployment.Spec.Template.Spec.Containers[0].Image = desiredImage
+  patch.Data(&deployment)
+
+  // Try and apply this patch, if it fails, return the failure
+  err := r.Client.Patch(ctx, &deployment, patch)
+  if err != nil {
+    log.Error(err, fmt.Sprintf(`Failed to update deployment for website "%s"`, customResource.Name))
+    return ctrl.Result{}, err
+  }
+}
+```
+
+```
+kubectl label \
+  website.kubecon.my.domain \
+  website-sample \
+  new-label=hello
+```
+
+```
+kubectl patch \
+  website.kubecon.my.domain website-sample \
+  --namespace default \
+  --type=merge \
+  --patch='{"spec":{"imageTag": "v1"}}'
+```
+
+```
+kubectl get deploy \
+  --selector type=Website \
+  --output jsonpath='{.items[0].spec.template.spec.containers[0]}' | jq
+```
+
+### 11 delete
+
+```
+  // Start by declaring the custom resource to be type "Website"
+  customResource := &kubeconv1beta1.Website{}
+
+  // Then retrieve from the cluster the resource that triggered this reconciliation.
+  // Store these contents into an object used throughout reconciliation.
+  err := r.Client.Get(context.Background(), req.NamespacedName, customResource)
+  if err != nil {
+    if errors.IsNotFound(err) {
+      // TODO: handle deletes gracefully
+      log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist`, req.Name))
+      return ctrl.Result{}, nil
+    } else {
+      log.Error(err, fmt.Sprintf(`Failed to retrieve custom resource "%s"`, req.Name))
+      return ctrl.Result{}, err
+    }
+  }
+```
+
+```
+// If the resource is not found, that is OK. It just means the desired state is to
+// not have any resources for this Website, so we will need to delete them.
+log.Info(fmt.Sprintf(`Custom resource for website "%s" does not exist, deleting associated resources`, req.Name))
+
+// Now, try and delete the resource, catch any errors
+deployErr := r.Client.Delete(ctx, newDeployment(req.Name, req.Namespace, "n/a"))
+
+// Success for this delete is either:
+// 1. the delete is successful without error
+// 2. the resource already doesn't exist so delete can't take action
+if deployErr != nil && !errors.IsNotFound(deployErr) {
+  // If any other error occurs, log it
+  log.Error(deployErr, fmt.Sprintf(`Failed to delete deployment "%s"`, req.Name))
+  }
+
+// repeat logic from the deployment delete
+serviceErr := r.Client.Delete(ctx, newService(req.Name, req.Namespace))
+if serviceErr != nil && !errors.IsNotFound(serviceErr) {
+  log.Error(serviceErr, fmt.Sprintf(`Failed to delete service "%s"`, req.Name))
+  }
+
+// If either the deploy or service deletes fail, the reconcile should fail
+if deployErr != nil || serviceErr != nil {
+  return ctrl.Result{}, fmt.Errorf("%v/n%v", deployErr, serviceErr)
+  }
+return ctrl.Result{}, nil
+```
+
+### 12 deploy
+
+make docker-build
+
