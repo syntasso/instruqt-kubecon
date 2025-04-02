@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euxHo pipefail
+
+kubectl wait --for=create deployment/kratix-platform-controller-manager -n kratix-platform-system
+kubectl wait --for=create deployment/minio -n kratix-platform-system
+kubectl wait --for=create deployment/gitea -n gitea
+kubectl wait --for=create deployment/backstage -n default
+
+kubectl get deploy -A
+
+kubectl wait --for=condition=Available deploy --timeout=300s --all --all-namespaces

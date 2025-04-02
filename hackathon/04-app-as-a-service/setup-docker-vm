@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# This script runs when the platform setup the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+try=0
+max_retries=5
+until [ $try -eq $max_retries ]; do
+    kubectl apply --context kind-platform -f ${HOME}/hackathon/nginx-ingress/promise.yaml
+    exit_code=$?
+    if [ $exit_code -eq 0 ]; then
+        break
+    else
+        try=$((try + 1))
+        echo "Apply failed, retrying kubectl apply... ($try/$max_retries)"
+        sleep 2
+    fi
+done
+
+try=0
+max_retries=5
+until [ $try -eq $max_retries ]; do
+    kubectl apply --context kind-platform -f ${HOME}/hackathon/app-as-a-service/promise.yaml
+    exit_code=$?
+    if [ $exit_code -eq 0 ]; then
+        break
+    else
+        try=$((try + 1))
+        echo "Apply failed, retrying kubectl apply... ($try/$max_retries)"
+        sleep 2
+    fi
+done
+
+kubectl wait --context kind-platform --for=condition=Available promise/nginx-ingress
+kubectl wait --context kind-worker -n default --for=create deploy/nginx-nginx-ingress-controller
+kubectl wait --context kind-worker -n default --for=condition=Available deploy/nginx-nginx-ingress-controller
+
+kubectl wait --context kind-platform --for=create crd/apps.marketplace.kratix.io

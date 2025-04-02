@@ -1,0 +1,93 @@
+#!/usr/bin/env sh
+
+set -x
+
+mkdir -p /kratix/output/backstage
+cat << EOF > /kratix/output/backstage/backstage.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: app
+  title: "App Promise"
+  description: "Create an Application on-demand"
+  links:
+    - url: https://github.com/syntasso/kratix-marketplace
+      title: Support
+      icon: help
+  annotations:
+    backstage.io/kubernetes-id: app
+spec:
+  type: promise
+  lifecycle: experimental
+  owner: kratix-platform
+  # dependsOn:
+  #   - component:default/kratix
+  providesApis:
+    - app-promise-api
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: app-promise-template
+  title: App
+  description: App as a Service
+spec:
+  type: service
+  lifecycle: experimental
+  owner: kratix-platform
+  parameters:
+    - title: App as a Service
+      required:
+        - name
+        - image
+      properties:
+        name:
+          type: string
+          description: Name for application
+          ui:help: Lowercase letters, numbers, and hyphens; must start and end with a letter or number.
+          pattern: ^(?![0-9]+$)(?!-)[a-zA-Z0-9-]{0,63}(?<!-)$
+          ui:autofocus: true
+        image:
+          type: string
+          description: container image for application that will be deployed
+          example: gcr.io/syntasso/great-app
+        dbDriver:
+          type: string
+          default: none
+          description: database deployed with application
+          enum: 
+            - postgresql
+            - none
+        service:
+          type: object
+          properties:
+            port:
+              type: integer
+              description: port the application service will be exposed on
+              default: 8080
+  steps:
+    - id: k-apply
+      name: Create an Application
+      action: kube:apply
+      input:
+        namespaced: true
+        clusterName: \${{ parameters.cluster }}
+        manifest: |
+          apiVersion: marketplace.kratix.io/v1
+          kind: app
+          metadata:
+            name: \${{ parameters.name }}
+            namespace: default
+          spec:
+            name: \${{ parameters.name }}
+            image: \${{ parameters.image }}
+            dbDriver: \${{ parameters.dbDriver }}
+            service.port: \${{ parameters.service.port }}
+EOF
+
+cat << EOF >> /kratix/metadata/destination-selectors.yaml
+- directory: backstage
+  matchLabels:
+    environment: backstage
+EOF

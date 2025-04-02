@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ "${1}" = "-w" ]; then
+    exec watch ${BASH_SOURCE[0]}
+fi
+
+for cluster in "platform" $(kind get clusters | grep -v platform); do
+    if ! kind get clusters | grep $cluster >/dev/null; then
+        continue
+    fi
+
+    if ! kubectl get namespace flux-system --context kind-${cluster} >/dev/null; then
+        continue
+    fi
+
+    echo "================================="
+    echo "           $(echo ${cluster} | tr [:lower:] [:upper:])"
+    echo "================================="
+    kubectl get kustomizations -A --context=kind-${cluster}
+    echo ""
+done

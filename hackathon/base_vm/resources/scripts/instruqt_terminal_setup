@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euxHo pipefail
+
+cat >> ${BASH_RC} <<EOF
+source ${BASH_RC_CUSTOM}
+EOF
+
+mkdir -p /root/kratix
+set-workdir /root/kratix

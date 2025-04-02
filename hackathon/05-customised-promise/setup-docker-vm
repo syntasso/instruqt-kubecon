@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# This script runs when the platform setup the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+mv ${HOME}/hackathon/environment-vars-configure ${HOME}/hackathon/app-as-a-service/internal/configure-pipeline/scripts/environment-vars-configure

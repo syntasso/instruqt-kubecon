@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -exHo pipefail
+
+if [[ -z "${PLATFORM_DOCKER_CONTAINER_IP}" ]]; then
+    cat <<EOF >> ${BASH_RC_CUSTOM}
+export PLATFORM_DOCKER_CONTAINER_IP=$(docker_container_ip ${PLATFORM_DOCKER_CONTAINER})
+EOF
+fi
+
+if [[ -z "${WORKER_DOCKER_CONTAINER_IP}" ]]; then
+    cat <<EOF >> ${BASH_RC_CUSTOM}
+export WORKER_DOCKER_CONTAINER_IP=$(docker_container_ip ${WORKER_DOCKER_CONTAINER})
+EOF
+fi
+
+docker update --restart no ${PLATFORM_DOCKER_CONTAINER}
+docker update --restart no ${WORKER_DOCKER_CONTAINER}
+docker inspect platform-control-plane | jq '.[0].HostConfig'.RestartPolicy
+echo "When using this VM, be sure to restart the docker images in order to retain IP addresses."
+echo "Specifically, start them in the following order, for example using:"
+echo """
+docker start ${PLATFORM_DOCKER_CONTAINER}
+${PLATFORM_DOCKER_CONTAINER} IP: $(docker_container_ip ${PLATFORM_DOCKER_CONTAINER})
+docker start ${WORKER_DOCKER_CONTAINER}
+${WORKER_DOCKER_CONTAINER} IP: $(docker_container_ip ${WORKER_DOCKER_CONTAINER})
+"""

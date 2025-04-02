@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# This script runs when the platform solve the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+yq eval '.spec.workflows.resource.configure[0].spec.containers += [{
+  "image": "ghcr.io/syntasso/kratix-marketplace/app-as-a-service-configure-pipeline:v0.1.0",
+  "name": "replica-migration",
+  "command": ["/bin/sh","-c"],
+  "args": ["set -x
+    if [ $(yq \".spec.replicas\" /kratix/output/deployment.yaml) -lt 2 ]; then
+      yq eval \".spec.replicas = 2\" /kratix/output/deployment.yaml -i;
+      yq eval \".replicas = $(yq \".spec.replicas\" /kratix/output/deployment.yaml)\" -i /kratix/metadata/status.yaml;
+    fi
+  "]
+}]' -i ${HOME}/hackathon/app-as-a-service/promise.yaml
+
+kubectl --context $PLATFORM apply -f ${HOME}/hackathon/app-as-a-service/promise.yaml
+
+touch $HOME/kubecon/fleet

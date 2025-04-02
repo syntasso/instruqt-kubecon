@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backstage
+  namespace: default
+spec:
+  ports:
+    - nodePort: 31340
+      port: 7007
+      protocol: TCP
+      name: frontend
+  selector:
+    app: backstage
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backstage
+  namespace: default
+  labels:
+    app: backstage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      serviceAccount: backstage
+      containers:
+        - name: backstage
+          image: ghcr.io/syntasso/backstage-instruqt:dev
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: minio-credentials
+                  key: accessKeyID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-credentials
+                  key: secretAccessKey
+          ports:
+            - containerPort: 7007
+          volumeMounts:
+            - mountPath: /config
+              name: config
+      volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+              - key: config
+                path: app-config.yaml
+            name: backstage
+          name: config

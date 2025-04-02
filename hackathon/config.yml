@@ -1,0 +1,10 @@
+version: "3"
+virtualmachines:
+- name: docker-vm
+  image: instruqt-kubecon/syntasso-instruqt-hackathon-base-v4
+  shell: /bin/bash
+  machine_type: n2-standard-8
+  allow_external_ingress:
+  - high-ports
+  - https
+  - http

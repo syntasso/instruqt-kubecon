@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+if [ "${1}" = "-w" ]; then
+    exec watch -t ${BASH_SOURCE[0]}
+fi
+
+clusters="platform $(kind get clusters | grep -v platform)"
+if (( $# == 1 )); then
+    clusters="$@"
+fi
+
+for cluster in $clusters; do
+    if ! kind get clusters | grep $cluster >/dev/null; then
+        continue
+    fi
+
+    display_name=$cluster
+    # If cluster is called dev rename it to standard
+    if [ "${cluster}" = "dev" ]; then
+        display_name="standard"
+    fi
+
+    # if cluster is called prod rename it to PCI DSS
+    if [ "${cluster}" = "prod" ]; then
+        display_name="pci-dss"
+    fi
+    echo "================================="
+    echo "           $(echo ${display_name} | tr [:lower:] [:upper:])"
+    echo "================================="
+    greps="-e kube-system -e gitea -e local-path-storage -e flux-system"
+    if [ "${cluster}" = "platform" ]; then
+        greps="$greps -e ^cert-manager"
+    fi
+    kubectl get pods -A --context=kind-${cluster} | grep -v $greps
+    echo ""
+done

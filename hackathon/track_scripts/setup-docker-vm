@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Wait for the Instruqt host bootstrap to finish
+echo "Running track setup script on host docker-vm"
+until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
+do
+    sleep 1
+done
+
+source /root/.bashrc_custom
+cat >> ${BASH_RC} <<EOF
+source ${BASH_RC_CUSTOM}
+EOF
+source ${BASH_RC}
+
+set -euxHo pipefail # Placing under Instruqt and envvar commands as noisy in logs
+
+instruqt_terminal_setup
+start_kind_safely
+wait_for_deployments
+
+MAX_ITERATIONS=10
+COUNTER=0
+while [ $COUNTER -lt $MAX_ITERATIONS ]; do
+    LOG_OUTPUT=$(kubectl --context ${PLATFORM} logs -l app=backstage -n default --tail -1)
+
+    if echo "$LOG_OUTPUT" | grep -q "Configuring auth provider: guest"; then
+        echo "Confirmed auth is ready!"
+        break
+    fi
+
+    COUNTER=$((COUNTER + 1))
+    if [ $COUNTER -ge $MAX_ITERATIONS ]; then exit 99; fi
+    sleep 5
+done
+
+kubectl rollout restart --context $PLATFORM -n kratix-platform-system deploy/kratix-platform-controller-manager
+sleep 2 # Wait for rollout to start before looking for health
+kubectl wait --for=create deployment/kratix-platform-controller-manager -n kratix-platform-system
+
+mkdir -p $HOME/kubecon/
+if ${SELF_PACED:-false}; then touch $HOME/kubecon/self-paced; fi
+set-workdir $HOME/kubecon/

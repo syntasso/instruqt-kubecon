@@ -1,0 +1,27 @@
+export BASH_RC="/root/.bashrc"
+export BASH_RC_CUSTOM="/root/.bashrc_custom"
+export KRATIX_MARKETPLACE_REPO='https://raw.githubusercontent.com/syntasso/kratix-marketplace'
+export PLATFORM="kind-platform"
+export PLATFORM_DOCKER_CONTAINER="platform-control-plane"
+export WORKER="kind-worker"
+export WORKER_DOCKER_CONTAINER="worker-control-plane"
+export VERSION_CERT_MANAGER="1.12.0"
+export VERSION_FLUX_CLI="2.0.0"
+export VERSION_GOLANG="1.22.5"
+export VERSION_HELM="3.17.0-1"
+export VERSION_KIND="0.25.0"
+export VERSION_KIND_NODE="v1.31.2@sha256:18fbefc20a7113353c7b75b5c869d7145a6abd6269154825872dc59c1329912e"
+export VERSION_KREW="latest"
+export VERSION_OSS_KRATIX="latest"
+export VERSION_OSS_KRATIX_CLI="v0.4.0"
+export VERSION_KRATIX_MARKETPLACE="ecb0144191f145f6f68bca600f1d2dbd23e2697b"
+export VERSION_SYNTASSO_BACKSTAGE_GENERATOR="v0.12.1"
+export VERSION_SYNTASSO_WORKER_RESOURCE_BUILDER="0.0.4"
+export VERSION_YQ="4.44.3"
+
+export VERSION_ARGOCD_CLI=$(curl -L -s https://raw.githubusercontent.com/argoproj/argo-cd/stable/VERSION)
+export VERSION_KUBECTL=$(curl -L -s https://dl.k8s.io/release/stable.txt)
+
+export VERSION_CROSSPLANE="1.18.2"
+export VERSION_GITEA="10.6.0"
+export VERSION_TEA_CLI="0.9.2"

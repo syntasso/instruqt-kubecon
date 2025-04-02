@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# This script runs when the platform check the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+if [ -f "$HOME/kubecon/compose-force" ]; then
+    # This is used to enable a force continue
+    echo "Warning: By using force you may not have the setup you need for future steps"
+    exit 0
+fi
+
+if [ "$(kubectl get --context kind-platform app | wc -l)" -lt 2 ]; then
+    fail-message "There doesn't appear to be any apps requested. Please ensure you have created the todoer app."
+    exit 1
+fi
+
+if [ -f "$HOME/kubecon/compose" ] || [ -f "$HOME/kubecon/self-paced" ]; then
+    exit 0
+else
+    fail-message "Not so fast! This course is being time managed, hang on for the speakers cue. But feel free to let them know and keep exploring!"
+    exit 1
+fi

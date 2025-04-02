@@ -1,0 +1,50 @@
+{
+  "variables": {
+    "project_id": "",
+    "image_name": "",
+    "BASH_RC": "/root/.bashrc",
+    "BASH_RC_CUSTOM": "/root/.bashrc_custom",
+    "secret_env_file": "/etc/secret_environment",
+    "GHCR_BACKSTAGE": "{{env `GHCR_BACKSTAGE`}}"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "{{user `project_id`}}",
+      "source_image_family": "ubuntu-minimal-2004-lts",
+      "zone": "europe-west1-b",
+      "ssh_username": "root",
+      "image_name": "{{user `image_name`}}",
+      "disk_size": "50",
+      "image_labels": {
+        "created": "{{ timestamp }}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "mkdir -p /root/resources"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "./resources",
+      "destination": "/root"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "cp /root/resources/bashrc_custom {{ user `BASH_RC_CUSTOM` }}",
+        "echo 'source {{ user `BASH_RC_CUSTOM` }}' >> {{ user `BASH_RC` }}",
+        "chmod +x /root/resources/scripts/* && mv /root/resources/scripts/* /usr/local/bin/",
+        "echo 'export GHCR_BACKSTAGE={{ user `GHCR_BACKSTAGE` }}' >> {{user `secret_env_file`}}"
+      ]
+    },
+    {
+      "type": "shell",
+      "script": "bootstrap.sh"
+    }
+  ]
+}

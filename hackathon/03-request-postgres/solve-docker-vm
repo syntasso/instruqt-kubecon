@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# This script runs when the platform solve the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+try=0
+max_retries=5
+until [ $try -eq $max_retries ]; do
+  cat <<EOF | kubectl --context kind-platform apply --filename -
+apiVersion: marketplace.kratix.io/v1alpha1
+kind: postgresql
+metadata:
+  name: example
+  namespace: default
+spec:
+  env: dev
+  teamId: acid
+  dbName: bestdb
+EOF
+    exit_code=$?
+    if [ $exit_code -eq 0 ]; then
+        break
+    else
+        try=$((try + 1))
+        echo "Apply failed, retrying kubectl apply... ($try/$max_retries)"
+        sleep 2
+    fi
+done
+
+kubectl wait --context kind-platform --for=create job -l kratix.io/pipeline-name=instance-configure,kratix.io/promise-name=postgresql
+kubectl wait --context kind-platform --for=condition=complete job -l kratix.io/pipeline-name=instance-configure,kratix.io/promise-name=postgresql
+kubectl wait --context kind-worker --for=create statefulset -l application=spilo
+kubectl wait --context kind-worker --timeout=60s --for=condition=Ready pod -l application=spilo
+
+kubectl get --context kind-platform postgresql
+kubectl get --context kind-platform -n default pods
+
+touch $HOME/kubecon/on-demand

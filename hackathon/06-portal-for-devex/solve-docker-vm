@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# This script runs when the platform solve the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+if ! grep -q backstage < ${HOME}/hackathon/app-as-a-service/promise.yaml; then
+    yq eval '.spec.workflows.promise.configure[0] += {
+        "apiVersion": "platform.kratix.io/v1alpha1",
+        "kind": "Pipeline",
+        "metadata": {"name": "promise-configure"},
+        "spec": {
+        "containers": [{
+            "image": "kubecon-workshop/backstage:dev",
+            "name": "backstage",
+            "command": ["promise-configure"]
+        }]
+        }
+    } | .spec.workflows.resource.configure[0].spec.containers += [{
+    "image": "kubecon-workshop/backstage:dev",
+    "name": "backstage",
+    "command": ["resource-configure"]
+    }]' -i ${HOME}/hackathon/app-as-a-service/promise.yaml
+fi
+
+kubectl apply -f $HOME/hackathon/app-as-a-service/promise.yaml
+
+touch $HOME/kubecon/apig

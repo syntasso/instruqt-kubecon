@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euxHo pipefail
+#
+# This script runs when the platform check the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+if [ -f "$HOME/kubecon/aas-force" ]; then
+    # This is used to enable a force continue
+    echo "Warning: By using force you may not have the setup you need for future steps"
+    exit 0
+fi
+
+if ! kubectl wait --context kind-platform --timeout=5s --for=create crd/postgresqls.marketplace.kratix.io; then
+    fail-message "Looks like the Promise may not have been installed. Try installing the PosgreSQL Promise before continuing."
+    exit 1
+fi
+
+if ! kubectl wait --context kind-worker --timeout=5s --for=condition=Available deploy/postgres-operator; then
+    fail-message "Looks like the Promise hasn't been fully installed. Try again soon and if this persists check with an instructor."
+    exit 1
+fi
+
+if [ -f "$HOME/kubecon/aas" ] || [ -f "$HOME/kubecon/self-paced" ]; then
+    exit 0
+else
+    fail-message "Not so fast! This course is being time managed, hang on for the speakers cue. But feel free to let them know and keep exploring!"
+    exit 1
+fi

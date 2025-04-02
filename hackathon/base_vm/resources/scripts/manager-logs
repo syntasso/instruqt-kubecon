@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+context=${PLATFORM:=kind-platform}
+
+context_flag="--context=${context}"
+namespace_flag="--namespace=kratix-platform-system"
+selector_flag="--selector=control-plane=controller-manager"
+complete_pod_flags="${context_flag} ${namespace_flag} ${selector_flag}"
+
+container_flag="--container=manager"
+
+# NOTE: Use K8S_LOGGER to force kubectl logger
+if [[ $K8S_LOGGER == "kubectl" || ! $(which stern) ]]; then
+  kubectl ${complete_pod_flags} logs ${container_flag} "$@"
+else
+  stern ${complete_pod_flags} ${container_flag} "$@"
+fi

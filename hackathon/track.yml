@@ -1,0 +1,26 @@
+slug: cloudnative-hackathon
+id: lpe98xfsvsjh
+title: CloudNative Hackathon
+teaser: Learn how to build a platform to host a hackathon for any size organisation
+description: |-
+  In this workshop learn about our experiences running a company-wide hackathon at The Access Group using only open source software, which not only launched innovative business ideas but also created a whole new awareness and adoption of cloud native technologies.
+
+  Get hands-on today with creating effective developer experience using a Backstage Portal, managing infrastructure, and everything in between. Most importantly, this session results in a working platform blueprint to take back ready for hacking in your own organisation.
+
+  This is a workshop built for [KubeCon EU 2025](https://sched.co/1tx6e).
+icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
+tags: []
+owner: syntasso-kubecon
+developers:
+- abby@syntasso.io
+- phiph.morton@gmail.com
+idle_timeout: 1800
+timelimit: 7200
+lab_config:
+  extend_ttl: 1800
+  feedback_recap_enabled: false
+  feedback_tab_enabled: true
+  loadingMessages: true
+  hideStopButton: false
+checksum: "1564823017484057122"
+enhanced_loading: false

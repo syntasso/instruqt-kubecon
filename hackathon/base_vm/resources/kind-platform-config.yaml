@@ -1,0 +1,14 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      # minio
+      - containerPort: 31337
+        hostPort: 31337
+      # for backstage demos
+      - containerPort: 31340
+        hostPort: 31340
+      # gitea
+      - containerPort: 31443
+        hostPort: 31443

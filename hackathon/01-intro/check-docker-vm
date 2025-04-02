@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# This script runs when the platform check the challenge.
+#
+# The platform determines if the script was successful using the exit code of this
+# script. If the exit code is not 0, the script fails. 
+#
+
+echo "This is the check script"
+
+# NOTE: We can't solve for this, so I don't think we should check for it either.
+#       Keeping here as there is some risk that people don't sign-in at this stage and it creates questions in the future, so wish we could check!
+#
+# if ! kubectl logs -n gitea -l app.kubernetes.io/instance=gitea -c gitea --tail -1 | grep -q "/user/login.*303 See Other"; then
+#     fail_message "Looks like you haven't signed into Gitea yet, please follow the instructions to login before continuing."
+# fi
+
+exit 0

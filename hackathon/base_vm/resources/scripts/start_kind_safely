@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euxHo pipefail
+
+docker start ${PLATFORM_DOCKER_CONTAINER}
+timeout 2m bash -c '
+docker_container_ip() {
+    docker inspect $1 | yq ".[0].NetworkSettings.Networks.kind.IPAddress"
+}
+
+echo "${PLATFORM_DOCKER_CONTAINER} IP is now $(docker_container_ip ${PLATFORM_DOCKER_CONTAINER})"
+until [[ "$(docker_container_ip ${PLATFORM_DOCKER_CONTAINER})" == "${PLATFORM_DOCKER_CONTAINER_IP}" ]]; do
+  docker stop ${PLATFORM_DOCKER_CONTAINER}
+  docker start ${PLATFORM_DOCKER_CONTAINER}
+  echo "${PLATFORM_DOCKER_CONTAINER} IP is now $(docker_container_ip ${PLATFORM_DOCKER_CONTAINER})"
+done
+'
+
+docker start ${WORKER_DOCKER_CONTAINER}
+echo "${PLATFORM_DOCKER_CONTAINER} IP: $(docker_container_ip ${PLATFORM_DOCKER_CONTAINER})"
+echo "${WORKER_DOCKER_CONTAINER} IP: $(docker_container_ip ${WORKER_DOCKER_CONTAINER})"
+
+until kubectl cluster-info | grep "is running"; do
+  echo "Waiting for Kubernetes cluster to be ready..."
+  sleep 2
+done
+
+until kubectl auth can-i '*' '*' --all-namespaces; do
+  # This is to remove the flake that admin access isn't yet setup
+  echo "Waiting for cluster-admin permissions..."
+  sleep 2
+done
