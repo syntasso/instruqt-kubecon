@@ -1,10 +1,15 @@
+> [!CAUTION]
+> This course was first presented at KubeCon NA in Detroit (2022)
+> The version of golang and other tools is dated to that time and may not be working as designed.
+> For now, this is best used as a reference rather than as an operational course.
+
 # Create Your First Kubernetes Operator
 
 This is the supporting repository for the KubeCon North America 2022 tutorial by the same name.
 
 Some additional information can be found on the tutorial website.
 
-> **Warning**
+> [!CAUTION]
 > 
 > **This repository is provided as is with no guarantees or support.**
 > 
