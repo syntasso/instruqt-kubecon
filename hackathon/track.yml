@@ -18,9 +18,10 @@ idle_timeout: 1800
 timelimit: 7200
 lab_config:
   extend_ttl: 1800
+  sidebar_enabled: true
   feedback_recap_enabled: false
   feedback_tab_enabled: true
   loadingMessages: true
   hideStopButton: false
-checksum: "1564823017484057122"
+checksum: "5040978166626486256"
 enhanced_loading: false
