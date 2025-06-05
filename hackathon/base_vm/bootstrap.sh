@@ -405,7 +405,7 @@ prepare_hackathon_resources() {
 
   curl -o ${HOME}/hackathon/postgres/promise.yaml https://raw.githubusercontent.com/syntasso/promise-postgresql/main/promise.yaml
   cat <<EOF > $HOME/hackathon/postgres/request.yaml
-apiVersion: marketplace.kratix.io/v1alpha1
+apiVersion: marketplace.kratix.io/v1alpha2
 kind: postgresql
 metadata:
   name: example

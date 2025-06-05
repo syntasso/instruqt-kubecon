@@ -10,7 +10,7 @@ try=0
 max_retries=5
 until [ $try -eq $max_retries ]; do
   cat <<EOF | kubectl --context kind-platform apply --filename -
-apiVersion: marketplace.kratix.io/v1alpha1
+apiVersion: marketplace.kratix.io/v1alpha2
 kind: postgresql
 metadata:
   name: example

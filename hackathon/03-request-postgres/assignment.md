@@ -44,7 +44,7 @@ Below is a short yaml file that is a request to the postgres API. It specifies t
 
 ```bash
 cat << EOF | kubectl apply --context $PLATFORM -f -
-apiVersion: marketplace.kratix.io/v1alpha1
+apiVersion: marketplace.kratix.io/v1alpha2
 kind: postgresql
 metadata:
   name: example
