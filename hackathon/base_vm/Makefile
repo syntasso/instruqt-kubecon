@@ -22,8 +22,8 @@ build: packer # build base_vm image (if not already exist)
 		echo "GHCR_BACKSTAGE is not set. See Readme for details."; \
 		exit 1; \
 	fi;
-	@if ! git diff --quiet origin/main -- . && \
-		git diff origin/main -- Makefile | grep -q 'IMAGE_NAME ?='; then \
+	@if git diff --quiet origin/main -- . && \
+		! git diff origin/main -- Makefile | grep -q 'IMAGE_NAME ?='; then \
 			echo "Rebuilding a version results in down time."; \
 			echo "If downtime for the image is OK, use 'make force-build'."; \
 			echo "If not, bump the 'IMAGE_NAME' variable at the top of base_vm/Makefile."; \
