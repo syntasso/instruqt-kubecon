@@ -37,6 +37,7 @@
       "type": "shell",
       "inline": [
         "cp /root/resources/bashrc_custom {{ user `BASH_RC_CUSTOM` }}",
+        "cp /root/resources/bash_aliases /root/.bash_aliases",
         "echo 'source {{ user `BASH_RC_CUSTOM` }}' >> {{ user `BASH_RC` }}",
         "chmod +x /root/resources/scripts/* && mv /root/resources/scripts/* /usr/local/bin/",
         "echo 'export GHCR_BACKSTAGE={{ user `GHCR_BACKSTAGE` }}' >> {{user `secret_env_file`}}"

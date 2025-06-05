@@ -102,9 +102,6 @@ alias kn="kubectl ns"
 alias stern="kubectl stern"
 EOF
 
-# Set zsh plugin helpful aliases (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/kubectl/README.md)
-curl "https://raw.githubusercontent.com/syntasso/instruqt-kubecon/main/support/track/bash_aliases" >> /root/.bash_aliases
-
 cat >> ${BASH_RC_CUSTOM} <<EOF
 source /usr/share/bash-completion/bash_completion
 

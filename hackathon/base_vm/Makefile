@@ -1,6 +1,6 @@
 ts := $(shell /bin/date "+%s")
 PROJECT ?= instruqt-kubecon
-IMAGE_NAME ?= syntasso-instruqt-hackathon-base-v4
+IMAGE_NAME ?= syntasso-instruqt-hackathon-base-v5
 PACKER_LOG ?= "0" # Set to a number 0 to 4 for level of logging
 PACKER_FILE ?= packer.json
 
