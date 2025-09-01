@@ -56,8 +56,8 @@ echo "export PATH=$PATH:/usr/local/go/bin" >> ${BASH_RC}
 source ${BASH_RC} > /dev/null 2>&1
 
 ## Install gopls for extension
-go install -v golang.org/x/tools/gopls@v0.8.4 > /dev/null 2>&1
-go install golang.org/x/tools/cmd/goimports@v0.8.4
+go install -v golang.org/x/tools/gopls@latest > /dev/null 2>&1
+go install golang.org/x/tools/cmd/goimports@latest
 
 # Download kubebuilder and install locally (https://book.kubebuilder.io/quick-start.html#installation)
 curl -L -o kubebuilder https://github.com/kubernetes-sigs/kubebuilder/releases/download/v${KUBEBUILDER_VERSION}/kubebuilder_$(go env GOOS)_$(go env GOARCH)
